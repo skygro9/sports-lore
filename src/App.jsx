@@ -134,6 +134,41 @@ const PUNS_SW = [
   { quote: "In a dark place we find ourselves.", punchline: "We are at .500 in June. Yoda gets it." },
 ];
 
+// ─── FUN LOADER ───────────────────────────────────────────────────────────────
+const LOADER_MSGS = {
+  lotr: {
+    arc:      ["Consulting the Palantír...", "Asking Gandalf for context...", "Reading the scrolls of Minas Tirith...", "Translating the season into Westron..."],
+    episodes: ["Naming the battles...", "Checking the Book of Mazarbul...", "Reviewing the campaign records...", "Asking the historians of Gondor..."],
+    talking:  ["Forging your talking point...", "Channeling the wisdom of Rivendell...", "Preparing the briefing...", "Consulting the White Council..."],
+    stats:    ["Summoning the data...", "Ravens incoming from the East...", "Awaiting word from the Grey Havens...", "Reading the signs..."],
+  },
+  sw: {
+    arc:      ["Accessing the Holocron...", "Consulting the Jedi Archives...", "Decoding the mission briefing...", "Translating through the Force..."],
+    episodes: ["Reviewing battle records...", "Checking the Imperial databanks...", "Scanning the mission logs...", "Pulling the holorecords..."],
+    talking:  ["Transmitting your talking point...", "Encrypting the briefing...", "Preparing the intelligence report...", "Contacting Rebel Command..."],
+    stats:    ["Downloading telemetry...", "Connecting to the HoloNet...", "Pinging the fleet...", "Reading sensor data..."],
+  },
+};
+
+function FunLoader({ faction, type, dark }) {
+  const f = faction || "sw";
+  const msgs = LOADER_MSGS[f]?.[type] || LOADER_MSGS.sw.arc;
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const i = setInterval(() => setIdx(n => (n + 1) % msgs.length), 2200);
+    return () => clearInterval(i);
+  }, [f, type]);
+  const accent = faction === "lotr" ? "#C9A84C" : "#FFE033";
+  return (
+    <div style={{display:"flex",gap:12,alignItems:"center",padding:"4px 0"}}>
+      <div style={{width:20,height:20,border:`3px solid ${dark?"rgba(255,255,255,.15)":"#ddd"}`,borderTopColor:dark?accent:accent,borderRadius:"50%",animation:"spin .7s linear infinite",flexShrink:0}}/>
+      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:600,color:dark?"rgba(255,255,255,.5)":"#888",transition:"opacity .3s",letterSpacing:.3}}>
+        {msgs[idx]}
+      </span>
+    </div>
+  );
+}
+
 function RotatingPun({ faction }) {
   const puns = faction === "lotr" ? PUNS_LOTR : PUNS_SW;
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * puns.length));
@@ -315,8 +350,15 @@ You are generating content for Sports Lore — a site that translates baseball i
 Write three things:
 
 TALKING_POINT:
-One single sentence. This is THE thing to say at the water cooler tomorrow. Must include a real stat OR a real player name if you have one. Must use a Star Wars or LOTR reference as the comparison. This will be displayed HUGE on the page. Make it land.
-Example format: "The bullpen has been pulling a Denethor — brilliant record, self-destructing when it matters most."
+Write TWO versions separated by |||
+
+Version 1 (LORE): One sentence using a LOTR or Star Wars reference as the actual explanation. Include a real player name or stat if you have one. This is the fun nerd translation.
+Example: "The bullpen has been pulling a Denethor — brilliant record, self-destructing when it matters most."
+
+Version 2 (SPORTS TALK): The SAME information in plain baseball language someone could actually say at work and sound like a fan. Use real baseball terms (ERA, bullpen, batting average, rotation, walk-off, etc). No nerd references — just confident sports talk.
+Example: "The bullpen has been the biggest problem — they keep blowing leads in the late innings when it matters most."
+
+Format exactly: LORE SENTENCE ||| SPORTS SENTENCE
 
 ARC:
 3 sentences. The season so far translated into nerd. Each sentence should use one reference naturally — not forced. Real stats woven in. Who is the Aragorn of this team (the unlikely hero stepping up)? Who is Anakin (the talented one making everyone nervous)? What is the overall vibe — Helm's Deep holding on, or a confident march to Gondor? End on the next challenge.
@@ -335,7 +377,10 @@ EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW refer
       const tp = text.match(/TALKING_POINT:\s*([\s\S]*?)(?=ARC:|$)/i)?.[1]?.trim();
       const arcT = text.match(/ARC:\s*([\s\S]*?)(?=EPISODES:|$)/i)?.[1]?.trim();
       const epS = text.match(/EPISODES:\s*([\s\S]*?)$/i)?.[1]?.trim();
-      if(tp) setTalkingPoint(tp);
+      if(tp){
+        const parts = tp.split("|||");
+        setTalkingPoint({lore: parts[0]?.trim() ?? tp, sports: parts[1]?.trim() ?? ""});
+      }
       if(arcT) setArc(arcT);
       if(epS){
         const eps = epS.split("\n").filter(l=>l.trim().startsWith("EP|")).map((l,i)=>{
@@ -442,9 +487,9 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
         .chip{background:#fff;border:2px solid #111;color:#111;padding:10px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;text-align:left;transition:background .1s;min-height:44px;line-height:1.4;}
         .chip:hover{background:var(--faction-accent,#FFE033);}
         /* Episode rows */
-        .ep{display:grid;grid-template-columns:36px 46px 1fr 58px;gap:12px;align-items:center;padding:16px 0;border-bottom:2px solid #111;transition:background .1s;}
+        .ep{display:grid;grid-template-columns:32px 52px 1fr 58px;gap:10px;align-items:start;padding:16px 0;border-bottom:2px solid #111;transition:background .1s;}
         .ep:hover{background:rgba(255,224,51,.15);}
-        @media(max-width:460px){.ep{grid-template-columns:28px 38px 1fr 48px;gap:8px;}}
+        @media(max-width:460px){.ep{grid-template-columns:26px 44px 1fr 40px;gap:6px;}}
         .tag-w{display:inline-block;background:#111;color:var(--faction-accent,#FFE033);font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:3px 8px;}
         .tag-l{display:inline-block;background:#fff;border:2px solid #111;color:#111;font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:2px 8px;}
         /* Stat pill */
@@ -748,10 +793,25 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
               <div style={{display:"flex",gap:10,alignItems:"center"}}><Spin/><span className="sg" style={{fontSize:13,color:"#aaa",fontWeight:600}}>Writing your talking point...</span></div>
             ):talkingPoint?(
               <>
-                <blockquote className="lora" style={{fontSize:"clamp(20px,3.5vw,36px)",lineHeight:1.3,fontStyle:"italic",fontWeight:600,color:"#FFE033",borderLeft:"4px solid #FFE033",paddingLeft:20,marginBottom:16}}>
-                  &ldquo;{talkingPoint}&rdquo;
+                {/* Lore translation */}
+                <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:f.accent,opacity:.7}}>
+                  {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":"🚀 IN A GALAXY FAR AWAY"}
+                </div>
+                <blockquote className="lora" style={{fontSize:"clamp(17px,2.8vw,28px)",lineHeight:1.35,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`4px solid ${f.accent}`,paddingLeft:20,marginBottom:24}}>
+                  &ldquo;{typeof talkingPoint==="object"?talkingPoint.lore:talkingPoint}&rdquo;
                 </blockquote>
-                <p className="sg" style={{fontSize:12,color:"#666",fontWeight:600,letterSpacing:1}}>DROP THIS AT THE WATER COOLER. YOU&apos;RE WELCOME.</p>
+                {/* Sports translation */}
+                {typeof talkingPoint==="object"&&talkingPoint.sports&&(
+                  <>
+                    <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#888"}}>
+                      ⚾ SAY THIS AT WORK
+                    </div>
+                    <blockquote className="lora" style={{fontSize:"clamp(15px,2.2vw,22px)",lineHeight:1.5,fontStyle:"italic",fontWeight:600,color:"#fff",borderLeft:"4px solid #fff",paddingLeft:20,marginBottom:16,opacity:.9}}>
+                      &ldquo;{talkingPoint.sports}&rdquo;
+                    </blockquote>
+                  </>
+                )}
+                <p className="sg" style={{fontSize:11,color:"#555",fontWeight:600,letterSpacing:1}}>NOW YOU SOUND LIKE YOU WATCHED.</p>
               </>
             ):null}
           </div>
@@ -761,7 +821,7 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
             <div style={{padding:"clamp(28px,5vw,48px) clamp(20px,5vw,48px)",borderBottom:"3px solid #111",background:"#fff"}}>
               <div className="arch" style={{fontSize:11,letterSpacing:4,color:"#888",marginBottom:16}}>{f.storyTitle}</div>
               {loading&&!arc?(
-                <div style={{display:"flex",gap:10,alignItems:"center"}}><Spin/><span className="sg" style={{fontSize:13,color:"#555",fontWeight:600}}>Writing the arc...</span></div>
+                <FunLoader faction={faction} type="arc"/>
               ):(
                 <p className="lora" style={{fontSize:"clamp(16px,2.2vw,20px)",lineHeight:1.9,color:"#111"}}>
                   <span className="arch" style={{float:"left",fontSize:"clamp(52px,9vw,76px)",lineHeight:.82,marginRight:10,marginTop:8,color:f.accent,WebkitTextStroke:"2px #111"}}>{arc?.[0]}</span>
@@ -779,12 +839,12 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
                 <span className="sg" style={{fontSize:11,color:"#888",fontWeight:600}}>LAST 5 GAMES</span>
               </div>
               {loading&&!episodes.length?(
-                <div style={{display:"flex",gap:10,alignItems:"center",paddingTop:20}}><Spin/><span className="sg" style={{fontSize:13,color:"#555",fontWeight:600}}>Naming the battles...</span></div>
+                <div style={{paddingTop:20}}><FunLoader faction={faction} type="episodes"/></div>
               ):(
                 episodes.map((ep,i)=>(
                   <div key={i} className="ep">
-                    <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700}}>#{ep.num}</div>
-                    <div><span className={ep.win?"tag-w":"tag-l"}>{ep.win?"WIN":"LOSS"}</span></div>
+                    <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700,paddingTop:2}}>#{ep.num}</div>
+                    <div style={{paddingTop:1}}><span className={ep.win?"tag-w":"tag-l"}>{ep.win?"WIN":"LOSS"}</span></div>
                     <div>
                       <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.2,marginBottom:3}}>{ep.title}</div>
                       <div className="sg" style={{fontSize:11,color:"#777",fontWeight:500}}>vs. {ep.opp} · {ep.date}</div>
