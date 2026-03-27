@@ -326,7 +326,7 @@ For each of the last 5 games (make them up if no data, but make them feel realis
 EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW reference 4-6 words`;
 
     try{
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
+      const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys,messages:[{role:"user",content:prompt}]})
       });
@@ -357,7 +357,7 @@ EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW refer
     setMsgs([{role:"user", content:q}]);
     setOLoading(true);
     try{
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
+      const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:350,system:ctx,messages:[{role:"user",content:q}]})
       });
@@ -395,7 +395,7 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
     const c = buildCtx(team, standings, rd);
     const ctx = makeOracleCtx(team, standings, rd, c);
     try{
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
+      const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:350,system:ctx,
           messages:newMsgs.map(m=>({role:m.role,content:m.content}))})
@@ -720,7 +720,7 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
                     const newMsgs=[...msgs,{role:"user",content:q}];
                     setMsgs(newMsgs);setOLoading(true);
                     const rd=richRef.current,c=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,c);
-                    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+                    fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
                       body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:350,system:ctx,messages:newMsgs.map(m=>({role:m.role,content:m.content}))})})
                       .then(r=>r.json()).then(d=>setMsgs(prev=>[...prev,{role:"assistant",content:d.content?.[0]?.text??"..."}]))
                       .catch(()=>setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost."}]))
