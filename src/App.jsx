@@ -427,7 +427,7 @@ ARC:
 3 sentences. The season so far translated into nerd. Each sentence should use one reference naturally — not forced. Real stats woven in. Who is the Aragorn of this team (the unlikely hero stepping up)? Who is Anakin (the talented one making everyone nervous)? What is the overall vibe — Helm's Deep holding on, or a confident march to Gondor? End on the next challenge.
 
 EPISODES:
-Today's date is March 29, 2026. For each of the last 5 games, use ONLY dates before today. If you have real game data use it. If not, make up realistic games with dates in the past (e.g. Mar 20, Mar 22, Mar 24, Mar 26, Mar 28).
+${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. For each of the last 5 games, use ONLY dates before today. If you have real game data use it. If not, make up realistic games with dates in the past (e.g. Mar 20, Mar 22, Mar 24, Mar 26, Mar 28).
 CRITICAL: If the user picked Star Wars mode, every title must use ONLY Star Wars references. If LOTR mode, every title must use ONLY LOTR references. Do NOT mix them.
 EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropriate reference 4-6 words`;
 
