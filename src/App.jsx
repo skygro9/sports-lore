@@ -312,8 +312,8 @@ export default function SportsLore(){
 
     // In Vercel, replace these with real API calls:
     // const [sRes,schRes] = await Promise.all([
-    //   fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2025&standingsTypes=regularSeason"),
-    //   fetch(`https://statsapi.mlb.com/api/v1/schedule?teamId=${t.id}&season=2025&sportId=1&gameType=R`),
+    //   fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason"),
+    //   fetch(`https://statsapi.mlb.com/api/v1/schedule?teamId=${t.id}&season=2026&sportId=1&gameType=R`),
     // ]);
 
     // For now, use Claude to generate realistic data
