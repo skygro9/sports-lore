@@ -447,7 +447,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
         setTalkingPoint({lore: clean(parts[0] ?? tp), sports: clean(parts[1] ?? "")});
       }
       if(arcT) setArc(arcT.replace(/\*\*/g,'').replace(/\*/g,'').trim());
-      if(epS){
+      if(epS && recent.length > 0){
         const eps = epS.split("\n").filter(l=>l.trim().startsWith("EP|")).map((l,i)=>{
           const p = l.split("|");
           return{win:(p[1]??"").trim()==="W",score:p[2]??"?-?",opp:p[3]??"?",date:p[4]??"?",title:(p[5]??"").trim(),num:5-i};
