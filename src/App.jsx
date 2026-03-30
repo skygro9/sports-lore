@@ -291,6 +291,15 @@ export default function SportsLore(){
 
   useEffect(()=>{if(team)loadTeam(team);},[team?.id]);
 
+  // Re-fire oracle intro when faction changes (without re-fetching MLB data)
+  useEffect(()=>{
+    if(team && faction && richData){
+      const c = buildCtx(team, standings, richData);
+      setMsgs([]);
+      fireOracleIntro(team, standings, sched.last, richData, faction);
+    }
+  },[faction]);
+
   function selectTeam(t){
     setTeam(t);setSearch("");setRes([]);setShowSearch(false);setPhase("team");
   }
@@ -397,7 +406,7 @@ EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW refer
   // ── ORACLE INTRO ──────────────────────────────────────────────────────────
   async function fireOracleIntro(t, st, lastG, rd, fac){
     const c = buildCtx(t, st, rd);
-    const ctx = makeOracleCtx(t, st, rd, c);
+    const ctx = makeOracleCtx(t, st, rd, c, fac);
     const q = "Who do I need to know on this team, and what is everyone talking about right now?";
     setMsgs([{role:"user", content:q}]);
     setOLoading(true);
@@ -415,17 +424,16 @@ EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW refer
     setOLoading(false);
   }
 
-  function makeOracleCtx(t, st, rd, c){
-    return `${SYS}
-
-You are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").
+  function makeOracleCtx(t, st, rd, c, fac){
+    const sys = FACTIONS[fac || faction || 'sw'].sys;
+    return sys + `\n\nYou are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").
 Their rival is the ${t.rival}.
 Record: ${c.wins}W-${c.losses}L | Streak: ${c.streak}
 ${c.lastDetail}
 ${c.batS ? `Batting: ${c.batS}` : ""}
 ${c.pitS ? `Pitching: ${c.pitS}` : ""}
 
-Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per response — make it the explanation, not an afterthought. Use real player names when you have them. End every response with one line starting with ⚔️ that they can say at work verbatim.`;
+Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. Use real player names when you have them. End every response with one line starting with ⚔️ they can say at work verbatim.`;
   }
 
   // ── SEND ORACLE MESSAGE ───────────────────────────────────────────────────
@@ -438,17 +446,20 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
     setOLoading(true);
     const rd = richRef.current;
     const c = buildCtx(team, standings, rd);
-    const ctx = makeOracleCtx(team, standings, rd, c);
+    const ctx = makeOracleCtx(team, standings, rd, c, faction);
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:350,system:ctx,
           messages:newMsgs.map(m=>({role:m.role,content:m.content}))})
       });
+      if(!res.ok) throw new Error("HTTP "+res.status);
       const data = await res.json();
+      if(data.error) throw new Error(data.error.message || "API error");
       setMsgs(prev=>[...prev,{role:"assistant",content:data.content?.[0]?.text??"The oracle went dark."}]);
-    }catch{
-      setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost somewhere past the Outer Rim."}]);
+    }catch(e){
+      console.error("Oracle error:",e);
+      setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost. Try asking again."}]);
     }
     setOLoading(false);
   }
@@ -764,7 +775,7 @@ Keep responses to 3-4 sentences. Use one LOTR or Star Wars reference per respons
                   <button key={q} className="chip" onClick={()=>{
                     const newMsgs=[...msgs,{role:"user",content:q}];
                     setMsgs(newMsgs);setOLoading(true);
-                    const rd=richRef.current,c=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,c);
+                    const rd=richRef.current,c=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,c,faction);
                     fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
                       body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:350,system:ctx,messages:newMsgs.map(m=>({role:m.role,content:m.content}))})})
                       .then(r=>r.json()).then(d=>setMsgs(prev=>[...prev,{role:"assistant",content:d.content?.[0]?.text??"..."}]))
