@@ -298,6 +298,7 @@ export default function SportsLore(){
   },[faction]);
 
   function selectTeam(t){
+    window.scrollTo(0,0);
     setTeam(t);setSearch("");setRes([]);setShowSearch(false);setPhase("team");
   }
 
