@@ -900,7 +900,7 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
           )}
 
           {/* ── EPISODE LOG ── */}
-          {(episodes.length>0||loading)&&(
+          {(episodes.length>0||loading)&&sched.recent.length>0&&(
             <div style={{padding:"clamp(28px,5vw,48px) clamp(20px,5vw,48px)",borderBottom:"3px solid #111"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",borderBottom:"3px solid #111",paddingBottom:10,marginBottom:0}}>
                 <h2 className="arch" style={{fontSize:"clamp(22px,5vw,40px)",letterSpacing:-1,lineHeight:1}}>{f.battleTitle}</h2>
