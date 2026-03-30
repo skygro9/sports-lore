@@ -427,7 +427,7 @@ ARC:
 3 sentences. Use ONLY the real stats and player data provided above — do not invent stats or player names. If stats are unavailable say so honestly. Translate what you actually know into the nerd reference. End on the next challenge.
 
 EPISODES:
-${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. For each of the last 5 games, use ONLY dates before today. If you have real game data use it. If not, make up realistic games with dates in the past (e.g. Mar 20, Mar 22, Mar 24, Mar 26, Mar 28).
+${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. For each of the last 5 games, use ONLY dates before today. If you have real game data use it. If there is NO real game data, output NOTHING — do not invent any games.
 CRITICAL: If the user picked Star Wars mode, every title must use ONLY Star Wars references. If LOTR mode, every title must use ONLY LOTR references. Do NOT mix them.
 EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropriate reference 4-6 words`;
 
