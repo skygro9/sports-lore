@@ -310,21 +310,77 @@ export default function SportsLore(){
     setMsgs([]);setTalkingPoint(null);setArc(null);setEpisodes([]);
     setStandings(null);setDivRows([]);setSched({next:null,last:null,recent:[]});setRichData(null);
 
-    // In Vercel, replace these with real API calls:
-    // const [sRes,schRes] = await Promise.all([
-    //   fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason"),
-    //   fetch(`https://statsapi.mlb.com/api/v1/schedule?teamId=${t.id}&season=2026&sportId=1&gameType=R`),
-    // ]);
+    try{
+      const enc = encodeURIComponent;
+      const [sRes,schRes] = await Promise.all([
+        fetch("/api/mlb?path=" + enc("/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason")),
+        fetch("/api/mlb?path=" + enc("/api/v1/schedule?teamId=" + t.id + "&season=2026&sportId=1&gameType=R")),
+      ]);
+      const [sData,schData] = await Promise.all([
+        sRes.ok ? sRes.json() : Promise.resolve({}),
+        schRes.ok ? schRes.json() : Promise.resolve({}),
+      ]);
 
-    // For now, use Claude to generate realistic data
-    const rd = {gameStories:[], teamBatting:null, teamPitching:null};
-    setRichData(rd);
-    richRef.current = rd;
+      let st=null, divTeams=[];
+      sData.records?.forEach(div=>{
+        const found=div.teamRecords?.find(r=>r.team.id===t.id);
+        if(found){
+          st={...found, divisionName:div.division?.name};
+          divTeams=(div.teamRecords||[]).map(r=>({
+            id:r.team.id, name:r.team.name, wins:r.wins, losses:r.losses,
+            pct:r.winningPercentage, gb:r.gamesBack, isThis:r.team.id===t.id,
+          }));
+        }
+      });
+      setStandings(st);
+      setDivRows(divTeams);
 
-    await Promise.all([
-      generateContent(t, null, null, null, [], rd, faction),
-      fireOracleIntro(t, null, null, rd, faction),
-    ]);
+      const now=new Date();
+      const games=schData.dates?.flatMap(d=>d.games||[])||[];
+      const upcoming=games.filter(g=>new Date(g.gameDate)>now).sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
+      const past=games.filter(g=>new Date(g.gameDate)<=now).sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
+      const nextG=upcoming[0]??null, lastG=past[0]??null, recent=past.slice(0,5);
+      setSched({next:nextG, last:lastG, recent});
+      if(nextG) setCd(getCD(nextG.gameDate));
+
+      const [boxScores,[batRes,pitRes]] = await Promise.all([
+        Promise.all(past.slice(0,3).map(g=>
+          g.gamePk
+            ? fetch("/api/mlb?path=" + enc("/api/v1/game/" + g.gamePk + "/boxscore")).then(r=>r.ok?r.json():null).catch(()=>null)
+            : Promise.resolve(null)
+        )),
+        Promise.all([
+          fetch("/api/mlb?path=" + enc("/api/v1/teams/" + t.id + "/stats?stats=season&group=hitting&season=2026")).catch(()=>null),
+          fetch("/api/mlb?path=" + enc("/api/v1/teams/" + t.id + "/stats?stats=season&group=pitching&season=2026")).catch(()=>null),
+        ]),
+      ]);
+
+      const gameStories=boxScores.map(box=>extractStory(box,t.id));
+      let teamBatting=null, teamPitching=null;
+      try{
+        if(batRes?.ok){const d=await batRes.json();teamBatting=d.stats?.[0]?.splits?.[0]?.stat??null;}
+        if(pitRes?.ok){const d=await pitRes.json();teamPitching=d.stats?.[0]?.splits?.[0]?.stat??null;}
+      }catch(e){}
+
+      const rd={gameStories, teamBatting, teamPitching};
+      setRichData(rd);
+      richRef.current=rd;
+
+      await Promise.all([
+        generateContent(t, st, nextG, lastG, recent, rd, faction),
+        fireOracleIntro(t, st, nextG, lastG, rd, faction),
+      ]);
+
+    }catch(e){
+      console.error("loadTeam error:",e);
+      const rd={gameStories:[], teamBatting:null, teamPitching:null};
+      setRichData(rd);
+      richRef.current=rd;
+      await Promise.all([
+        generateContent(t, null, null, null, [], rd, faction),
+        fireOracleIntro(t, null, null, rd, faction),
+      ]);
+    }
     setLoading(false);
   }
 
