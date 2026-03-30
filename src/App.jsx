@@ -266,13 +266,7 @@ export default function SportsLore(){
   const richRef    = useRef(null);
   richRef.current  = richData;
 
-  useEffect(()=>{setTimeout(()=>setMounted(true),60);},[]);
-  useEffect(()=>{const i=setInterval(()=>setTick(t=>t+1),60000);return()=>clearInterval(i);},[]);
-  useEffect(()=>{if(sched.next)setCd(getCD(sched.next.gameDate));},[sched.next,tick]);
-  useEffect(()=>{
-    // Only auto-scroll if user has sent at least one message (not on auto-intro load)
-    if(msgs.length > 2) chatEnd.current?.scrollIntoView({behavior:"smooth"});
-  },[msgs,oLoading]);
+  // auto-scroll removed
 
   useEffect(()=>{
     if(search.length>1){const q=search.toLowerCase();setRes(MLB_TEAMS.filter(t=>t.name.toLowerCase().includes(q)||t.city.toLowerCase().includes(q)||t.abbr.toLowerCase().includes(q)).slice(0,8));}
