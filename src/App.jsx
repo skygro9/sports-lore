@@ -554,9 +554,9 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
         .chip{background:#fff;border:2px solid #111;color:#111;padding:10px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;text-align:left;transition:background .1s;min-height:44px;line-height:1.4;}
         .chip:hover{background:var(--faction-accent,#FFE033);}
         /* Episode rows */
-        .ep{display:grid;grid-template-columns:32px 52px 1fr 58px;gap:10px;align-items:start;padding:16px 0;border-bottom:2px solid #111;transition:background .1s;}
+        .ep{display:grid;grid-template-columns:32px 1fr 50px;gap:10px;align-items:start;padding:16px 0;border-bottom:2px solid #111;transition:background .1s;}
         .ep:hover{background:rgba(255,224,51,.15);}
-        @media(max-width:460px){.ep{grid-template-columns:26px 44px 1fr 40px;gap:6px;}}
+        @media(max-width:460px){.ep{grid-template-columns:26px 1fr 44px;gap:8px;}}
         .tag-w{display:inline-block;background:#111;color:var(--faction-accent,#FFE033);font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:3px 8px;}
         .tag-l{display:inline-block;background:#fff;border:2px solid #111;color:#111;font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:2px 8px;}
         /* Stat pill */
@@ -911,12 +911,12 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
                 episodes.map((ep,i)=>(
                   <div key={i} className="ep">
                     <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700,paddingTop:2}}>#{ep.num}</div>
-                    <div style={{paddingTop:1}}><span className={ep.win?"tag-w":"tag-l"}>{ep.win?"WIN":"LOSS"}</span></div>
                     <div>
-                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.2,marginBottom:3}}>{ep.title}</div>
+                      <span className={ep.win?"tag-w":"tag-l"} style={{display:"inline-block",marginBottom:5}}>{ep.win?"WIN":"LOSS"}</span>
+                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{ep.title}</div>
                       <div className="sg" style={{fontSize:11,color:"#777",fontWeight:500}}>vs. {ep.opp} · {ep.date}</div>
                     </div>
-                    <div className="arch" style={{fontSize:"clamp(18px,3.5vw,28px)",letterSpacing:-1,textAlign:"right",color:ep.win?"#111":"#bbb"}}>{ep.score}</div>
+                    <div className="arch" style={{fontSize:"clamp(15px,3vw,22px)",letterSpacing:-0.5,textAlign:"right",color:ep.win?"#111":"#bbb",paddingTop:2}}>{ep.score}</div>
                   </div>
                 ))
               )}
