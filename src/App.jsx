@@ -442,9 +442,10 @@ EP|W or L|score like 4-2|opponent|date like Jun 3|Title using a LOTR or SW refer
       const epS = text.match(/EPISODES:\s*([\s\S]*?)$/i)?.[1]?.trim();
       if(tp){
         const parts = tp.split("|||");
-        setTalkingPoint({lore: parts[0]?.trim() ?? tp, sports: parts[1]?.trim() ?? ""});
+        const clean = s => (s||"").replace(/\*\*/g,'').replace(/\*/g,'').trim();
+        setTalkingPoint({lore: clean(parts[0] ?? tp), sports: clean(parts[1] ?? "")});
       }
-      if(arcT) setArc(arcT);
+      if(arcT) setArc(arcT.replace(/\*\*/g,'').replace(/\*/g,'').trim());
       if(epS){
         const eps = epS.split("\n").filter(l=>l.trim().startsWith("EP|")).map((l,i)=>{
           const p = l.split("|");
@@ -510,7 +511,8 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
       if(!res.ok) throw new Error("HTTP "+res.status);
       const data = await res.json();
       if(data.error) throw new Error(data.error.message || "API error");
-      setMsgs(prev=>[...prev,{role:"assistant",content:data.content?.[0]?.text??"The oracle went dark."}]);
+      const reply = (data.content?.[0]?.text??"The oracle went dark.").replace(/\*\*/g,'').replace(/\*/g,'').trim();
+      setMsgs(prev=>[...prev,{role:"assistant",content:reply}]);
     }catch(e){
       console.error("Oracle error:",e);
       setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost. Try asking again."}]);
