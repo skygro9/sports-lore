@@ -415,7 +415,7 @@ Write three things:
 TALKING_POINT:
 Write TWO versions separated by |||
 
-Version 1 (LORE): One sentence using a LOTR or Star Wars reference as the actual explanation. Include a real player name or stat if you have one. This is the fun nerd translation.
+Version 1 (LORE): One sentence using a LOTR or Star Wars reference as the actual explanation. Only include a player name or stat if it was provided in the real data above — do not invent statistics.
 Example: "The bullpen has been pulling a Denethor — brilliant record, self-destructing when it matters most."
 
 Version 2 (SPORTS TALK): The SAME information in plain baseball language someone could actually say at work and sound like a fan. Use real baseball terms (ERA, bullpen, batting average, rotation, walk-off, etc). No nerd references — just confident sports talk.
@@ -424,7 +424,7 @@ Example: "The bullpen has been the biggest problem — they keep blowing leads i
 Format exactly: LORE SENTENCE ||| SPORTS SENTENCE
 
 ARC:
-3 sentences. The season so far translated into nerd. Each sentence should use one reference naturally — not forced. Real stats woven in. Who is the Aragorn of this team (the unlikely hero stepping up)? Who is Anakin (the talented one making everyone nervous)? What is the overall vibe — Helm's Deep holding on, or a confident march to Gondor? End on the next challenge.
+3 sentences. Use ONLY the real stats and player data provided above — do not invent stats or player names. If stats are unavailable say so honestly. Translate what you actually know into the nerd reference. End on the next challenge.
 
 EPISODES:
 ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. For each of the last 5 games, use ONLY dates before today. If you have real game data use it. If not, make up realistic games with dates in the past (e.g. Mar 20, Mar 22, Mar 24, Mar 26, Mar 28).
