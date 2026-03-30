@@ -811,9 +811,10 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
             <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
                 <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start"}}>
-                  <div className={m.role==="user"?"bq":"ba"}>
+                  <div style={{display:"flex",flexDirection:"column",gap:5,alignItems:m.role==="user"?"flex-end":"flex-start"}}><div className={m.role==="user"?"bq":"ba"}>
                     <p className={m.role==="user"?"sg":"lora"} style={{margin:0,fontSize:m.role==="user"?13:16,lineHeight:1.75,whiteSpace:"pre-wrap"}}>{m.content}</p>
                   </div>
+                  {m.role==="assistant"&&<ShareButton text={m.content} faction={faction}/>}
                 </div>
               ))}
               {oLoading&&(
@@ -879,7 +880,7 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
                     </blockquote>
                   </>
                 )}
-                <p className="sg" style={{fontSize:11,color:"#555",fontWeight:600,letterSpacing:1}}>NOW YOU SOUND LIKE YOU WATCHED.</p>
+                <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginTop:8}}><p className="sg" style={{fontSize:11,color:"#555",fontWeight:600,letterSpacing:1}}>NOW YOU SOUND LIKE YOU WATCHED.</p><ShareButton text={typeof talkingPoint==="object"?talkingPoint.sports||talkingPoint.lore:talkingPoint} faction={faction}/></div>
               </>
             ):null}
           </div>
