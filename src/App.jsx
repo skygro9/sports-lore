@@ -169,6 +169,31 @@ function FunLoader({ faction, type, dark }) {
   );
 }
 
+function ShareButton({ text, faction }) {
+  const f = FACTIONS[faction||"sw"];
+  const url = "https://sports-lore.vercel.app";
+  function handleShare(){
+    const shareText = (text||"").replace(/\*\*/g,"").trim() + " — Sports Lore: " + url;
+    if(navigator.share){
+      navigator.share({title:"Sports Lore",text:shareText,url:url}).catch(()=>{});
+    } else {
+      navigator.clipboard.writeText(shareText).then(()=>{
+        alert("Copied! Paste it anywhere.");
+      }).catch(()=>{
+        window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(shareText),"_blank");
+      });
+    }
+  }
+  return(
+    <button onClick={handleShare} style={{
+      background:f.accent,border:"2px solid #111",padding:"6px 14px",
+      cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
+      fontSize:10,letterSpacing:2,color:"#111",whiteSpace:"nowrap",
+      display:"inline-flex",alignItems:"center",gap:5,flexShrink:0,
+    }}>&#x2197; SHARE</button>
+  );
+}
+
 function RotatingPun({ faction }) {
   const puns = faction === "lotr" ? PUNS_LOTR : PUNS_SW;
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * puns.length));
