@@ -198,11 +198,11 @@ function RotatingPun({ faction }) {
   );
 }
 
-function TeamSearch({value, onChange, results, onSelect, placeholder, autoFocus}){
+function TeamSearch({value, onChange, results, onSelect, placeholder,}){
   return(
     <div style={{position:"relative"}}>
       <input value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
-        autoFocus={autoFocus} autoComplete="off"
+        autoComplete="off"
         style={{width:"100%",background:"#fff",border:"3px solid #111",color:"#111",padding:"14px 18px",
           fontFamily:"'Space Grotesk',sans-serif",fontSize:16,outline:"none",boxSizing:"border-box",WebkitAppearance:"none",fontWeight:600}}
         onFocus={e=>e.currentTarget.style.borderColor="#FFE033"}
@@ -562,7 +562,7 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
         .div-tr{display:grid;grid-template-columns:1fr 40px 40px 56px 48px;gap:8px;padding:10px 0;border-bottom:2px solid #111;align-items:center;}
         .div-tr.mine{background:var(--faction-accent,#FFE033);padding:10px 12px;margin:0 -12px;}
         /* Input */
-        .o-inp{flex:1;background:#fff;border:3px solid #111;border-right:none;color:#111;padding:14px 16px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;outline:none;min-height:52px;WebkitAppearance:none;transition:border-color .15s;}
+        .o-inp{flex:1;background:#fff;border:3px solid #111;border-right:none;color:#111;padding:14px 16px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;outline:none;min-height:52px;WebkitAppearance:none;transition:border-color .15s;}
         .o-inp:focus{border-color:#FFE033;background:#FFFDE7;}
         .o-inp::placeholder{color:#999;font-weight:400;}
         .o-btn{background:#111;border:3px solid #111;border-left:none;color:#FFE033;padding:14px 20px;font-family:'Archivo Black',sans-serif;font-size:14px;cursor:pointer;transition:all .15s;min-height:52px;min-width:70px;flex-shrink:0;letter-spacing:1px;}
@@ -664,7 +664,7 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
               </div>
             ):(
               <TeamSearch value={search} onChange={setSearch} results={searchRes} onSelect={selectTeam}
-                placeholder="Type your city or team — e.g. Chicago, Dodgers..." autoFocus/>
+                placeholder="Type your city or team — e.g. Chicago, Dodgers..."/>
             )}
           </div>
 
