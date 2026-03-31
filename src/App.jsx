@@ -558,6 +558,14 @@ export default function SportsLore(){
   // ── GENERATE CONTENT ──────────────────────────────────────────────────────
   async function generateContent(t, st, nextG, lastG, recent, rd, fac){
     const c = buildCtx(t, st, rd);
+    const realGames = recent.length > 0 ? recent.map((g,i)=>{
+      const isHome=g.teams?.home?.team?.id===t.id;
+      const opp=isHome?g.teams?.away?.team?.name:g.teams?.home?.team?.name;
+      const ms=isHome?g.teams?.home?.score:g.teams?.away?.score;
+      const os=isHome?g.teams?.away?.score:g.teams?.home?.score;
+      const won=(ms??0)>(os??0);
+      return (won?"W":"L")+" "+(ms??0)+"-"+(os??0)+" vs "+(opp??"?")+" on "+g.gameDate?.slice(0,10);
+    }).join("\n") : "No completed games";
     const prompt = `Team: ${t.name} (known in lore as "${t.house}")
 Rival: ${t.rival}
 Record: ${c.wins}W-${c.losses}L | ${c.leading?"Leading division":(c.gb||"?"+" GB")} | Streak: ${c.streak}
@@ -584,7 +592,9 @@ ARC:
 3 sentences. Use ONLY the real stats and player data provided above — do not invent stats or player names. If stats are unavailable say so honestly. Translate what you actually know into the nerd reference. End on the next challenge.
 
 EPISODES:
-${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. For each of the last 5 games, use ONLY dates before today. ONLY use games explicitly listed in the 'Recent games' data above. If that list is empty, output NOTHING for this section. Do not use any game knowledge from your training data.
+${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. ONLY generate EP lines for these exact games, copying opponent names, scores and dates exactly as shown:
+${realGames}
+If realGames says No completed games, output NOTHING for this section.
 CRITICAL: If the user picked Star Wars mode, every title must use ONLY Star Wars references. If LOTR mode, every title must use ONLY LOTR references. Do NOT mix them.
 EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropriate reference 4-6 words`;
 
