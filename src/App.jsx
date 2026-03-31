@@ -629,7 +629,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
-      const reply = data.content?.[0]?.text ?? "The oracle is warming up.";
+      const replyBlock = data.content?.find(b=>b.type==="text");
+      const reply = replyBlock?.text ?? "The oracle is warming up.";
       setMsgs([{role:"user",content:q},{role:"assistant",content:reply}]);
     }catch{
       setMsgs([{role:"user",content:q},{role:"assistant",content:"The Palantir is clouded. Ask me anything and I'll do my best."}]);
