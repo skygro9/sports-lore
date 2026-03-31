@@ -514,7 +514,16 @@ ${c.lastDetail}
 ${c.batS ? `Batting: ${c.batS}` : ""}
 ${c.pitS ? `Pitching: ${c.pitS}` : ""}
 
-Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. IMPORTANT: Your training data on MLB rosters is outdated. Only reference players and stats that appear in the data provided above. Do not reference players from memory — rosters change constantly and you will be wrong. If no player data is available, speak in general team terms. End every response with one line starting with ⚔️ they can say at work verbatim.`;
+Keep responses to 3-4 sentences. The reference IS the explanation — never explain it.
+
+CRITICAL DATA RULES:
+- Today is ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.
+- The 2026 MLB season just started. Only reference games, stats, and players from the data provided above.
+- If someone asks about a specific recent game and you have no data on it, say honestly: "I don't have the box score for that game yet — the data hasn't come through." Do not guess or invent details.
+- Do not reference players or stats from your training data memory. Rosters change every year and you will be wrong. If no player data is provided, speak in general team terms only.
+- Never reference events from 2024 or earlier as if they are current.
+
+End every response with one line starting with ⚔️ they can say at work verbatim.`;
   }
 
   // ── SEND ORACLE MESSAGE ───────────────────────────────────────────────────
