@@ -957,7 +957,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:3}}>
               <div style={{background:"#111",padding:"16px 18px"}}>
                 <div className="arch" style={{fontSize:9,letterSpacing:3,color:"#FFE033",marginBottom:6}}>
-                  {!cd?"NEXT GAME":cd.days===0?"⚔ GAME DAY — TODAY":cd.days<=2?"🔥 COMING SOON":"NEXT GAME"}
+                  {!cd?"NEXT GAME":(cd.days===0&&new Date(sched.next?.gameDate).toDateString()===new Date().toDateString())?"⚔ GAME DAY — TODAY":cd.days<=2?"🔥 COMING SOON":"NEXT GAME"}
                 </div>
                 {sched.next?(
                   <>
