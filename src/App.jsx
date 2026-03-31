@@ -159,6 +159,70 @@ const LOADER_MSGS = {
   },
 };
 
+function EyeSpinner({ dark }) {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" style={{flexShrink:0}}>
+      <style>{`
+        @keyframes eyePulse{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.25)}}
+        @keyframes fireFlicker{0%,100%{opacity:.9}50%{opacity:.4}}
+        .ep{animation:eyePulse 2s ease-in-out infinite;transform-origin:50% 50%;transform-box:fill-box}
+        .ff{animation:fireFlicker 1s ease-in-out infinite}
+        .ff2{animation:fireFlicker 1s ease-in-out infinite;animation-delay:.3s}
+      `}</style>
+      <path d="M 8 48 Q 10 28 18 20 Q 14 32 16 48 Z" fill={dark?"#1a1020":"#2a1030"}/>
+      <path d="M 40 48 Q 38 28 30 20 Q 34 32 32 48 Z" fill={dark?"#1a1020":"#2a1030"}/>
+      <ellipse cx="24" cy="22" rx="16" ry="14" fill="#8B2500" opacity=".8"/>
+      <ellipse cx="24" cy="22" rx="12" ry="10" fill="#cc3800" opacity=".9"/>
+      <ellipse cx="24" cy="22" rx="10" ry="9" fill="#f5f0e8"/>
+      <path d="M 16 18 Q 19 22 16 26" fill="none" stroke="#cc2200" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M 32 18 Q 29 22 32 26" fill="none" stroke="#cc2200" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="17" y1="19" x2="20" y2="20" stroke="#cc2200" strokeWidth="1"/>
+      <line x1="17" y1="22" x2="20" y2="22" stroke="#cc2200" strokeWidth="1"/>
+      <line x1="17" y1="25" x2="20" y2="24" stroke="#cc2200" strokeWidth="1"/>
+      <line x1="31" y1="19" x2="28" y2="20" stroke="#cc2200" strokeWidth="1"/>
+      <line x1="31" y1="22" x2="28" y2="22" stroke="#cc2200" strokeWidth="1"/>
+      <line x1="31" y1="25" x2="28" y2="24" stroke="#cc2200" strokeWidth="1"/>
+      <g className="ep">
+        <ellipse cx="24" cy="22" rx="6" ry="4" fill="#ff4400" opacity=".95"/>
+        <ellipse cx="24" cy="22" rx="2" ry="4" fill="#0d0000"/>
+      </g>
+      <circle className="ff" cx="24" cy="10" r="6" fill="#ff4400" opacity=".85"/>
+      <circle className="ff2" cx="24" cy="10" r="4" fill="#FFE033" opacity=".9"/>
+      <circle cx="24" cy="10" r="2" fill="#fff" opacity=".7"/>
+    </svg>
+  );
+}
+
+function DeathStarSpinner() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" style={{flexShrink:0}}>
+      <style>{`
+        @keyframes deathPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.9)}}
+        @keyframes laserCharge{0%{opacity:0;r:2px}70%{opacity:1;r:7px}100%{opacity:.3;r:4px}}
+        .dp{animation:deathPulse 2.5s ease-in-out infinite;transform-origin:50% 50%;transform-box:fill-box}
+        .lc{animation:laserCharge 2.5s ease-in-out infinite}
+      `}</style>
+      <g className="dp">
+        <circle cx="24" cy="24" r="20" fill="#d8d4cc"/>
+        <path d="M 24 4 A 20 20 0 0 1 24 44" fill="#b0aca8"/>
+        <line x1="4" y1="24" x2="44" y2="24" stroke="#c0bbb4" strokeWidth="1.5"/>
+        <path d="M 10 17 Q 16 24 10 31" fill="none" stroke="#cc2200" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 38 17 Q 32 24 38 31" fill="none" stroke="#cc2200" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="11" y1="19" x2="15" y2="20" stroke="#cc2200" strokeWidth="1.5"/>
+        <line x1="11" y1="23" x2="15" y2="23" stroke="#cc2200" strokeWidth="1.5"/>
+        <line x1="11" y1="27" x2="15" y2="26" stroke="#cc2200" strokeWidth="1.5"/>
+        <line x1="37" y1="19" x2="33" y2="20" stroke="#cc2200" strokeWidth="1.5"/>
+        <line x1="37" y1="23" x2="33" y2="23" stroke="#cc2200" strokeWidth="1.5"/>
+        <line x1="37" y1="27" x2="33" y2="26" stroke="#cc2200" strokeWidth="1.5"/>
+        <circle cx="18" cy="16" r="6" fill="#c0bbb4" stroke="#989490" strokeWidth="1"/>
+        <circle cx="18" cy="16" r="3.5" fill="#b0aba8"/>
+        <circle cx="18" cy="16" r="1.5" fill="#555"/>
+        <circle className="lc" cx="22" cy="16" r="4" fill="#FFE033" opacity=".8"/>
+      </g>
+    </svg>
+  );
+}
+
 function FunLoader({ faction, type, dark }) {
   const f = faction || "sw";
   const msgs = LOADER_MSGS[f]?.[type] || LOADER_MSGS.sw.arc;
@@ -167,11 +231,10 @@ function FunLoader({ faction, type, dark }) {
     const i = setInterval(() => setIdx(n => (n + 1) % msgs.length), 2200);
     return () => clearInterval(i);
   }, [f, type]);
-  const accent = faction === "lotr" ? "#C9A84C" : "#FFE033";
   return (
-    <div style={{display:"flex",gap:12,alignItems:"center",padding:"4px 0"}}>
-      <div style={{width:20,height:20,border:`3px solid ${dark?"rgba(255,255,255,.15)":"#ddd"}`,borderTopColor:dark?accent:accent,borderRadius:"50%",animation:"spin .7s linear infinite",flexShrink:0}}/>
-      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:600,color:dark?"rgba(255,255,255,.5)":"#888",transition:"opacity .3s",letterSpacing:.3}}>
+    <div style={{display:"flex",gap:14,alignItems:"center",padding:"4px 0"}}>
+      {faction==="lotr" ? <EyeSpinner dark={dark}/> : <DeathStarSpinner/>}
+      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:600,color:dark?"rgba(255,255,255,.5)":"#888",letterSpacing:.3}}>
         {msgs[idx]}
       </span>
     </div>
