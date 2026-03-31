@@ -1080,7 +1080,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             ):talkingPoint?(
               <>
                 {/* Lore translation — big and dramatic */}
-                <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:f.accent,opacity:.8}}>
+                <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#FFE033"}}>
                   {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":"🚀 IN A GALAXY FAR AWAY"}
                 </div>
                 <blockquote className="lora" style={{fontSize:"clamp(20px,3vw,34px)",lineHeight:1.3,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`5px solid ${f.accent}`,paddingLeft:24,marginBottom:32}}>
@@ -1089,7 +1089,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 {/* Sports translation — casual, like a text */}
                 {typeof talkingPoint==="object"&&talkingPoint.sports&&(
                   <div style={{background:"rgba(255,255,255,.06)",borderRadius:0,padding:"20px 24px",borderLeft:"3px solid rgba(255,255,255,.15)"}}>
-                    <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"rgba(255,255,255,.4)"}}>
+                    <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#FFE033"}}>
                       ⚾ SAY THIS AT WORK
                     </div>
                     <p className="sg" style={{fontSize:"clamp(15px,2vw,20px)",lineHeight:1.6,color:"rgba(255,255,255,.8)",fontWeight:600,marginBottom:0}}>
