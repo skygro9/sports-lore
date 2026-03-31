@@ -630,7 +630,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
   async function fireOracleIntro(t, st, lastG, rd, fac){
     const c = buildCtx(t, st, rd);
     const ctx = makeOracleCtx(t, st, rd, c, fac);
-    const q = "Bring me the latest dispatches from the front.";
+    const q = "What happened in the last few battles?";
     setMsgs([{role:"user", content:q}]);
     setOLoading(true);
     try{
