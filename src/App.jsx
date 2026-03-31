@@ -673,10 +673,11 @@ End every response with one line starting with ⚔️ they can say at work verba
     setOLoading(false);
   }
 
-  const teamColor = team?.color || null;
-  const baseAccent = FACTIONS[faction||'sw'].accent;
+  const baseFaction = FACTIONS[faction||'sw'] || FACTIONS.sw;
+  const baseAccent = baseFaction.accent;
+  const teamColor = (phase==="team" && team?.color) ? team.color : null;
   const activeAccent = teamColor ? getTeamAccent(teamColor, baseAccent) : baseAccent;
-  const f = {...FACTIONS[faction||'sw'], accent: activeAccent};
+  const f = {...baseFaction, accent: activeAccent};
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
   const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
   const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
