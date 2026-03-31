@@ -1039,7 +1039,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:f.accent,opacity:.7}}>
                   {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":"🚀 IN A GALAXY FAR AWAY"}
                 </div>
-                <blockquote className="lora" style={{fontSize:"clamp(17px,2.8vw,28px)",lineHeight:1.35,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`4px solid ${f.accent}`,paddingLeft:20,marginBottom:24}}>
+                <blockquote className="lora" style={{fontSize:"clamp(17px,2.8vw,28px)",lineHeight:1.35,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`4px solid ${f.accent}`,paddingLeft:20,marginBottom:24,background:"rgba(255,255,255,.03)",padding:"16px 20px",borderRight:"none",borderTop:"none",borderBottom:"none"}}>
                   &ldquo;{typeof talkingPoint==="object"?talkingPoint.lore:talkingPoint}&rdquo;
                 </blockquote>
                 {/* Sports translation */}
@@ -1048,7 +1048,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#888"}}>
                       ⚾ SAY THIS AT WORK
                     </div>
-                    <blockquote className="lora" style={{fontSize:"clamp(15px,2.2vw,22px)",lineHeight:1.5,fontStyle:"italic",fontWeight:600,color:"#fff",borderLeft:"4px solid #fff",paddingLeft:20,marginBottom:16,opacity:.9}}>
+                    <blockquote className="lora" style={{fontSize:"clamp(15px,2.2vw,22px)",lineHeight:1.5,fontStyle:"italic",fontWeight:600,color:"rgba(255,255,255,.75)",borderLeft:"4px solid rgba(255,255,255,.3)",paddingLeft:20,marginBottom:16,borderTop:"none",borderRight:"none",borderBottom:"none"}}>
                       &ldquo;{talkingPoint.sports}&rdquo;
                     </blockquote>
                   </>
