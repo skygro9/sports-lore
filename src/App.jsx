@@ -463,8 +463,12 @@ export default function SportsLore(){
       const games=schData.dates?.flatMap(d=>d.games||[])||[];
       // Only count games that are actually Final — not just past scheduled dates
       const finished=games.filter(g=>g.status?.abstractGameState==="Final").sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
-      const upcoming=games.filter(g=>new Date(g.gameDate)>now&&g.status?.abstractGameState!=="Final").sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
-      const nextG=upcoming[0]??null, lastG=finished[0]??null, recent=finished.slice(0,5);
+      const live=games.filter(g=>g.status?.abstractGameState==="Live");
+      const upcoming=games.filter(g=>g.status?.abstractGameState==="Preview"||g.status?.detailedState==="Scheduled").sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
+      const nextG=upcoming[0]??null;
+      const lastG=live[0]??finished[0]??null;
+      const recent=finished.slice(0,5);
+      const isLive=live.length>0;
       setSched({next:nextG, last:lastG, recent});
       if(nextG) setCd(getCD(nextG.gameDate));
 
@@ -910,7 +914,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 ):<div className="sg" style={{fontSize:13,color:"#888",fontWeight:600}}>Schedule TBD</div>}
               </div>
               <div style={{background:"#fff",border:"3px solid #111",borderTop:"none",borderRight:"none",borderBottom:"none",padding:"16px 18px"}}>
-                <div className="arch" style={{fontSize:9,letterSpacing:3,color:"#888",marginBottom:6}}>LAST GAME</div>
+                <div className="arch" style={{fontSize:9,letterSpacing:3,color:isLive?"#FF3B3B":"#888",marginBottom:6}}>{isLive?"🔴 LIVE NOW":"LAST GAME"}</div>
                 {sched.last?(
                   <>
                     <div className="arch" style={{fontSize:11,letterSpacing:1,color:lastWon?"#111":"#888",marginBottom:4}}>{lastWon?"✓ WIN":"✗ LOSS"}</div>
