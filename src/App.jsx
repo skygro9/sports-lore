@@ -641,7 +641,7 @@ ${c.lastDetail}
 ${c.batS ? `Batting: ${c.batS}` : ""}
 ${c.pitS ? `Pitching: ${c.pitS}` : ""}
 
-Keep responses to 3-4 sentences. The reference IS the explanation — never explain it.
+Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. ALWAYS answer the question first with whatever data you have — record, stats, team trends, rival context. Only acknowledge missing data at the END and only for the specific thing you can't answer. Never lead with what you don't know.
 
 CRITICAL DATA RULES:
 - Today is ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.
