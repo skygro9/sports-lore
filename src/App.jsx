@@ -975,9 +975,17 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,lineHeight:1,marginBottom:4,color:isLive?"#888":lastWon?"#111":"#888"}}>
                       {isLive
                         ? <>
-                            <span style={{fontSize:11,fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,letterSpacing:1,display:"block",marginBottom:4,color:"#888"}}>
-                              {sched.last.teams?.away?.team?.abbreviation??""} {sched.last.teams?.away?.score??0}  —  {sched.last.teams?.home?.team?.abbreviation??""} {sched.last.teams?.home?.score??0}
-                            </span>
+                            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
+                              <div style={{textAlign:"center"}}>
+                                <div className="arch" style={{fontSize:"clamp(18px,3vw,26px)",letterSpacing:-1,color:"#888"}}>{sched.last.teams?.away?.score??0}</div>
+                                <div className="sg" style={{fontSize:10,color:"#aaa",fontWeight:600}}>{sched.last.teams?.away?.team?.abbreviation??""}</div>
+                              </div>
+                              <div className="sg" style={{fontSize:12,color:"#aaa",fontWeight:600}}>—</div>
+                              <div style={{textAlign:"center"}}>
+                                <div className="arch" style={{fontSize:"clamp(18px,3vw,26px)",letterSpacing:-1,color:"#888"}}>{sched.last.teams?.home?.score??0}</div>
+                                <div className="sg" style={{fontSize:10,color:"#aaa",fontWeight:600}}>{sched.last.teams?.home?.team?.abbreviation??""}</div>
+                              </div>
+                            </div>
                           </>
                         : <>{sched.last.teams?.home?.score??'?'}–{sched.last.teams?.away?.score??'?'}</>
                       }
