@@ -964,7 +964,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <span className="arch" style={{fontSize:11,color:w?"#FFE033":"#111"}}>{w?"W":"L"}</span>
                   </div>
                 ))}
-                <span className="sg" style={{fontSize:10,color:"#555",fontWeight:600,marginLeft:6}}>LAST {formDots.length} GAMES</span>
+                <span className="sg" style={{fontSize:10,color:useWhiteText?"rgba(255,255,255,.6)":"#555",fontWeight:600,marginLeft:6}}>LAST {formDots.length} GAMES</span>
               </div>
             )}
           </div>
