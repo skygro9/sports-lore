@@ -1066,7 +1066,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <FunLoader faction={faction} type="arc"/>
               ):(
                 <p className="lora" style={{fontSize:"clamp(16px,2.2vw,20px)",lineHeight:1.9,color:"#111"}}>
-                  <span className="arch" style={{float:"left",fontSize:"clamp(52px,9vw,76px)",lineHeight:.82,marginRight:10,marginTop:8,color:f.accent,WebkitTextStroke:"2px #111"}}>{arc?.[0]}</span>
+                  <span className="arch" style={{float:"left",fontSize:"clamp(52px,9vw,76px)",lineHeight:.82,marginRight:10,marginTop:8,color:teamColor||f.accent,WebkitTextStroke:"2px #111"}}>{arc?.[0]}</span>
                   {arc?.slice(1)}
                 </p>
               )}
