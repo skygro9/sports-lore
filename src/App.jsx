@@ -1,15 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 
 // ─── TEAMS ────────────────────────────────────────────────────────────────────
-// Returns a color that's bright enough to use as accent (min brightness 130/255)
-function getTeamAccent(hex, factionAccent) {
+// Returns team color info — bright colors used as accent, dark colors used as hero bg with white text
+function getTeamColors(hex, factionAccent) {
   try {
     const r = parseInt(hex.slice(1,3),16);
     const g = parseInt(hex.slice(3,5),16);
     const b = parseInt(hex.slice(5,7),16);
     const brightness = (r*299 + g*587 + b*114) / 1000;
-    return brightness >= 40 ? hex : factionAccent;
-  } catch { return factionAccent; }
+    if (brightness >= 140) {
+      // Bright color — use as accent on dark/light backgrounds
+      return { accent: hex, heroBg: hex, heroText: "#111", useWhiteText: false };
+    } else if (brightness >= 30) {
+      // Dark saturated color (Dodger blue, Red Sox red) — use as hero background with white text
+      return { accent: "#fff", heroBg: hex, heroText: "#fff", useWhiteText: true };
+    } else {
+      // Too dark — fall back to faction color
+      return { accent: factionAccent, heroBg: factionAccent, heroText: "#111", useWhiteText: false };
+    }
+  } catch { return { accent: factionAccent, heroBg: factionAccent, heroText: "#111", useWhiteText: false }; }
 }
 
 const MLB_TEAMS = [
@@ -676,8 +685,11 @@ End every response with one line starting with ⚔️ they can say at work verba
   const baseFaction = FACTIONS[faction||'sw'] || FACTIONS.sw;
   const baseAccent = baseFaction.accent;
   const teamColor = (phase==="team" && team?.color) ? team.color : null;
-  const activeAccent = teamColor ? getTeamAccent(teamColor, baseAccent) : baseAccent;
-  const f = {...baseFaction, accent: activeAccent};
+  const teamColors = teamColor ? getTeamColors(teamColor, baseAccent) : { accent: baseAccent, heroBg: baseAccent, heroText: "#111", useWhiteText: false };
+  const f = {...baseFaction, accent: teamColors.accent};
+  const heroBg = teamColors.heroBg;
+  const heroText = teamColors.heroText;
+  const useWhiteText = teamColors.useWhiteText;
   const isLive = !!(sched.last && sched.last?.status?.abstractGameState==="Live");
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
   const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
@@ -718,7 +730,7 @@ End every response with one line starting with ⚔️ they can say at work verba
         .tag-w{display:inline-block;background:#111;color:var(--faction-accent,#FFE033);font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:3px 8px;}
         .tag-l{display:inline-block;background:#fff;border:2px solid #111;color:#111;font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1px;padding:2px 8px;}
         /* Stat pill */
-        .stat-pill{background:#111;color:var(--faction-accent,#FFE033);padding:8px 16px;display:inline-flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;}
+        .stat-pill{background:rgba(0,0,0,.35);color:#fff;padding:8px 16px;display:inline-flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;}
         /* Div table */
         .div-tr{display:grid;grid-template-columns:1fr 40px 40px 56px 48px;gap:8px;padding:10px 0;border-bottom:2px solid #111;align-items:center;}
         .div-tr.mine{background:var(--faction-accent,#FFE033);padding:10px 12px;margin:0 -12px;}
@@ -884,14 +896,14 @@ End every response with one line starting with ⚔️ they can say at work verba
           </nav>
 
           {/* ── HERO BAND ── */}
-          <div style={{background:f.accent,borderBottom:"3px solid #111",padding:"clamp(28px,5vw,48px) clamp(20px,5vw,48px)"}}>
+          <div style={{background:heroBg,borderBottom:"3px solid #111",padding:"clamp(28px,5vw,48px) clamp(20px,5vw,48px)"}}>
             {/* Lore name */}
-            <div className="lora" style={{fontSize:13,fontStyle:"italic",color:"#555",marginBottom:8}}>
+            <div className="lora" style={{fontSize:13,fontStyle:"italic",color:useWhiteText?"rgba(255,255,255,.6)":"#555",marginBottom:8}}>
               Chronicle of {team.house}
             </div>
 
             {/* Team name — big */}
-            <h1 className="arch" style={{fontSize:"clamp(40px,10vw,88px)",lineHeight:.88,letterSpacing:-1,marginBottom:24,color:"#111"}}>
+            <h1 className="arch" style={{fontSize:"clamp(40px,10vw,88px)",lineHeight:.88,letterSpacing:-1,marginBottom:24,color:heroText}}>
               {team.name}
             </h1>
 
