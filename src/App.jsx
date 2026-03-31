@@ -480,7 +480,7 @@ export default function SportsLore(){
       const nextG=upcoming[0]??null;
       const lastG=live[0]??finished[0]??null;
       const recent=finished.slice(0,5);
-      const isLive=live.length>0;
+
       setSched({next:nextG, last:lastG, recent});
       if(nextG) setCd(getCD(nextG.gameDate));
 
@@ -678,6 +678,7 @@ End every response with one line starting with ⚔️ they can say at work verba
   const teamColor = (phase==="team" && team?.color) ? team.color : null;
   const activeAccent = teamColor ? getTeamAccent(teamColor, baseAccent) : baseAccent;
   const f = {...baseFaction, accent: activeAccent};
+  const isLive = !!(sched.last && sched.last?.status?.abstractGameState==="Live");
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
   const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
   const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
