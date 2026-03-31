@@ -960,7 +960,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             {formDots.length>0&&(
               <div style={{display:"flex",gap:4,marginTop:16,flexWrap:"wrap",alignItems:"center"}}>
                 {formDots.map((w,i)=>(
-                  <div key={i} style={{width:30,height:30,background:"rgba(255,255,255,.9)",border:`2px solid ${useWhiteText?"rgba(255,255,255,.3)":"#111"}`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                  <div key={i} style={{width:30,height:30,background:w?"#111":"rgba(0,0,0,.25)",border:`2px solid ${useWhiteText?"rgba(0,0,0,.3)":"#111"}`,display:"flex",alignItems:"center",justifyContent:"center"}}>
                     <span className="arch" style={{fontSize:11,color:w?"#FFE033":"#111"}}>{w?"W":"L"}</span>
                   </div>
                 ))}
