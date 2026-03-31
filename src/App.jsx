@@ -1035,23 +1035,23 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div style={{display:"flex",gap:10,alignItems:"center"}}><Spin/><span className="sg" style={{fontSize:13,color:"#aaa",fontWeight:600}}>Writing your talking point...</span></div>
             ):talkingPoint?(
               <>
-                {/* Lore translation */}
-                <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:f.accent,opacity:.7}}>
+                {/* Lore translation — big and dramatic */}
+                <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:f.accent,opacity:.8}}>
                   {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":"🚀 IN A GALAXY FAR AWAY"}
                 </div>
-                <blockquote className="lora" style={{fontSize:"clamp(17px,2.8vw,28px)",lineHeight:1.35,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`4px solid ${f.accent}`,paddingLeft:20,marginBottom:24,background:"rgba(255,255,255,.03)",padding:"16px 20px",borderRight:"none",borderTop:"none",borderBottom:"none"}}>
+                <blockquote className="lora" style={{fontSize:"clamp(20px,3vw,34px)",lineHeight:1.3,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`5px solid ${f.accent}`,paddingLeft:24,marginBottom:32}}>
                   &ldquo;{typeof talkingPoint==="object"?talkingPoint.lore:talkingPoint}&rdquo;
                 </blockquote>
-                {/* Sports translation */}
+                {/* Sports translation — casual, like a text */}
                 {typeof talkingPoint==="object"&&talkingPoint.sports&&(
-                  <>
-                    <div style={{marginBottom:6,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#888"}}>
+                  <div style={{background:"rgba(255,255,255,.06)",borderRadius:0,padding:"20px 24px",borderLeft:"3px solid rgba(255,255,255,.15)"}}>
+                    <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"rgba(255,255,255,.4)"}}>
                       ⚾ SAY THIS AT WORK
                     </div>
-                    <blockquote className="lora" style={{fontSize:"clamp(15px,2.2vw,22px)",lineHeight:1.5,fontStyle:"italic",fontWeight:600,color:"rgba(255,255,255,.75)",borderLeft:"4px solid rgba(255,255,255,.3)",paddingLeft:20,marginBottom:16,borderTop:"none",borderRight:"none",borderBottom:"none"}}>
+                    <p className="sg" style={{fontSize:"clamp(15px,2vw,20px)",lineHeight:1.6,color:"rgba(255,255,255,.8)",fontWeight:600,marginBottom:0}}>
                       &ldquo;{talkingPoint.sports}&rdquo;
-                    </blockquote>
-                  </>
+                    </p>
+                  </div>
                 )}
                 <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginTop:8}}><p className="sg" style={{fontSize:11,color:"#555",fontWeight:600,letterSpacing:1}}>NOW YOU SOUND LIKE YOU WATCHED.</p><ShareButton text={typeof talkingPoint==="object"?talkingPoint.sports||talkingPoint.lore:talkingPoint} faction={faction}/></div>
               </>
