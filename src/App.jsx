@@ -636,7 +636,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,system:ctx,messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
       const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();
