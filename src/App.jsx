@@ -309,7 +309,7 @@ function ShareButton({ text, faction }) {
 function RotatingPun({ faction }) {
   const puns = faction === "lotr" ? PUNS_LOTR : PUNS_SW;
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * puns.length));
-  // f is defined below with team color applied
+  const f = FACTIONS[faction] || FACTIONS.sw;
   useEffect(() => {
     setIdx(Math.floor(Math.random() * puns.length));
     const i = setInterval(() => setIdx(n => (n + 1) % puns.length), 6000);
