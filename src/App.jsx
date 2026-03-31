@@ -835,8 +835,8 @@ Keep responses to 3-4 sentences. The reference IS the explanation — never expl
             {/* Chat */}
             <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
-                <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start"}}>
-                  <div style={{display:"flex",flexDirection:"column",gap:5,alignItems:m.role==="user"?"flex-end":"flex-start"}}><div className={m.role==="user"?"bq":"ba"}>
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:4}}>
+                  <div className={m.role==="user"?"bq":"ba"}>
                     <p className={m.role==="user"?"sg":"lora"} style={{margin:0,fontSize:m.role==="user"?13:16,lineHeight:1.75,whiteSpace:"pre-wrap"}}>{m.content}</p>
                   </div>
                   {m.role==="assistant"&&<ShareButton text={m.content} faction={faction}/>}
