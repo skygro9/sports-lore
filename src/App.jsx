@@ -666,8 +666,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               style={{background:"#C9A84C",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
               onMouseOver={e=>{e.currentTarget.style.background="#E8C76A";e.currentTarget.style.borderColor="#E8C76A";}}
               onMouseOut={e=>{e.currentTarget.style.background="#C9A84C";e.currentTarget.style.borderColor="#C9A84C";}}>
-              <div dangerouslySetInnerHTML={{__html:LOTR_SVG}} style={{display:"block",lineHeight:0,pointerEvents:"none"}}/>
-              <div style={{padding:"24px 28px"}}>
+              <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>💍</div>
               <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
               <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
@@ -681,8 +680,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               style={{background:"#FFE033",border:"3px solid #FFE033",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
               onMouseOver={e=>{e.currentTarget.style.background="#FFF176";e.currentTarget.style.borderColor="#FFF176";}}
               onMouseOut={e=>{e.currentTarget.style.background="#FFE033";e.currentTarget.style.borderColor="#FFE033";}}>
-              <div dangerouslySetInnerHTML={{__html:SW_SVG}} style={{display:"block",lineHeight:0,pointerEvents:"none"}}/>
-              <div style={{padding:"24px 28px"}}>
+              <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>🚀</div>
               <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>STAR<br/>WARS</div>
               <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
