@@ -971,7 +971,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <div className="arch" style={{fontSize:9,letterSpacing:3,color:isLive?"#FF3B3B":"#888",marginBottom:6}}>{isLive?"🔴 LIVE NOW":"LAST GAME"}</div>
                 {sched.last?(
                   <>
-                    <div className="arch" style={{fontSize:11,letterSpacing:1,color:isLive?"#FF3B3B":lastWon?"#111":"#888",marginBottom:4}}>{isLive?"🔴 LIVE":lastWon?"✓ WIN":"✗ LOSS"}</div>
+                    <div className="arch" style={{fontSize:11,letterSpacing:1,color:isLive?"#FF3B3B":lastWon?"#111":"#888",marginBottom:4}}>{isLive?"":lastWon?"✓ WIN":"✗ LOSS"}</div>
                     <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,lineHeight:1,marginBottom:4,color:lastWon?"#111":"#888"}}>
                       {sched.last.teams?.home?.score??'?'}–{sched.last.teams?.away?.score??'?'}
                     </div>
