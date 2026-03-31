@@ -181,25 +181,54 @@ function FunLoader({ faction, type, dark }) {
 function ShareButton({ text, faction }) {
   const f = FACTIONS[faction||"sw"];
   const url = "https://sports-lore.vercel.app";
-  function handleShare(){
-    const shareText = (text||"").replace(/\*\*/g,"").trim() + " — Sports Lore: " + url;
-    if(navigator.share){
-      navigator.share({title:"Sports Lore",text:shareText,url:url}).catch(()=>{});
-    } else {
-      navigator.clipboard.writeText(shareText).then(()=>{
-        alert("Copied! Paste it anywhere.");
-      }).catch(()=>{
-        window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(shareText),"_blank");
-      });
-    }
+  const [open, setOpen] = useState(false);
+  const clean = (text||"").replace(/\*\*/g,"").trim();
+  const encoded = encodeURIComponent(clean + " " + url);
+  const tweetUrl = "https://twitter.com/intent/tweet?text=" + encoded;
+  const threadsUrl = "https://www.threads.net/intent/post?text=" + encoded;
+  const linkedinUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url);
+
+  function copyIt(){
+    navigator.clipboard.writeText(clean + "\n" + url).then(()=>{
+      setOpen(false);
+      alert("Copied!");
+    }).catch(()=>{});
   }
+
   return(
-    <button onClick={handleShare} style={{
-      background:f.accent,border:"2px solid #111",padding:"6px 14px",
-      cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
-      fontSize:10,letterSpacing:2,color:"#111",whiteSpace:"nowrap",
-      display:"inline-flex",alignItems:"center",gap:5,flexShrink:0,
-    }}>&#x2197; SHARE</button>
+    <div style={{position:"relative",display:"inline-flex",flexShrink:0}}>
+      <button onClick={()=>setOpen(o=>!o)} style={{
+        background:f.accent,border:"2px solid #111",padding:"6px 14px",
+        cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
+        fontSize:10,letterSpacing:2,color:"#111",whiteSpace:"nowrap",
+        display:"inline-flex",alignItems:"center",gap:5,
+      }}>&#x2197; SHARE</button>
+      {open&&(
+        <>
+          <div onClick={()=>setOpen(false)} style={{position:"fixed",inset:0,zIndex:998}}/>
+          <div style={{position:"absolute",bottom:"110%",left:0,background:"#fff",border:"3px solid #111",zIndex:999,minWidth:200,boxShadow:"4px 4px 0 #111"}}>
+            {[
+              {label:"✕  Post on X / Twitter", url:tweetUrl},
+              {label:"@  Post on Threads", url:threadsUrl},
+              {label:"in  Post on LinkedIn", url:linkedinUrl},
+            ].map((item,i)=>(
+              <button key={i} onClick={()=>{window.open(item.url,"_blank");setOpen(false);}}
+                style={{display:"block",width:"100%",padding:"12px 16px",background:"none",border:"none",borderBottom:"2px solid #111",cursor:"pointer",fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:700,textAlign:"left",color:"#111"}}
+                onMouseOver={e=>e.currentTarget.style.background=f.accent}
+                onMouseOut={e=>e.currentTarget.style.background="none"}>
+                {item.label}
+              </button>
+            ))}
+            <button onClick={copyIt}
+              style={{display:"block",width:"100%",padding:"12px 16px",background:"none",border:"none",cursor:"pointer",fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:700,textAlign:"left",color:"#111"}}
+              onMouseOver={e=>e.currentTarget.style.background=f.accent}
+              onMouseOut={e=>e.currentTarget.style.background="none"}>
+              ⧉  Copy to clipboard
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
