@@ -636,7 +636,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
       const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();
@@ -1033,7 +1033,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     setMsgs(newMsgs);setOLoading(true);
                     const rd=richRef.current,c=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,c,faction);
                     fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
-                      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:newMsgs.map(m=>({role:m.role,content:m.content}))})})
+                      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:newMsgs.map(m=>({role:m.role,content:m.content}))})})
                       .then(r=>r.json()).then(d=>{const t=d.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();setMsgs(prev=>[...prev,{role:"assistant",content:t||"..."}]);})
                       .catch(()=>setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost."}]))
                       .finally(()=>setOLoading(false));
