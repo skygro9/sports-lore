@@ -461,9 +461,10 @@ export default function SportsLore(){
 
       const now=new Date();
       const games=schData.dates?.flatMap(d=>d.games||[])||[];
-      const upcoming=games.filter(g=>new Date(g.gameDate)>now).sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
-      const past=games.filter(g=>new Date(g.gameDate)<=now).sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
-      const nextG=upcoming[0]??null, lastG=past[0]??null, recent=past.slice(0,5);
+      // Only count games that are actually Final — not just past scheduled dates
+      const finished=games.filter(g=>g.status?.abstractGameState==="Final").sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
+      const upcoming=games.filter(g=>new Date(g.gameDate)>now&&g.status?.abstractGameState!=="Final").sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
+      const nextG=upcoming[0]??null, lastG=finished[0]??null, recent=finished.slice(0,5);
       setSched({next:nextG, last:lastG, recent});
       if(nextG) setCd(getCD(nextG.gameDate));
 
