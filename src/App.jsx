@@ -541,9 +541,14 @@ export default function SportsLore(){
     const gb = st?.gamesBack;
     const leading = gb === "0" || gb === 0;
     const streak = st?.streak?.streakCode ?? "unknown";
-    const s0 = rd?.gameStories?.[0];
-    const lastDetail = s0
-      ? `Last game players: ${s0.batters.map(b=>`${b.name} ${b.h}-for-${b.ab}${b.hr>0?` ${b.hr}HR`:""}${b.rbi>0?` ${b.rbi}RBI`:""}`).join(", ")}${s0.starter?`; SP ${s0.starter.name} ${s0.starter.ip}IP ${s0.starter.er}ER ${s0.starter.k}K`:""}`
+    const stories = rd?.gameStories?.filter(s=>s) || [];
+    const lastDetail = stories.length > 0
+      ? stories.map((s,i) => {
+          const batLine = s.batters.map(b=>`${b.name} ${b.h}-for-${b.ab}${b.hr>0?" "+b.hr+"HR":""}${b.rbi>0?" "+b.rbi+"RBI":""}`).join(", ");
+          const pitLine = s.starter ? `SP ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
+          const svLine = s.closer?.sv>0 ? `SV ${s.closer.name}` : "";
+          return `Game ${i+1}: ${batLine}${pitLine?"; "+pitLine:""}${svLine?"; "+svLine:""}`;
+        }).join(" | ")
       : "";
     const batS = rd?.teamBatting ? `AVG:${rd.teamBatting.avg} OBP:${rd.teamBatting.obp} HR:${rd.teamBatting.homeRuns} Runs:${rd.teamBatting.runs}` : "";
     const pitS = rd?.teamPitching ? `ERA:${rd.teamPitching.era} WHIP:${rd.teamPitching.whip} K:${rd.teamPitching.strikeOuts}` : "";
@@ -634,12 +639,19 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
 
   function makeOracleCtx(t, st, rd, c, fac){
     const sys = FACTIONS[fac || faction || 'sw'].sys;
+    const storyDetail = rd?.gameStories?.filter(s=>s).map((s,i)=>{
+      const top = s.batters[0];
+      const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
+      const spLine = s.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
+      return `Game ${i+1} — ${topLine}${spLine?", "+spLine:""}`;
+    }).join("\n") || "No individual game data yet";
     return sys + `\n\nYou are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").
 Their rival is the ${t.rival}.
 Record: ${c.wins}W-${c.losses}L | Streak: ${c.streak}
-${c.lastDetail}
-${c.batS ? `Batting: ${c.batS}` : ""}
-${c.pitS ? `Pitching: ${c.pitS}` : ""}
+${c.batS ? `Team batting: ${c.batS}` : ""}
+${c.pitS ? `Team pitching: ${c.pitS}` : ""}
+Recent game player data:
+${storyDetail}
 
 Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. ALWAYS answer the question first with whatever data you have — record, stats, team trends, rival context. Only acknowledge missing data at the END and only for the specific thing you can't answer. Never lead with what you don't know.
 
