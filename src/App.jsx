@@ -629,8 +629,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
-      const replyBlock = data.content?.find(b=>b.type==="text");
-      const reply = replyBlock?.text ?? "The oracle is warming up.";
+      const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").trim();
+      const reply = allText2 || "The oracle is warming up.";
       setMsgs([{role:"user",content:q},{role:"assistant",content:reply}]);
     }catch{
       setMsgs([{role:"user",content:q},{role:"assistant",content:"The Palantir is clouded. Ask me anything and I'll do my best."}]);
@@ -687,8 +687,8 @@ End every response with one line starting with ⚔️ they can say at work verba
       if(!res.ok) throw new Error("HTTP "+res.status);
       const data = await res.json();
       if(data.error) throw new Error(data.error.message || "API error");
-      const textBlock = data.content?.find(b=>b.type==="text");
-      const reply = (textBlock?.text??"The oracle went dark.").replace(/\*\*/g,'').replace(/\*/g,'').trim();
+      const allText = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").trim();
+      const reply = (allText||"The oracle went dark.").replace(/\*\*/g,"").replace(/\*/g,"").replace(/\n\n+/g,"\n\n").trim();
       setMsgs(prev=>[...prev,{role:"assistant",content:reply}]);
     }catch(e){
       console.error("Oracle error:",e);
