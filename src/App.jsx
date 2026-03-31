@@ -514,7 +514,7 @@ ${c.lastDetail}
 ${c.batS ? `Batting: ${c.batS}` : ""}
 ${c.pitS ? `Pitching: ${c.pitS}` : ""}
 
-Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. Use real player names when you have them. End every response with one line starting with ⚔️ they can say at work verbatim.`;
+Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. IMPORTANT: Your training data on MLB rosters is outdated. Only reference players and stats that appear in the data provided above. Do not reference players from memory — rosters change constantly and you will be wrong. If no player data is available, speak in general team terms. End every response with one line starting with ⚔️ they can say at work verbatim.`;
   }
 
   // ── SEND ORACLE MESSAGE ───────────────────────────────────────────────────
