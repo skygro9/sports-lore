@@ -629,7 +629,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
-      const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").trim();
+      const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();
       const reply = allText2 || "The oracle is warming up.";
       setMsgs([{role:"user",content:q},{role:"assistant",content:reply}]);
     }catch{
@@ -687,7 +687,7 @@ End every response with one line starting with ⚔️ they can say at work verba
       if(!res.ok) throw new Error("HTTP "+res.status);
       const data = await res.json();
       if(data.error) throw new Error(data.error.message || "API error");
-      const allText = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").trim();
+      const allText = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();
       const reply = (allText||"The oracle went dark.").replace(/\*\*/g,"").replace(/\*/g,"").replace(/\n\n+/g,"\n\n").trim();
       setMsgs(prev=>[...prev,{role:"assistant",content:reply}]);
     }catch(e){
