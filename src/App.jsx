@@ -1,37 +1,48 @@
 import { useState, useEffect, useRef } from "react";
 
 // ─── TEAMS ────────────────────────────────────────────────────────────────────
+// Returns a color that's bright enough to use as accent (min brightness 130/255)
+function getTeamAccent(hex, factionAccent) {
+  try {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    const brightness = (r*299 + g*587 + b*114) / 1000;
+    return brightness >= 100 ? hex : factionAccent;
+  } catch { return factionAccent; }
+}
+
 const MLB_TEAMS = [
-  { id:108, name:"Los Angeles Angels",    city:"Anaheim",       abbr:"LAA", lat:33.8003, lng:-117.8827, rival:"Houston Astros",        house:"The Angels of Anaheim" },
-  { id:109, name:"Arizona Diamondbacks",  city:"Phoenix",       abbr:"ARI", lat:33.4484, lng:-112.0740, rival:"Los Angeles Dodgers",    house:"House Serpent of the Desert" },
-  { id:110, name:"Baltimore Orioles",     city:"Baltimore",     abbr:"BAL", lat:39.2904, lng:-76.6122,  rival:"New York Yankees",      house:"The Orange Watch of the Chesapeake" },
-  { id:111, name:"Boston Red Sox",        city:"Boston",        abbr:"BOS", lat:42.3601, lng:-71.0589,  rival:"New York Yankees",      house:"The Crimson Fellowship of Fenway" },
-  { id:112, name:"Chicago Cubs",          city:"Chicago",       abbr:"CHC", lat:41.8781, lng:-87.6298,  rival:"St. Louis Cardinals",   house:"The Wrigley Keep" },
-  { id:113, name:"Cincinnati Reds",       city:"Cincinnati",    abbr:"CIN", lat:39.1031, lng:-84.5120,  rival:"St. Louis Cardinals",   house:"The Red Legion of the Ohio" },
-  { id:114, name:"Cleveland Guardians",   city:"Cleveland",     abbr:"CLE", lat:41.4993, lng:-81.6944,  rival:"Chicago White Sox",     house:"Guardians of the North Shore" },
-  { id:115, name:"Colorado Rockies",      city:"Denver",        abbr:"COL", lat:39.7392, lng:-104.9903, rival:"Arizona Diamondbacks",  house:"The Mountain Realm of Coors" },
-  { id:116, name:"Detroit Tigers",        city:"Detroit",       abbr:"DET", lat:42.3314, lng:-83.0458,  rival:"Cleveland Guardians",   house:"The Tigers of Motor City" },
-  { id:117, name:"Houston Astros",        city:"Houston",       abbr:"HOU", lat:29.7604, lng:-95.3698,  rival:"Texas Rangers",         house:"The Star Seekers of the South" },
-  { id:118, name:"Kansas City Royals",    city:"Kansas City",   abbr:"KC",  lat:39.0997, lng:-94.5786,  rival:"St. Louis Cardinals",   house:"The Royal Court of the Heartland" },
-  { id:119, name:"Los Angeles Dodgers",   city:"Los Angeles",   abbr:"LAD", lat:34.0522, lng:-118.2437, rival:"San Francisco Giants",  house:"The Blue Empire of Chavez Ravine" },
-  { id:120, name:"Washington Nationals",  city:"Washington",    abbr:"WSH", lat:38.9072, lng:-77.0369,  rival:"Atlanta Braves",        house:"The Capitol Guard" },
-  { id:121, name:"New York Mets",         city:"New York",      abbr:"NYM", lat:40.7128, lng:-74.0060,  rival:"New York Yankees",      house:"The Amazin Order of Queens" },
-  { id:133, name:"Oakland Athletics",     city:"Oakland",       abbr:"OAK", lat:37.8044, lng:-122.2712, rival:"San Francisco Giants",  house:"The Wandering Mercenaries" },
-  { id:134, name:"Pittsburgh Pirates",    city:"Pittsburgh",    abbr:"PIT", lat:40.4406, lng:-79.9959,  rival:"St. Louis Cardinals",   house:"The Buccaneers of Three Rivers" },
-  { id:135, name:"San Diego Padres",      city:"San Diego",     abbr:"SD",  lat:32.7157, lng:-117.1611, rival:"Los Angeles Dodgers",   house:"The Friars of Petco" },
-  { id:136, name:"Seattle Mariners",      city:"Seattle",       abbr:"SEA", lat:47.6062, lng:-122.3321, rival:"Houston Astros",        house:"The Mariners of the Emerald North" },
-  { id:137, name:"San Francisco Giants",  city:"San Francisco", abbr:"SF",  lat:37.7749, lng:-122.4194, rival:"Los Angeles Dodgers",   house:"The Giants of Oracle Bay" },
-  { id:138, name:"St. Louis Cardinals",   city:"St. Louis",     abbr:"STL", lat:38.6270, lng:-90.1994,  rival:"Chicago Cubs",          house:"The Cardinal Lords of the Gateway" },
-  { id:139, name:"Tampa Bay Rays",        city:"Tampa",         abbr:"TB",  lat:27.9506, lng:-82.4572,  rival:"New York Yankees",      house:"The Rays of the Suncoast" },
-  { id:140, name:"Texas Rangers",         city:"Dallas",        abbr:"TEX", lat:32.7767, lng:-96.7970,  rival:"Houston Astros",        house:"The Rangers of the Lone Star" },
-  { id:141, name:"Toronto Blue Jays",     city:"Toronto",       abbr:"TOR", lat:43.6532, lng:-79.3832,  rival:"New York Yankees",      house:"The Northern Crown" },
-  { id:142, name:"Minnesota Twins",       city:"Minneapolis",   abbr:"MIN", lat:44.9778, lng:-93.2650,  rival:"Cleveland Guardians",   house:"The Twin Guardians of the North" },
-  { id:143, name:"Philadelphia Phillies", city:"Philadelphia",  abbr:"PHI", lat:39.9526, lng:-75.1652,  rival:"New York Mets",         house:"The Liberty Realm" },
-  { id:144, name:"Atlanta Braves",        city:"Atlanta",       abbr:"ATL", lat:33.7490, lng:-84.3880,  rival:"New York Mets",         house:"The Southern Dominion" },
-  { id:145, name:"Chicago White Sox",     city:"Chicago",       abbr:"CWS", lat:41.8827, lng:-87.6233,  rival:"Chicago Cubs",          house:"The White Guard of the South Side" },
-  { id:146, name:"Miami Marlins",         city:"Miami",         abbr:"MIA", lat:25.7617, lng:-80.1918,  rival:"Atlanta Braves",        house:"The Marlins of the Deep" },
-  { id:147, name:"New York Yankees",      city:"New York",      abbr:"NYY", lat:40.6892, lng:-74.0445,  rival:"Boston Red Sox",        house:"The Pinstripe Empire of the Bronx" },
-  { id:158, name:"Milwaukee Brewers",     city:"Milwaukee",     abbr:"MIL", lat:43.0389, lng:-87.9065,  rival:"Chicago Cubs",          house:"The Brewers of the Great Lake" },
+  { id:108, name:"Los Angeles Angels",    city:"Anaheim",       abbr:"LAA", color:"#BA0021", lat:33.8003, lng:-117.8827, rival:"Houston Astros",        house:"The Angels of Anaheim" },
+  { id:109, name:"Arizona Diamondbacks",  city:"Phoenix",       abbr:"ARI", color:"#A71930", lat:33.4484, lng:-112.0740, rival:"Los Angeles Dodgers",    house:"House Serpent of the Desert" },
+  { id:110, name:"Baltimore Orioles",     city:"Baltimore",     abbr:"BAL", color:"#DF4601", lat:39.2904, lng:-76.6122,  rival:"New York Yankees",      house:"The Orange Watch of the Chesapeake" },
+  { id:111, name:"Boston Red Sox",        city:"Boston",        abbr:"BOS", color:"#BD3039", lat:42.3601, lng:-71.0589,  rival:"New York Yankees",      house:"The Crimson Fellowship of Fenway" },
+  { id:112, name:"Chicago Cubs",          city:"Chicago",       abbr:"CHC", color:"#0E3386", lat:41.8781, lng:-87.6298,  rival:"St. Louis Cardinals",   house:"The Wrigley Keep" },
+  { id:113, name:"Cincinnati Reds",       city:"Cincinnati",    abbr:"CIN", color:"#C6011F", lat:39.1031, lng:-84.5120,  rival:"St. Louis Cardinals",   house:"The Red Legion of the Ohio" },
+  { id:114, name:"Cleveland Guardians",   city:"Cleveland",     abbr:"CLE", color:"#E31937", lat:41.4993, lng:-81.6944,  rival:"Chicago White Sox",     house:"Guardians of the North Shore" },
+  { id:115, name:"Colorado Rockies",      city:"Denver",        abbr:"COL", color:"#C4CED4", lat:39.7392, lng:-104.9903, rival:"Arizona Diamondbacks",  house:"The Mountain Realm of Coors" },
+  { id:116, name:"Detroit Tigers",        city:"Detroit",       abbr:"DET", color:"#FA4616", lat:42.3314, lng:-83.0458,  rival:"Cleveland Guardians",   house:"The Tigers of Motor City" },
+  { id:117, name:"Houston Astros",        city:"Houston",       abbr:"HOU", color:"#EB6E1F", lat:29.7604, lng:-95.3698,  rival:"Texas Rangers",         house:"The Star Seekers of the South" },
+  { id:118, name:"Kansas City Royals",    city:"Kansas City",   abbr:"KC", color:"#7BB2DD",  lat:39.0997, lng:-94.5786,  rival:"St. Louis Cardinals",   house:"The Royal Court of the Heartland" },
+  { id:119, name:"Los Angeles Dodgers",   city:"Los Angeles",   abbr:"LAD", color:"#005A9C", lat:34.0522, lng:-118.2437, rival:"San Francisco Giants",  house:"The Blue Empire of Chavez Ravine" },
+  { id:120, name:"Washington Nationals",  city:"Washington",    abbr:"WSH", color:"#14225A", lat:38.9072, lng:-77.0369,  rival:"Atlanta Braves",        house:"The Capitol Guard" },
+  { id:121, name:"New York Mets",         city:"New York",      abbr:"NYM", color:"#FF5910", lat:40.7128, lng:-74.0060,  rival:"New York Yankees",      house:"The Amazin Order of Queens" },
+  { id:133, name:"Oakland Athletics",     city:"Oakland",       abbr:"OAK", color:"#EFB21E", lat:37.8044, lng:-122.2712, rival:"San Francisco Giants",  house:"The Wandering Mercenaries" },
+  { id:134, name:"Pittsburgh Pirates",    city:"Pittsburgh",    abbr:"PIT", color:"#FDB827", lat:40.4406, lng:-79.9959,  rival:"St. Louis Cardinals",   house:"The Buccaneers of Three Rivers" },
+  { id:135, name:"San Diego Padres",      city:"San Diego",     abbr:"SD", color:"#FFC425",  lat:32.7157, lng:-117.1611, rival:"Los Angeles Dodgers",   house:"The Friars of Petco" },
+  { id:136, name:"Seattle Mariners",      city:"Seattle",       abbr:"SEA", color:"#005C5C", lat:47.6062, lng:-122.3321, rival:"Houston Astros",        house:"The Mariners of the Emerald North" },
+  { id:137, name:"San Francisco Giants",  city:"San Francisco", abbr:"SF", color:"#FD5A1E",  lat:37.7749, lng:-122.4194, rival:"Los Angeles Dodgers",   house:"The Giants of Oracle Bay" },
+  { id:138, name:"St. Louis Cardinals",   city:"St. Louis",     abbr:"STL", color:"#C41E3A", lat:38.6270, lng:-90.1994,  rival:"Chicago Cubs",          house:"The Cardinal Lords of the Gateway" },
+  { id:139, name:"Tampa Bay Rays",        city:"Tampa",         abbr:"TB", color:"#8FBCE6",  lat:27.9506, lng:-82.4572,  rival:"New York Yankees",      house:"The Rays of the Suncoast" },
+  { id:140, name:"Texas Rangers",         city:"Dallas",        abbr:"TEX", color:"#C0111F", lat:32.7767, lng:-96.7970,  rival:"Houston Astros",        house:"The Rangers of the Lone Star" },
+  { id:141, name:"Toronto Blue Jays",     city:"Toronto",       abbr:"TOR", color:"#E8291C", lat:43.6532, lng:-79.3832,  rival:"New York Yankees",      house:"The Northern Crown" },
+  { id:142, name:"Minnesota Twins",       city:"Minneapolis",   abbr:"MIN", color:"#D31145", lat:44.9778, lng:-93.2650,  rival:"Cleveland Guardians",   house:"The Twin Guardians of the North" },
+  { id:143, name:"Philadelphia Phillies", city:"Philadelphia",  abbr:"PHI", color:"#E81828", lat:39.9526, lng:-75.1652,  rival:"New York Mets",         house:"The Liberty Realm" },
+  { id:144, name:"Atlanta Braves",        city:"Atlanta",       abbr:"ATL", color:"#CE1141", lat:33.7490, lng:-84.3880,  rival:"New York Mets",         house:"The Southern Dominion" },
+  { id:145, name:"Chicago White Sox",     city:"Chicago",       abbr:"CWS", color:"#C4CED4", lat:41.8827, lng:-87.6233,  rival:"Chicago Cubs",          house:"The White Guard of the South Side" },
+  { id:146, name:"Miami Marlins",         city:"Miami",         abbr:"MIA", color:"#00A3E0", lat:25.7617, lng:-80.1918,  rival:"Atlanta Braves",        house:"The Marlins of the Deep" },
+  { id:147, name:"New York Yankees",      city:"New York",      abbr:"NYY", color:"#003087", lat:40.6892, lng:-74.0445,  rival:"Boston Red Sox",        house:"The Pinstripe Empire of the Bronx" },
+  { id:158, name:"Milwaukee Brewers",     city:"Milwaukee",     abbr:"MIL", color:"#FFC52F", lat:43.0389, lng:-87.9065,  rival:"Chicago Cubs",          house:"The Brewers of the Great Lake" },
 ];
 
 function haversine(la1,ln1,la2,ln2){const R=3959,dL=((la2-la1)*Math.PI)/180,dN=((ln2-ln1)*Math.PI)/180,a=Math.sin(dL/2)**2+Math.cos((la1*Math.PI)/180)*Math.cos((la2*Math.PI)/180)*Math.sin(dN/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
@@ -662,7 +673,10 @@ End every response with one line starting with ⚔️ they can say at work verba
     setOLoading(false);
   }
 
-  const f = FACTIONS[faction||'sw'];
+  const teamColor = team?.color || null;
+  const baseAccent = FACTIONS[faction||'sw'].accent;
+  const activeAccent = teamColor ? getTeamAccent(teamColor, baseAccent) : baseAccent;
+  const f = {...FACTIONS[faction||'sw'], accent: activeAccent};
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
   const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
   const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
