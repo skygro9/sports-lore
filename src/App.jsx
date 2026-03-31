@@ -485,7 +485,7 @@ export default function SportsLore(){
       if(nextG) setCd(getCD(nextG.gameDate));
 
       const [boxScores,[batRes,pitRes]] = await Promise.all([
-        Promise.all(past.slice(0,3).map(g=>
+        Promise.all(finished.slice(0,3).map(g=>
           g.gamePk
             ? fetch("/api/mlb?path=" + enc("/api/v1/game/" + g.gamePk + "/boxscore")).then(r=>r.ok?r.json():null).catch(()=>null)
             : Promise.resolve(null)
