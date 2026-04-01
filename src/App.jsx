@@ -1062,7 +1062,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
-                <div key={i} ref={m.role==="assistant"&&i===msgs.length-1?el=>{if(el&&i>1)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100):null}:null} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
+                <div key={i} ref={m.role==="assistant"&&i===msgs.length-1?(el=>el&&i>1&&setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100)):null} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
                   {m.role==="assistant" ? (
                     <div style={{display:"flex",gap:12,alignItems:"center"}}>
                     <div style={{position:"relative",flex:1}}>
@@ -1075,14 +1075,6 @@ End every response with one line starting with ⚔️ they can say at work verba
                         position:"relative",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        {/* Tail pointing right - centered */}
-                        <div style={{
-                          position:"absolute",right:-18,top:"50%",transform:"translateY(-50%)",
-                          width:0,height:0,
-                          borderTop:"14px solid transparent",
-                          borderBottom:"14px solid transparent",
-                          borderLeft:faction==="lotr"?"16px solid #8B6914":"16px solid #0077cc",
-                        }}/>
                         <div style={{
                           position:"absolute",right:-14,top:"50%",transform:"translateY(-50%)",
                           width:0,height:0,
