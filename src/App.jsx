@@ -1063,11 +1063,41 @@ End every response with one line starting with ⚔️ they can say at work verba
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
-                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:4}}>
-                  <div className={m.role==="user"?"bq":"ba"}>
-                    <p className={m.role==="user"?"sg":"lora"} style={{margin:0,fontSize:m.role==="user"?13:16,lineHeight:1.75,whiteSpace:"pre-wrap"}}>{m.content}</p>
-                  </div>
-                  {m.role==="assistant"&&<ShareButton text={m.content} faction={faction}/>}
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
+                  {m.role==="assistant" ? (
+                    <div style={{position:"relative",maxWidth:"90%"}}>
+                      {/* Speech bubble with right-pointing tail toward character */}
+                      <div style={{
+                        background:faction==="lotr"?"#f0e6c8":"#001220",
+                        border:faction==="lotr"?"2px solid #8B6914":"2px solid #0077cc",
+                        borderRadius:faction==="lotr"?"4px":"2px",
+                        padding:"16px 20px",
+                        position:"relative",
+                      }}>
+                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
+                        {/* Tail pointing right */}
+                        <div style={{
+                          position:"absolute",right:-14,bottom:20,
+                          width:0,height:0,
+                          borderTop:"10px solid transparent",
+                          borderBottom:"10px solid transparent",
+                          borderLeft:faction==="lotr"?"12px solid #8B6914":"12px solid #0077cc",
+                        }}/>
+                        <div style={{
+                          position:"absolute",right:-11,bottom:21,
+                          width:0,height:0,
+                          borderTop:"9px solid transparent",
+                          borderBottom:"9px solid transparent",
+                          borderLeft:faction==="lotr"?"11px solid #f0e6c8":"11px solid #001220",
+                        }}/>
+                      </div>
+                      <ShareButton text={m.content} faction={faction}/>
+                    </div>
+                  ) : (
+                    <div className="bq" style={{maxWidth:"75%"}}>
+                      <p className="sg" style={{margin:0,fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{m.content}</p>
+                    </div>
+                  )}
                 </div>
               ))}
               {oLoading&&(
