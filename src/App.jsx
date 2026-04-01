@@ -1059,7 +1059,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",gap:20,alignItems:"flex-end",overflow:"visible"}}>
+            <div style={{display:"flex",gap:20,alignItems:"flex-start",position:"relative"}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
@@ -1110,21 +1110,14 @@ End every response with one line starting with ⚔️ they can say at work verba
               </div>
               {/* Character figure on RIGHT */}
               <div style={{flexShrink:0,position:"sticky",bottom:0,alignSelf:"flex-end",display:"flex",flexDirection:"row",alignItems:"flex-end",gap:8}}>
-                {/* Speech lines pointing LEFT toward bubble */}
-                <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:24,alignItems:"flex-end"}}>
-                  {[50,35,45].map((w,i)=>(
-                    <div key={i} style={{
-                      width:w,height:3,borderRadius:2,
-                      background:faction==="lotr"?"#8B6914":"#0077cc",
-                      opacity:0.5+i*0.15
-                    }}/>
-                  ))}
+                <div style={{display:"flex",flexDirection:"column",alignItems:"center",position:"relative"}}>
+                  <div style={{fontSize:48,lineHeight:1,marginBottom:-8}}>💬</div>
+                  <img
+                    src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
+                    alt=""
+                    style={{width:"clamp(180px,22vw,300px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                  />
                 </div>
-                <img
-                  src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
-                  alt=""
-                  style={{width:"clamp(180px,22vw,300px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
-                />
               </div>
             </div>
 
