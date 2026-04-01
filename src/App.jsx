@@ -1084,6 +1084,8 @@ End every response with one line starting with ⚔️ they can say at work verba
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
+                        "--tail-color":faction==="lotr"?"#8B6914":"#0077cc",
+                        "--tail-inner-color":faction==="lotr"?"#f0e6c8":"#001220",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
                         <div style={{
@@ -1120,7 +1122,7 @@ End every response with one line starting with ⚔️ they can say at work verba
 
             {/* Follow-up chips */}
             {msgs.length>=2&&!oLoading&&(
-              <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:6,marginBottom:14}}>
+              <div className="oracle-chips" style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:6,marginBottom:14}}>
                 {chips.map(q=>(
                   <button key={q} className="chip" onClick={async()=>{
                     const newMsgs=[...msgs,{role:"user",content:q}];
