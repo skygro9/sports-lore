@@ -716,6 +716,26 @@ End every response with one line starting with ⚔️ they can say at work verba
   const heroText = teamColors.heroText;
   const useWhiteText = teamColors.useWhiteText;
   const isLive = !!(sched.last && sched.last?.status?.abstractGameState==="Live");
+
+  const SectionDivider = () => faction==="lotr" ? (
+    <div style={{display:"flex",alignItems:"center",gap:12,padding:"0 clamp(20px,5vw,48px)",margin:"0 0 0 0"}}>
+      <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
+      <svg width="28" height="18" viewBox="0 0 32 20">
+        <line x1="4" y1="16" x2="28" y2="4" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="28" y1="16" x2="4" y2="4" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round"/>
+        <rect x="1" y="9" width="7" height="2.5" rx="1" fill="#C9A84C" transform="rotate(-23 4.5 10)"/>
+        <rect x="24" y="9" width="7" height="2.5" rx="1" fill="#C9A84C" transform="rotate(23 27.5 10)"/>
+      </svg>
+      <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
+    </div>
+  ) : (
+    <div style={{display:"flex",alignItems:"center",gap:0,padding:"0 clamp(20px,5vw,48px)"}}>
+      <div style={{width:20,height:7,background:"#666",borderRadius:2,flexShrink:0}}/>
+      <div style={{width:7,height:10,background:"#444",flexShrink:0}}/>
+      <div style={{flex:1,height:3,background:"#FFE033"}}/>
+      <div style={{width:3,height:3,background:"rgba(255,224,51,0.3)",flexShrink:0}}/>
+    </div>
+  );
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
   const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
   const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
@@ -1016,7 +1036,27 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="lora" style={{fontSize:18,color:faction==="lotr"?"#C9A84C":"#FFE033",marginBottom:20,fontWeight:600,letterSpacing:.5}}>{faction==="lotr" ? "Return daily as ravens bring fresh dispatches from the front." : "Return daily. Fresh transmissions across the galaxy arrive after every game."}
+            {faction==="lotr" ? (
+              <div style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
+                <div style={{position:"absolute",left:0,top:0,bottom:0,width:16,background:"#c4a35a",borderRight:"2px solid #8B6914"}}/>
+                <div style={{position:"absolute",right:0,top:0,bottom:0,width:16,background:"#c4a35a",borderLeft:"2px solid #8B6914"}}/>
+                <div style={{display:"flex",alignItems:"center",gap:10}}>
+                  <svg width="18" height="18" viewBox="0 0 20 20" style={{flexShrink:0}}>
+                    <path d="M10 2 C7 2 5 4 5 6 C5 7 5.5 8 6 8.5 L4 10 C3 11 3 12 4 12.5 L6 11.5 L5 14 C5 15 6 16 7 15.5 L8.5 13 L9 16 C9 17 10 18 11 17 L11 14 C12 15 13 15 14 14 C15 13 15 12 14 11 L12 9 C13 8 13 6 12 5 C11 3 10 2 10 2Z" fill="#3d2b00"/>
+                    <circle cx="8" cy="6" r="1" fill="#c4a35a"/>
+                  </svg>
+                  <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#3d2b00",fontWeight:600}}>Return daily as ravens bring fresh dispatches from the front.</p>
+                </div>
+              </div>
+            ) : (
+              <div style={{position:"relative",background:"#001830",border:"1px solid #0066aa",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
+                <div style={{position:"absolute",top:4,left:4,width:10,height:10,borderTop:"2px solid #0099ff",borderLeft:"2px solid #0099ff"}}/>
+                <div style={{position:"absolute",top:4,right:4,width:10,height:10,borderTop:"2px solid #0099ff",borderRight:"2px solid #0099ff"}}/>
+                <div style={{position:"absolute",bottom:4,left:4,width:10,height:10,borderBottom:"2px solid #0099ff",borderLeft:"2px solid #0099ff"}}/>
+                <div style={{position:"absolute",bottom:4,right:4,width:10,height:10,borderBottom:"2px solid #0099ff",borderRight:"2px solid #0099ff"}}/>
+                <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#66ccff",fontWeight:600,letterSpacing:.5}}>▶ Return daily. Fresh transmissions across the galaxy arrive after every game.</p>
+              </div>
+            )}
             </p>
 
             {/* Chat */}
@@ -1072,6 +1112,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           </div>
 
           {/* ── TALKING POINT ── */}
+          <SectionDivider/>
           <div style={{background:"#111",padding:"clamp(28px,5vw,48px) clamp(20px,5vw,48px)",borderBottom:"3px solid #111"}}>
             <div className="arch" style={{fontSize:11,letterSpacing:4,color:f.accent,marginBottom:16}}>{f.saySectionTitle}</div>
             {loading&&!talkingPoint?(
