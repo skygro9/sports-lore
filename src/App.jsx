@@ -1075,41 +1075,52 @@ End every response with one line starting with ⚔️ they can say at work verba
                         position:"relative",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        {/* Tail pointing right */}
+                        {/* Tail pointing right - centered */}
                         <div style={{
-                          position:"absolute",right:-14,bottom:20,
+                          position:"absolute",right:-18,top:"50%",transform:"translateY(-50%)",
                           width:0,height:0,
-                          borderTop:"10px solid transparent",
-                          borderBottom:"10px solid transparent",
-                          borderLeft:faction==="lotr"?"12px solid #8B6914":"12px solid #0077cc",
+                          borderTop:"14px solid transparent",
+                          borderBottom:"14px solid transparent",
+                          borderLeft:faction==="lotr"?"16px solid #8B6914":"16px solid #0077cc",
                         }}/>
                         <div style={{
-                          position:"absolute",right:-11,bottom:21,
+                          position:"absolute",right:-14,top:"50%",transform:"translateY(-50%)",
                           width:0,height:0,
-                          borderTop:"9px solid transparent",
-                          borderBottom:"9px solid transparent",
-                          borderLeft:faction==="lotr"?"11px solid #f0e6c8":"11px solid #001220",
+                          borderTop:"12px solid transparent",
+                          borderBottom:"12px solid transparent",
+                          borderLeft:faction==="lotr"?"14px solid #f0e6c8":"14px solid #001220",
                         }}/>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
                   ) : (
-                    <div className="bq" style={{maxWidth:"75%"}}>
+                    <div className="bq" style={{maxWidth:"75%",display:msgs.indexOf(m)===0?"none":"block"}}>
                       <p className="sg" style={{margin:0,fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{m.content}</p>
                     </div>
                   )}
                 </div>
               ))}
               {oLoading&&(
-                <div style={{display:"flex",gap:10,alignItems:"center",padding:"8px 0",minHeight:80}}>
+                <div style={{display:"flex",alignItems:"center",gap:12,padding:"12px 0",minHeight:80,alignSelf:"flex-start"}}>
                   <Spin/>
-                  <span className="sg" style={{fontSize:13,color:"#555",fontWeight:600}}>Consulting the archive...</span>
+                  <span style={{
+                    fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",
+                    fontSize:14,
+                    color:faction==="lotr"?"#8B6914":"#0099ff",
+                    fontStyle:faction==="lotr"?"italic":"normal",
+                    fontWeight:600
+                  }}>
+                    {faction==="lotr"
+                      ? ["The Palantír stirs...", "Gandalf consults the scrolls...", "Reading the ancient records...", "The seeing-stone awakens..."][Math.floor(Date.now()/1000)%4]
+                      : ["Accessing the Holocron...", "Consulting the Jedi Archives...", "The Force is searching...", "Decoding the mission briefing..."][Math.floor(Date.now()/1000)%4]
+                    }
+                  </span>
                 </div>
               )}
               <div ref={chatEnd}/>
               </div>
               {/* Character on RIGHT */}
-              <div style={{flexShrink:0,alignSelf:"flex-end",display:"flex",flexDirection:"column",alignItems:"center",width:"clamp(160px,18vw,240px)"}}>
+              <div style={{flexShrink:0,alignSelf:"center",display:"flex",flexDirection:"column",alignItems:"center",width:"clamp(160px,18vw,240px)"}}>
                 {/* Speech lines radiating left toward bubble */}
                 <div style={{display:"flex",flexDirection:"column",gap:5,alignSelf:"flex-start",marginBottom:6}}>
                   {[[32,-8],[44,0],[32,8]].map(([w,angle],i)=>(
