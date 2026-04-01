@@ -1123,7 +1123,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
                   alt=""
-                  style={{width:"clamp(260px,28vw,400px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                  style={{width:"clamp(520px,56vw,800px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
                 />
               </div>
             </div>
