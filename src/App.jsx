@@ -405,12 +405,14 @@ export default function SportsLore(){
   const [msgs,setMsgs]         = useState([]);
   const [oInput,setOInput]     = useState("");
   const [oLoading,setOLoading] = useState(false);
-  const defaultChips = team ? [
-    "Why did they win or lose the last game?",
-    "Who is the most important player to watch?",
-    "Should I be worried about making the playoffs?",
-  ] : [];
-  const [chips,setChips] = useState(defaultChips);
+  const [chips,setChips] = useState([]);
+  useEffect(()=>{
+    if(team) setChips([
+      "Why did they win or lose the last game?",
+      "Who is the most important player to watch?",
+      "Should I be worried about making the playoffs?",
+    ]);
+  },[team?.id]);
 
   const [mounted,setMounted] = useState(false);
   const [tick,setTick]       = useState(0);
