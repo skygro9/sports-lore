@@ -1109,11 +1109,21 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div ref={chatEnd}/>
               </div>
               {/* Character figure on RIGHT */}
-              <div style={{flexShrink:0,textAlign:"center",alignSelf:"flex-end"}}>
+              <div style={{flexShrink:0,position:"sticky",bottom:0,alignSelf:"flex-end",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                {/* Speech lines */}
+                <div style={{display:"flex",gap:5,marginBottom:8,alignSelf:"flex-start",paddingLeft:8}}>
+                  {[60,40,50].map((w,i)=>(
+                    <div key={i} style={{
+                      width:w,height:3,borderRadius:2,
+                      background:faction==="lotr"?"#8B6914":"#0077cc",
+                      opacity:0.6+i*0.1
+                    }}/>
+                  ))}
+                </div>
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
-                  alt={faction==="lotr"?"Gandalf":"Vader"}
-                  style={{width:"clamp(180px,20vw,280px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                  alt=""
+                  style={{width:"clamp(260px,28vw,400px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
                 />
               </div>
             </div>
