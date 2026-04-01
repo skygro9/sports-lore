@@ -800,6 +800,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           .oracle-msg-row{flex-direction:column-reverse !important; align-items:center !important;}
           .oracle-char{width:180px !important; margin-bottom:0 !important;}
           .oracle-sub{display:block !important;}
+          .oracle-chips{display:grid !important; grid-template-columns:1fr !important;}
         }
         .nav-btn{background:none;border:2px solid #111;color:#111;padding:7px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .15s;min-height:36px;}
         .nav-btn:hover{background:#FFE033;}
@@ -1051,7 +1052,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <span style={{fontSize:20}}>🔮</span>
             </div>
             <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":"#0077cc",fontWeight:600}}>
-              {faction==="lotr"?"Return daily — the ravens bring fresh dispatches after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
+              {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
             {faction==="lotr" ? (
               <div className="oracle-sub" style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
@@ -1062,7 +1063,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <path d="M10 2 C7 2 5 4 5 6 C5 7 5.5 8 6 8.5 L4 10 C3 11 3 12 4 12.5 L6 11.5 L5 14 C5 15 6 16 7 15.5 L8.5 13 L9 16 C9 17 10 18 11 17 L11 14 C12 15 13 15 14 14 C15 13 15 12 14 11 L12 9 C13 8 13 6 12 5 C11 3 10 2 10 2Z" fill="#3d2b00"/>
                     <circle cx="8" cy="6" r="1" fill="#c4a35a"/>
                   </svg>
-                  <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#3d2b00",fontWeight:600}}>Return daily as ravens bring fresh dispatches from the front.</p>
+                  <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#3d2b00",fontWeight:600}}>Return daily — ravens bring fresh dispatches after every game.</p>
                 </div>
               </div>
             ) : (
