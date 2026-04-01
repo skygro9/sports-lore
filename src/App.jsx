@@ -1058,13 +1058,14 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",gap:16,alignItems:"flex-end"}}>
+            <div style={{display:"flex",flexDirection:"column",gap:0}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
                 <div key={i} ref={m.role==="assistant"&&i===msgs.length-1?el=>{if(el&&i>1)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100):null}:null} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
                   {m.role==="assistant" ? (
-                    <div style={{position:"relative",maxWidth:"90%"}}>
+                    <div style={{display:"flex",gap:12,alignItems:"center"}}>
+                    <div style={{position:"relative",flex:1}}>
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
                         background:faction==="lotr"?"#f0e6c8":"#001220",
@@ -1092,6 +1093,12 @@ End every response with one line starting with ⚔️ they can say at work verba
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
+                    {i===msgs.length-1&&(
+                      <div style={{flexShrink:0,alignSelf:"center",width:"clamp(140px,16vw,220px)"}}>
+                        <img src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
+                      </div>
+                    )}
+                    </div>
                   ) : (
                     <div className="bq" style={{maxWidth:"75%",display:msgs.indexOf(m)===0?"none":"block"}}>
                       <p className="sg" style={{margin:0,fontSize:13,lineHeight:1.6,whiteSpace:"pre-wrap"}}>{m.content}</p>
@@ -1117,14 +1124,6 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               )}
               <div ref={chatEnd}/>
-              </div>
-              {/* Character on RIGHT */}
-              <div style={{flexShrink:0,alignSelf:"center",display:"flex",flexDirection:"column",alignItems:"center",width:"clamp(160px,18vw,240px)"}}>
-                <img
-                  src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
-                  alt=""
-                  style={{width:"100%",height:"auto",display:"block"}}
-                />
               </div>
             </div>
 
