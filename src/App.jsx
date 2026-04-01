@@ -1016,7 +1016,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="lora" style={{fontSize:15,fontStyle:"italic",color:faction==="lotr"?"#C9A84C":"#FFE033",marginBottom:20,fontWeight:600}}>{faction==="lotr" ? "Return daily as ravens bring fresh dispatches from the front." : "Return daily. Fresh transmissions across the galaxy arrive after every game."}
+            <p className="lora" style={{fontSize:18,color:faction==="lotr"?"#C9A84C":"#FFE033",marginBottom:20,fontWeight:600,letterSpacing:.5}}>{faction==="lotr" ? "Return daily as ravens bring fresh dispatches from the front." : "Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
 
             {/* Chat */}
