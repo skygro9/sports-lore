@@ -1033,7 +1033,10 @@ End every response with one line starting with ⚔️ they can say at work verba
           <div style={{borderBottom:"3px solid #111",padding:"clamp(24px,5vw,40px) clamp(20px,5vw,48px)"}}>
 
             <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:6}}>
-              <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1}}>THE ORACLE</h2>
+              <div style={{display:"flex",alignItems:"flex-end",gap:16,marginBottom:4}}>
+                <img src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"} alt="" style={{width:80,height:80,objectFit:"contain",objectPosition:"bottom",flexShrink:0}}/>
+                <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1}}>THE ORACLE</h2>
+              </div>
               <span style={{fontSize:20}}>🔮</span>
             </div>
             {faction==="lotr" ? (
