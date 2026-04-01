@@ -1057,7 +1057,6 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#66ccff",fontWeight:600,letterSpacing:.5}}>▶ Return daily. Fresh transmissions across the galaxy arrive after every game.</p>
               </div>
             )}
-            </p>
 
             {/* Chat */}
             <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
