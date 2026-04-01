@@ -1099,19 +1099,31 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               ))}
               {oLoading&&(
-                <div style={{display:"flex",alignItems:"center",gap:12,padding:"12px 0",minHeight:80,alignSelf:"flex-start"}}>
-                  <Spin/>
+                <div style={{display:"flex",flexDirection:"column",gap:8,padding:"20px 0",minHeight:100,alignSelf:"flex-start",maxWidth:"85%"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:12}}>
+                    <Spin/>
+                    <span style={{
+                      fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",
+                      fontSize:22,
+                      color:faction==="lotr"?"#8B6914":"#0099ff",
+                      fontStyle:faction==="lotr"?"italic":"normal",
+                      fontWeight:700,
+                      letterSpacing:faction==="lotr"?1:2,
+                    }}>
+                      {faction==="lotr"
+                        ? ["The Palantír stirs...", "Gandalf consults the scrolls...", "The seeing-stone awakens...", "Reading the ancient records..."][Math.floor(Date.now()/1000)%4]
+                        : ["Accessing the Holocron...", "Consulting the Jedi Archives...", "The Force is searching...", "Decoding the mission briefing..."][Math.floor(Date.now()/1000)%4]
+                      }
+                    </span>
+                  </div>
                   <span style={{
                     fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",
-                    fontSize:14,
-                    color:faction==="lotr"?"#8B6914":"#0099ff",
+                    fontSize:13,
+                    color:faction==="lotr"?"#a07830":"#0066aa",
                     fontStyle:faction==="lotr"?"italic":"normal",
-                    fontWeight:600
+                    paddingLeft:40,
                   }}>
-                    {faction==="lotr"
-                      ? ["The Palantír stirs...", "Gandalf consults the scrolls...", "Reading the ancient records...", "The seeing-stone awakens..."][Math.floor(Date.now()/1000)%4]
-                      : ["Accessing the Holocron...", "Consulting the Jedi Archives...", "The Force is searching...", "Decoding the mission briefing..."][Math.floor(Date.now()/1000)%4]
-                    }
+                    {faction==="lotr"?"— the oracle does not rush":"— stand by for transmission"}
                   </span>
                 </div>
               )}
