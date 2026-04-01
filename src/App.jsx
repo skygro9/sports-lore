@@ -812,12 +812,12 @@ End every response with one line starting with ⚔️ they can say at work verba
       {/* ══ FACTION PICKER ══ */}
       {phase==="pick"&&(
         <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"40px clamp(20px,5vw,48px)",background:"#111"}}>
-          <div className="arch" style={{fontSize:11,letterSpacing:5,color:"rgba(255,255,255,.3)",marginBottom:16,textAlign:"center"}}>MLB BASEBALL · SPORTS LORE</div>
+          <div className="arch" style={{fontSize:11,letterSpacing:5,color:"rgba(255,255,255,.3)",marginBottom:16,textAlign:"center"}}>MLB BASEBALL UPDATES FOR NERDS</div>
           <h1 className="arch" style={{fontSize:"clamp(36px,8vw,72px)",lineHeight:.9,letterSpacing:-2,color:"#fff",marginBottom:12,textAlign:"center"}}>
-            CHOOSE YOUR<br/>UNIVERSE.
+            YOUR TEAM.<br/>YOUR UNIVERSE.
           </h1>
           <p className="lora" style={{fontSize:"clamp(15px,2vw,19px)",color:"rgba(255,255,255,.45)",fontStyle:"italic",marginBottom:56,textAlign:"center",maxWidth:480}}>
-            Pick how you want your team&apos;s season decoded. Everything — the Oracle, the story, the talking point — will speak your language.
+            Baseball season, translated in the language of your favorite trilogy. Pick your world.
           </p>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:640}}>
             {/* LOTR */}
@@ -829,7 +829,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div style={{fontSize:48,marginBottom:16}}>💍</div>
               <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
               <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
-                The bullpen has been pulling a Denethor. The cleanup hitter is our Aragorn. The rival is Mordor and always has been.
+                Wins become sieges. Losses become betrayals. Your ace is Aragorn — and the bullpen is always Denethor.
               </p>
               <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(0,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
               </div>
@@ -843,7 +843,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div style={{fontSize:48,marginBottom:16}}>🚀</div>
               <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>STAR<br/>WARS</div>
               <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
-                The bullpen has been Order 66-ing every lead since April. The ace is our Ahsoka — quietly the best one out there.
+                Every game is a mission. Every slump is a disturbance in the Force. The closer is your Ahsoka.
               </p>
               <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(0,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
               </div>
