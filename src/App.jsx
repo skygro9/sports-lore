@@ -1108,33 +1108,24 @@ End every response with one line starting with ⚔️ they can say at work verba
               )}
               <div ref={chatEnd}/>
               </div>
-              {/* Character figure on RIGHT - absolutely pinned */}
-              <div style={{position:"absolute",right:0,bottom:0,display:"flex",flexDirection:"column",alignItems:"center"}}>
-               {/* Speech lines radiating like 🗣 – fan from bottom-center */}
-<div style={{position:"relative",width:60,height:44,marginBottom:-4}}>
-  {[
-    {angle:-38,height:16},
-    {angle:0,  height:22},
-    {angle:38, height:16},
-  ].map((l,i)=>(
-    <div key={i} style={{
-      position:"absolute",
-      bottom:0,
-      left:"50%",
-      width:3,
-      height:l.height,
-      borderRadius:2,
-      background:faction==="lotr"?"#8B6914":"#0099ff",
-      opacity:0.8,
-      transformOrigin:"bottom center",
-      transform:`translateX(-50%) rotate(${l.angle}deg)`,
-    }}/>
-  ))}
-</div>
+              {/* Character on RIGHT */}
+              <div style={{flexShrink:0,alignSelf:"flex-end",display:"flex",flexDirection:"column",alignItems:"center",width:"clamp(160px,18vw,240px)"}}>
+                {/* Speech lines radiating left toward bubble */}
+                <div style={{display:"flex",flexDirection:"column",gap:5,alignSelf:"flex-start",marginBottom:6}}>
+                  {[[32,-8],[44,0],[32,8]].map(([w,angle],i)=>(
+                    <div key={i} style={{
+                      width:w,height:3,borderRadius:3,
+                      background:faction==="lotr"?"#C9A84C":"#0099ff",
+                      transform:`rotate(${angle}deg)`,
+                      transformOrigin:"right center",
+                      opacity:0.85
+                    }}/>
+                  ))}
+                </div>
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
                   alt=""
-                  style={{width:"clamp(160px,18vw,260px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                  style={{width:"100%",height:"auto",display:"block"}}
                 />
               </div>
             </div>
