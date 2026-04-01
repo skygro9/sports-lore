@@ -1016,8 +1016,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="lora" style={{fontSize:14,fontStyle:"italic",color:"#555",marginBottom:20}}>
-              Translates your team into Star Wars and LOTR. Ask anything — it answers like a fan who has also watched every extended edition.
+            <p className="lora" style={{fontSize:14,fontStyle:"italic",color:"#555",marginBottom:20}}>{faction==="lotr" ? "Return daily as ravens bring fresh dispatches from the front." : "Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
 
             {/* Chat */}
