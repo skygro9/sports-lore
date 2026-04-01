@@ -717,29 +717,9 @@ End every response with one line starting with ⚔️ they can say at work verba
   const useWhiteText = teamColors.useWhiteText;
   const isLive = !!(sched.last && sched.last?.status?.abstractGameState==="Live");
 
-  const SectionDivider = () => faction==="lotr" ? (
-    <div style={{display:"flex",alignItems:"center",gap:12,padding:"0 clamp(20px,5vw,48px)",margin:"0 0 0 0"}}>
-      <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
-      <svg width="28" height="18" viewBox="0 0 32 20">
-        <line x1="4" y1="16" x2="28" y2="4" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="28" y1="16" x2="4" y2="4" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round"/>
-        <rect x="1" y="9" width="7" height="2.5" rx="1" fill="#C9A84C" transform="rotate(-23 4.5 10)"/>
-        <rect x="24" y="9" width="7" height="2.5" rx="1" fill="#C9A84C" transform="rotate(23 27.5 10)"/>
-      </svg>
-      <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
-    </div>
-  ) : (
-    <div style={{display:"flex",alignItems:"center",gap:0,padding:"0 clamp(20px,5vw,48px)"}}>
-      <div style={{width:20,height:7,background:"#666",borderRadius:2,flexShrink:0}}/>
-      <div style={{width:7,height:10,background:"#444",flexShrink:0}}/>
-      <div style={{flex:1,height:3,background:"#FFE033"}}/>
-      <div style={{width:3,height:3,background:"rgba(255,224,51,0.3)",flexShrink:0}}/>
-    </div>
+  const SectionDivider = () => (
+    <div style={{height:3,background:faction==="lotr"?"linear-gradient(90deg,transparent,#C9A84C,transparent)":"linear-gradient(90deg,transparent,#0099ff,transparent)",margin:"0 auto",width:"80%"}}/>
   );
-  const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
-  const urgColor = !cd?"#111":cd.days===0?"#FF3B3B":cd.days<=2?"#FF6B00":"#111";
-  const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
-  const formDots = sched.recent.map(g=>didWin(g,team?.id??0));
 
   const followUps = team ? [
     "Why did they win or lose the last game?",
@@ -786,6 +766,9 @@ End every response with one line starting with ⚔️ they can say at work verba
         .o-btn:hover{background:var(--faction-accent,#FFE033);color:#111;}
         .o-btn:disabled{opacity:.3;cursor:not-allowed;}
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
+        @media(max-width:600px){.oracle-subtitle-mobile{display:block !important;}}
+        @media(max-width:600px){.oracle-chat-row{flex-direction:column !important;}}
+        @media(max-width:600px){.oracle-char{width:80px !important;align-self:center !important;}}
         .nav-btn{background:none;border:2px solid #111;color:#111;padding:7px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .15s;min-height:36px;}
         .nav-btn:hover{background:#FFE033;}
         .section-rule{height:3px;background:#111;margin:0;}
@@ -1058,7 +1041,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",flexDirection:"column",gap:0}}>
+            <div className="oracle-chat-row" style={{display:"flex",flexDirection:"column",gap:0}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
@@ -1100,7 +1083,9 @@ End every response with one line starting with ⚔️ they can say at work verba
               ))}
               {oLoading&&(
                 <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start"}}>
-                  <FunLoader faction={faction} type="arc" dark={false}/>
+                  <div style={{transform:"scale(1.8)",transformOrigin:"left center",marginLeft:8}}>
+                    <FunLoader faction={faction} type="arc" dark={false}/>
+                  </div>
                 </div>
               )}
               <div ref={chatEnd}/>
