@@ -790,13 +790,11 @@ End every response with one line starting with ⚔️ they can say at work verba
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
         @media(min-width:601px){
           .oracle-sub{display:none !important;}
-          .bubble-tail-outer{position:absolute !important;right:-18px !important;top:50% !important;transform:translateY(-50%) !important;width:0 !important;height:0 !important;border-top:14px solid transparent !important;border-bottom:14px solid transparent !important;}
-          .bubble-tail-inner{position:absolute !important;right:-14px !important;top:50% !important;transform:translateY(-50%) !important;width:0 !important;height:0 !important;border-top:12px solid transparent !important;border-bottom:12px solid transparent !important;}
+
         }
         @media(max-width:600px){
           .oracle-desktop-sub{display:none !important;}
-          .bubble-tail-outer{right:auto !important;top:-16px !important;left:50% !important;transform:translateX(-50%) !important;border-top:none !important;border-left:14px solid transparent !important;border-right:14px solid transparent !important;border-bottom-width:16px !important;border-bottom-style:solid !important;}
-          .bubble-tail-inner{right:auto !important;top:-12px !important;left:50% !important;transform:translateX(-50%) !important;border-top:none !important;border-left:12px solid transparent !important;border-right:12px solid transparent !important;border-bottom-width:14px !important;border-bottom-style:solid !important;}
+.bubble-tail-svg{right:auto !important;top:-20px !important;left:50% !important;transform:translateX(-50%) rotate(270deg) !important;}
         }
         @media(max-width:600px){
           .oracle-msg-row{flex-direction:column-reverse !important; align-items:center !important;}
