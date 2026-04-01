@@ -1062,7 +1062,20 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
+            <div style={{display:"flex",gap:20,alignItems:"flex-end"}}>
+              {/* Character figure */}
+              <div style={{flexShrink:0,textAlign:"center",alignSelf:"flex-end"}}>
+                <img
+                  src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
+                  alt={faction==="lotr"?"Gandalf":"Vader"}
+                  style={{width:"clamp(100px,14vw,180px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                />
+                <div style={{fontSize:11,fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",color:faction==="lotr"?"#8B6914":"#0099ff",fontStyle:faction==="lotr"?"italic":"normal",marginTop:4}}>
+                  {faction==="lotr"?"Gandalf the Grey":"Darth Vader"}
+                </div>
+              </div>
+              {/* Chat bubbles */}
+              <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
                 <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:4}}>
                   <div className={m.role==="user"?"bq":"ba"}>
@@ -1078,6 +1091,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               )}
               <div ref={chatEnd}/>
+              </div>
             </div>
 
             {/* Follow-up chips */}
