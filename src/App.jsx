@@ -1113,11 +1113,8 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
                   alt={faction==="lotr"?"Gandalf":"Vader"}
-                  style={{width:"clamp(80px,10vw,140px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                  style={{width:"clamp(180px,20vw,280px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
                 />
-                <div style={{fontSize:11,fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",color:faction==="lotr"?"#8B6914":"#0099ff",fontStyle:faction==="lotr"?"italic":"normal",marginTop:4}}>
-                  {faction==="lotr"?"Gandalf the Grey":"Darth Vader"}
-                </div>
               </div>
             </div>
 
