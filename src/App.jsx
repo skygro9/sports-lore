@@ -1172,7 +1172,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700,paddingTop:2}}>#{ep.num}</div>
                     <div>
                       <span className={ep.win?"tag-w":"tag-l"} style={{display:"inline-block",marginBottom:5}}>{ep.win?"WIN":"LOSS"}</span>
-                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{ep.title}</div>
+                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{faction==="lotr"?"⚔ ":"⚡ "}{ep.title}</div>
                       <div className="sg" style={{fontSize:11,color:"#777",fontWeight:500}}>vs. {ep.opp} · {ep.date}</div>
                     </div>
                     <div className="arch" style={{fontSize:"clamp(15px,3vw,22px)",letterSpacing:-0.5,textAlign:"right",color:ep.win?"#111":"#bbb",paddingTop:2}}>{ep.score}</div>
