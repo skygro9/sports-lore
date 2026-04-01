@@ -1049,7 +1049,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               </div>
             ) : (
-              <div style={{position:"relative",background:"#001830",border:"1px solid #0066aa",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
+              <div className="oracle-sub" style={{position:"relative",background:"#001830",border:"1px solid #0066aa",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
                 <div style={{position:"absolute",top:4,left:4,width:10,height:10,borderTop:"2px solid #0099ff",borderLeft:"2px solid #0099ff"}}/>
                 <div style={{position:"absolute",top:4,right:4,width:10,height:10,borderTop:"2px solid #0099ff",borderRight:"2px solid #0099ff"}}/>
                 <div style={{position:"absolute",bottom:4,left:4,width:10,height:10,borderBottom:"2px solid #0099ff",borderLeft:"2px solid #0099ff"}}/>
