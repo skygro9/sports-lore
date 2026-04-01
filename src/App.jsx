@@ -1037,7 +1037,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <span style={{fontSize:20}}>🔮</span>
             </div>
             {faction==="lotr" ? (
-              <div style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
+              <div className="oracle-sub" style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
                 <div style={{position:"absolute",left:0,top:0,bottom:0,width:16,background:"#c4a35a",borderRight:"2px solid #8B6914"}}/>
                 <div style={{position:"absolute",right:0,top:0,bottom:0,width:16,background:"#c4a35a",borderLeft:"2px solid #8B6914"}}/>
                 <div style={{display:"flex",alignItems:"center",gap:10}}>
