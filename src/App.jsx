@@ -405,6 +405,12 @@ export default function SportsLore(){
   const [msgs,setMsgs]         = useState([]);
   const [oInput,setOInput]     = useState("");
   const [oLoading,setOLoading] = useState(false);
+  const defaultChips = team ? [
+    "Why did they win or lose the last game?",
+    "Who is the most important player to watch?",
+    "Should I be worried about making the playoffs?",
+  ] : [];
+  const [chips,setChips] = useState(defaultChips);
 
   const [mounted,setMounted] = useState(false);
   const [tick,setTick]       = useState(0);
@@ -741,11 +747,7 @@ End every response with one line starting with ⚔️ they can say at work verba
   const lastWon = sched.last ? didWin(sched.last, team?.id??0) : null;
   const formDots = sched.recent.map(g=>didWin(g,team?.id??0));
 
-  const followUps = team ? [
-    "Why did they win or lose the last game?",
-    "Who is the most important player to watch?",
-    "Should I be worried about making the playoffs?",
-  ] : [];
+
 
   return(
     <div style={{minHeight:"100vh",background:phase==="pick"?"#111":"#F5F2E8",color:"#111",fontFamily:"'Space Grotesk',sans-serif",overflowX:"hidden","--faction-accent":f.accent,"--q-color":f.accent}}>
@@ -786,7 +788,7 @@ End every response with one line starting with ⚔️ they can say at work verba
         .o-btn:hover{background:var(--faction-accent,#FFE033);color:#111;}
         .o-btn:disabled{opacity:.3;cursor:not-allowed;}
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
-        @media(min-width:601px){.oracle-sub{display:none !important;}}
+        @media(min-width:601px){.oracle-sub{display:none !important;}} @media(max-width:600px){.oracle-desktop-sub{display:none !important;}}
         .nav-btn{background:none;border:2px solid #111;color:#111;padding:7px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .15s;min-height:36px;}
         .nav-btn:hover{background:#FFE033;}
         .section-rule{height:3px;background:#111;margin:0;}
@@ -1036,6 +1038,9 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
+            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":"#0077cc",fontWeight:600}}>
+              {faction==="lotr"?"Return daily — the ravens bring fresh dispatches after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
+            </p>
             {faction==="lotr" ? (
               <div className="oracle-sub" style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
                 <div style={{position:"absolute",left:0,top:0,bottom:0,width:16,background:"#c4a35a",borderRight:"2px solid #8B6914"}}/>
@@ -1100,8 +1105,8 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               ))}
               {oLoading&&(
-                <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start"}}>
-                  <div style={{transform:"scale(1.6)",transformOrigin:"left center",marginLeft:8}}>
+                <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start",maxWidth:"90%"}}>
+                  <div style={{transform:"scale(1.6)",transformOrigin:"left center",marginLeft:8,overflow:"hidden"}}>
                     <FunLoader faction={faction} type="arc" dark={false}/>
                   </div>
                 </div>
@@ -1113,17 +1118,27 @@ End every response with one line starting with ⚔️ they can say at work verba
             {/* Follow-up chips */}
             {msgs.length>=2&&!oLoading&&(
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:6,marginBottom:14}}>
-                {followUps.map(q=>(
+                {chips.map(q=>(
                   <button key={q} className="chip" onClick={async()=>{
                     const newMsgs=[...msgs,{role:"user",content:q}];
                     setMsgs(newMsgs);setOLoading(true);
-                    const rd=richRef.current,c=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,c,faction);
+                    const rd=richRef.current,cc=buildCtx(team,standings,rd),ctx=makeOracleCtx(team,standings,rd,cc,faction);
                     try{
-                      const res=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
-                        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,system:ctx,messages:newMsgs.map(m=>({role:m.role,content:m.content}))})});
-                      const d=await res.json();
+                      const [ansRes,chipRes]=await Promise.all([
+                        fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
+                          body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,system:ctx,messages:newMsgs.map(m=>({role:m.role,content:m.content}))})}),
+                        fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},
+                          body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:200,system:"You generate follow-up questions about a baseball team. Return ONLY a JSON array of exactly 3 short questions (under 10 words each). No explanation, no markdown.",messages:[{role:"user",content:"Previous question: "+q+". Team: "+(team?.name||"")+" faction: "+faction+". Give 3 new follow-up questions as a JSON array."}]})})
+                      ]);
+                      const d=await ansRes.json();
                       const txt=d.content?.filter(b=>b.type==="text").map(b=>b.text||"").join("").replace(/ {2,}/g," ").trim();
                       setMsgs(prev=>[...prev,{role:"assistant",content:txt||"The oracle went silent."}]);
+                      try{
+                        const cd=await chipRes.json();
+                        const raw=cd.content?.filter(b=>b.type==="text").map(b=>b.text||"").join("").trim();
+                        const newChips=JSON.parse(raw.replace(/```json|```/g,"").trim());
+                        if(Array.isArray(newChips)&&newChips.length===3)setChips(newChips);
+                      }catch{}
                     }catch(e){
                       setMsgs(prev=>[...prev,{role:"assistant",content:"Signal lost."}]);
                     }finally{setOLoading(false);}
