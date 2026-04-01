@@ -745,7 +745,6 @@ End every response with one line starting with ⚔️ they can say at work verba
     "Why did they win or lose the last game?",
     "Who is the most important player to watch?",
     "Should I be worried about making the playoffs?",
-    "What should I actually say if someone brings this up at work?",
   ] : [];
 
   return(
@@ -1063,7 +1062,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
-                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
+                <div key={i} ref={m.role==="assistant"&&i===msgs.length-1?el=>{if(el&&i>1)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100):null}:null} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
                   {m.role==="assistant" ? (
                     <div style={{position:"relative",maxWidth:"90%"}}>
                       {/* Speech bubble with right-pointing tail toward character */}
@@ -1121,18 +1120,6 @@ End every response with one line starting with ⚔️ they can say at work verba
               </div>
               {/* Character on RIGHT */}
               <div style={{flexShrink:0,alignSelf:"center",display:"flex",flexDirection:"column",alignItems:"center",width:"clamp(160px,18vw,240px)"}}>
-                {/* Speech lines radiating left toward bubble */}
-                <div style={{display:"flex",flexDirection:"column",gap:5,alignSelf:"flex-start",marginBottom:6}}>
-                  {[[32,-8],[44,0],[32,8]].map(([w,angle],i)=>(
-                    <div key={i} style={{
-                      width:w,height:3,borderRadius:3,
-                      background:faction==="lotr"?"#C9A84C":"#0099ff",
-                      transform:`rotate(${angle}deg)`,
-                      transformOrigin:"right center",
-                      opacity:0.85
-                    }}/>
-                  ))}
-                </div>
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
                   alt=""
