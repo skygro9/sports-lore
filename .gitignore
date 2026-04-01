@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.DS_Store
+src/App.jsx.backup
+package-lock.json
