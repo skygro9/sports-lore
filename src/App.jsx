@@ -789,6 +789,11 @@ End every response with one line starting with ⚔️ they can say at work verba
         .o-btn:disabled{opacity:.3;cursor:not-allowed;}
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
         @media(min-width:601px){.oracle-sub{display:none !important;}} @media(max-width:600px){.oracle-desktop-sub{display:none !important;}}
+        @media(max-width:600px){
+          .oracle-msg-row{flex-direction:column-reverse !important; align-items:center !important;}
+          .oracle-char{width:100px !important; margin-bottom:0 !important;}
+          .oracle-sub{display:block !important;}
+        }
         .nav-btn{background:none;border:2px solid #111;color:#111;padding:7px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .15s;min-height:36px;}
         .nav-btn:hover{background:#FFE033;}
         .section-rule{height:3px;background:#111;margin:0;}
@@ -882,7 +887,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           <div style={{background:faction?FACTIONS[faction].accent:"#FFE033",border:"3px solid #111",padding:"28px 24px",marginBottom:32}}>
             <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14}}>FIND YOUR MLB TEAM</div>
             {detecting?(
-              <div style={{display:"flex",gap:12,alignItems:"center"}}>
+              <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
                 <Spin/>
                 <span className="sg" style={{fontSize:14,fontWeight:600,color:"#555"}}>Detecting your city...</span>
               </div>
@@ -1070,7 +1075,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               {msgs.map((m,i)=>(
                 <div key={i} ref={m.role==="assistant"&&i===msgs.length-1?(el=>el&&i>1&&setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),100)):null} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",gap:6}}>
                   {m.role==="assistant" ? (
-                    <div style={{display:"flex",gap:12,alignItems:"center"}}>
+                    <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
                     <div style={{position:"relative",flex:1}}>
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
@@ -1092,7 +1097,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
                     {i===msgs.length-1&&(
-                      <div style={{flexShrink:0,alignSelf:"center",width:"clamp(140px,16vw,220px)"}}>
+                      <div className="oracle-char" style={{flexShrink:0,alignSelf:"center",width:"clamp(140px,16vw,220px)"}}>
                         <img src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
                       </div>
                     )}
@@ -1105,10 +1110,8 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               ))}
               {oLoading&&(
-                <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start",maxWidth:"90%"}}>
-                  <div style={{transform:"scale(1.6)",transformOrigin:"left center",marginLeft:8,overflow:"hidden"}}>
-                    <FunLoader faction={faction} type="arc" dark={false}/>
-                  </div>
+                <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start",maxWidth:"calc(100% - 20px)"}}>
+                  <FunLoader faction={faction} type="arc" dark={false}/>
                 </div>
               )}
               <div ref={chatEnd}/>
