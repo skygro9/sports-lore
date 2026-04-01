@@ -788,7 +788,16 @@ End every response with one line starting with ⚔️ they can say at work verba
         .o-btn:hover{background:var(--faction-accent,#FFE033);color:#111;}
         .o-btn:disabled{opacity:.3;cursor:not-allowed;}
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
-        @media(min-width:601px){.oracle-sub{display:none !important;}} @media(max-width:600px){.oracle-desktop-sub{display:none !important;}}
+        @media(min-width:601px){
+          .oracle-sub{display:none !important;}
+          .bubble-tail-outer{position:absolute !important;right:-18px !important;top:50% !important;transform:translateY(-50%) !important;width:0 !important;height:0 !important;border-top:14px solid transparent !important;border-bottom:14px solid transparent !important;}
+          .bubble-tail-inner{position:absolute !important;right:-14px !important;top:50% !important;transform:translateY(-50%) !important;width:0 !important;height:0 !important;border-top:12px solid transparent !important;border-bottom:12px solid transparent !important;}
+        }
+        @media(max-width:600px){
+          .oracle-desktop-sub{display:none !important;}
+          .bubble-tail-outer{top:-18px !important;left:50% !important;transform:translateX(-50%) !important;width:0 !important;height:0 !important;border-left:14px solid transparent !important;border-right:14px solid transparent !important;}
+          .bubble-tail-inner{top:-13px !important;left:50% !important;transform:translateX(-50%) !important;width:0 !important;height:0 !important;border-left:12px solid transparent !important;border-right:12px solid transparent !important;}
+        }
         @media(max-width:600px){
           .oracle-msg-row{flex-direction:column-reverse !important; align-items:center !important;}
           .oracle-char{width:100px !important; margin-bottom:0 !important;}
@@ -1084,8 +1093,6 @@ End every response with one line starting with ⚔️ they can say at work verba
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
-                        "--tail-color":faction==="lotr"?"#8B6914":"#0077cc",
-                        "--tail-inner-color":faction==="lotr"?"#f0e6c8":"#001220",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
                         <div style={{
