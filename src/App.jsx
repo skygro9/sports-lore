@@ -1059,7 +1059,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",gap:20,alignItems:"flex-end"}}>
+            <div style={{display:"flex",gap:20,alignItems:"flex-end",overflow:"visible"}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
@@ -1109,14 +1109,14 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div ref={chatEnd}/>
               </div>
               {/* Character figure on RIGHT */}
-              <div style={{flexShrink:0,position:"sticky",bottom:0,alignSelf:"flex-end",display:"flex",flexDirection:"column",alignItems:"center"}}>
-                {/* Speech lines */}
-                <div style={{display:"flex",gap:5,marginBottom:8,alignSelf:"flex-start",paddingLeft:8}}>
-                  {[60,40,50].map((w,i)=>(
+              <div style={{flexShrink:0,position:"sticky",bottom:0,alignSelf:"flex-end",display:"flex",flexDirection:"row",alignItems:"flex-end",gap:8}}>
+                {/* Speech lines pointing LEFT toward bubble */}
+                <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:24,alignItems:"flex-end"}}>
+                  {[50,35,45].map((w,i)=>(
                     <div key={i} style={{
                       width:w,height:3,borderRadius:2,
                       background:faction==="lotr"?"#8B6914":"#0077cc",
-                      opacity:0.6+i*0.1
+                      opacity:0.5+i*0.15
                     }}/>
                   ))}
                 </div>
