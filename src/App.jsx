@@ -1093,13 +1093,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                         position:"relative",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        <div style={{
-                          position:"absolute",right:-14,top:"50%",transform:"translateY(-50%)",
-                          width:0,height:0,
-                          borderTop:"12px solid transparent",
-                          borderBottom:"12px solid transparent",
-                          borderLeft:faction==="lotr"?"14px solid #f0e6c8":"14px solid #001220",
-                        }}/>
+                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":"#001220"}/></svg>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
