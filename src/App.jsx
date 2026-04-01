@@ -1059,7 +1059,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",gap:20,alignItems:"flex-start",position:"relative",minHeight:320}}>
+            <div style={{display:"flex",gap:16,alignItems:"flex-end"}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
