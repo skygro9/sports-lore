@@ -786,6 +786,7 @@ End every response with one line starting with ⚔️ they can say at work verba
         .o-btn:hover{background:var(--faction-accent,#FFE033);color:#111;}
         .o-btn:disabled{opacity:.3;cursor:not-allowed;}
         ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#111;}
+        @media(min-width:601px){.oracle-sub{display:none !important;}}
         .nav-btn{background:none;border:2px solid #111;color:#111;padding:7px 14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .15s;min-height:36px;}
         .nav-btn:hover{background:#FFE033;}
         .section-rule{height:3px;background:#111;margin:0;}
@@ -1100,7 +1101,9 @@ End every response with one line starting with ⚔️ they can say at work verba
               ))}
               {oLoading&&(
                 <div style={{padding:"20px 0",minHeight:100,alignSelf:"flex-start"}}>
-                  <FunLoader faction={faction} type="arc" dark={false}/>
+                  <div style={{transform:"scale(1.6)",transformOrigin:"left center",marginLeft:8}}>
+                    <FunLoader faction={faction} type="arc" dark={false}/>
+                  </div>
                 </div>
               )}
               <div ref={chatEnd}/>
