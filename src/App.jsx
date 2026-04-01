@@ -1059,7 +1059,7 @@ End every response with one line starting with ⚔️ they can say at work verba
             )}
 
             {/* Chat */}
-            <div style={{display:"flex",gap:20,alignItems:"flex-start",position:"relative"}}>
+            <div style={{display:"flex",gap:20,alignItems:"flex-start",position:"relative",minHeight:320}}>
               {/* Chat bubbles on LEFT */}
               <div style={{flex:1,display:"flex",flexDirection:"column",gap:12,marginBottom:16,minHeight:60}}>
               {msgs.map((m,i)=>(
@@ -1101,23 +1101,38 @@ End every response with one line starting with ⚔️ they can say at work verba
                 </div>
               ))}
               {oLoading&&(
-                <div style={{display:"flex",gap:10,alignItems:"center",padding:"8px 0"}}>
+                <div style={{display:"flex",gap:10,alignItems:"center",padding:"8px 0",minHeight:80}}>
                   <Spin/>
                   <span className="sg" style={{fontSize:13,color:"#555",fontWeight:600}}>Consulting the archive...</span>
                 </div>
               )}
               <div ref={chatEnd}/>
               </div>
-              {/* Character figure on RIGHT */}
-              <div style={{flexShrink:0,position:"sticky",bottom:0,alignSelf:"flex-end",display:"flex",flexDirection:"row",alignItems:"flex-end",gap:8}}>
-                <div style={{display:"flex",flexDirection:"column",alignItems:"center",position:"relative"}}>
-                  <div style={{fontSize:48,lineHeight:1,marginBottom:-8}}>💬</div>
-                  <img
-                    src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
-                    alt=""
-                    style={{width:"clamp(180px,22vw,300px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
-                  />
+              {/* Character figure on RIGHT - absolutely pinned */}
+              <div style={{position:"absolute",right:0,bottom:0,display:"flex",flexDirection:"column",alignItems:"center"}}>
+                {/* Radiating speech lines */}
+                <div style={{position:"relative",width:60,height:40,marginBottom:-4}}>
+                  {[
+                    {w:28,left:16,top:0,angle:-20},
+                    {w:36,left:8,top:10,angle:-5},
+                    {w:28,left:16,top:22,angle:12},
+                  ].map((l,i)=>(
+                    <div key={i} style={{
+                      position:"absolute",
+                      left:l.left,top:l.top,
+                      width:l.w,height:3,borderRadius:2,
+                      background:faction==="lotr"?"#8B6914":"#0099ff",
+                      opacity:0.75,
+                      transform:`rotate(${l.angle}deg)`,
+                      transformOrigin:"left center"
+                    }}/>
+                  ))}
                 </div>
+                <img
+                  src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
+                  alt=""
+                  style={{width:"clamp(160px,18vw,260px)",height:"auto",objectFit:"contain",objectPosition:"bottom",display:"block"}}
+                />
               </div>
             </div>
 
