@@ -1101,7 +1101,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               {oLoading&&(
                 <div style={{display:"flex",flexDirection:"column",gap:8,padding:"20px 0",minHeight:100,alignSelf:"flex-start",maxWidth:"85%"}}>
                   <div style={{display:"flex",alignItems:"center",gap:12}}>
-                    <Spin/>
+                    <FunLoader faction={faction} type="arc"/>
                     <span style={{
                       fontFamily:faction==="lotr"?"Georgia,serif":"'Courier New',monospace",
                       fontSize:22,
