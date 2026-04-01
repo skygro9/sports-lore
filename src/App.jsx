@@ -1110,24 +1110,27 @@ End every response with one line starting with ⚔️ they can say at work verba
               </div>
               {/* Character figure on RIGHT - absolutely pinned */}
               <div style={{position:"absolute",right:0,bottom:0,display:"flex",flexDirection:"column",alignItems:"center"}}>
-                {/* Radiating speech lines */}
-                <div style={{position:"relative",width:60,height:40,marginBottom:-4}}>
-                  {[
-                    {w:28,left:16,top:0,angle:-20},
-                    {w:36,left:8,top:10,angle:-5},
-                    {w:28,left:16,top:22,angle:12},
-                  ].map((l,i)=>(
-                    <div key={i} style={{
-                      position:"absolute",
-                      left:l.left,top:l.top,
-                      width:l.w,height:3,borderRadius:2,
-                      background:faction==="lotr"?"#8B6914":"#0099ff",
-                      opacity:0.75,
-                      transform:`rotate(${l.angle}deg)`,
-                      transformOrigin:"left center"
-                    }}/>
-                  ))}
-                </div>
+               {/* Speech lines radiating like 🗣 – fan from bottom-center */}
+<div style={{position:"relative",width:60,height:44,marginBottom:-4}}>
+  {[
+    {angle:-38,height:16},
+    {angle:0,  height:22},
+    {angle:38, height:16},
+  ].map((l,i)=>(
+    <div key={i} style={{
+      position:"absolute",
+      bottom:0,
+      left:"50%",
+      width:3,
+      height:l.height,
+      borderRadius:2,
+      background:faction==="lotr"?"#8B6914":"#0099ff",
+      opacity:0.8,
+      transformOrigin:"bottom center",
+      transform:`translateX(-50%) rotate(${l.angle}deg)`,
+    }}/>
+  ))}
+</div>
                 <img
                   src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"}
                   alt=""
