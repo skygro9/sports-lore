@@ -737,11 +737,11 @@ End every response with one line starting with ⚔️ they can say at work verba
       <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
     </div>
   ) : (
-    <div style={{display:"flex",alignItems:"center",gap:0,padding:"0 clamp(20px,5vw,48px)"}}>
+    <div style={{display:"flex",alignItems:"center",gap:0,padding:"16px clamp(20px,5vw,48px)"}}>
       <div style={{width:20,height:7,background:"#666",borderRadius:2,flexShrink:0}}/>
       <div style={{width:7,height:10,background:"#444",flexShrink:0}}/>
-      <div style={{flex:1,height:3,background:"#FFE033"}}/>
-      <div style={{width:3,height:3,background:"rgba(255,224,51,0.3)",flexShrink:0}}/>
+      <div style={{flex:1,height:3,background:"#FF1A1A",boxShadow:"0 0 8px 2px rgba(255,26,26,0.5)"}}/>
+      <div style={{width:3,height:3,background:"rgba(255,26,26,0.3)",flexShrink:0}}/>
     </div>
   );
   const nextOppName = sched.next ? getOpp(sched.next, team?.name??"") : "";
@@ -1047,7 +1047,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           </div>
 
           {/* ── ORACLE (TOP — AUTO-FIRED) ── */}
-          <div style={{borderBottom:"3px solid #111",padding:"clamp(24px,5vw,40px) clamp(20px,5vw,48px)"}}>
+          <div style={{padding:"clamp(24px,5vw,40px) clamp(20px,5vw,48px)"}}>
 
             <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:6}}>
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
