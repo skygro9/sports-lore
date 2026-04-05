@@ -800,7 +800,7 @@ End every response with one line starting with ⚔️ they can say at work verba
         }
         @media(max-width:600px){
           .oracle-msg-row{flex-direction:column-reverse !important; align-items:center !important;}
-          .oracle-char{width:180px !important; margin-bottom:0 !important;}
+          .oracle-char{width:216px !important; margin-bottom:0 !important;}
           .oracle-sub{display:block !important;}
           .oracle-chips{display:grid !important; grid-template-columns:1fr !important;}
         }
@@ -1101,7 +1101,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
                     {i===msgs.length-1&&(
-                      <div className="oracle-char" style={{flexShrink:0,alignSelf:"center",width:"clamp(140px,16vw,220px)"}}>
+                      <div className="oracle-char" style={{flexShrink:0,alignSelf:"center",width:"clamp(168px,19.2vw,264px)"}}>
                         <img src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
                       </div>
                     )}
