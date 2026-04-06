@@ -749,6 +749,15 @@ export default function SportsLore(){
       const won=(ms??0)>(os??0);
       return (won?"W":"L")+" "+(ms??0)+"-"+(os??0)+" vs "+(opp??"?")+" on "+g.gameDate?.slice(0,10);
     }).join("\n") : "No completed games";
+    const facKey = fac || faction || 'sw';
+    const universeLabel = facKey==='lotr'?'Lord of the Rings':facKey==='sopranos'?'The Sopranos':facKey==='rhoslc'?'RHOSLC (Real Housewives of Salt Lake City)':'Star Wars';
+    const universeExample = facKey==='lotr'
+      ? '"The bullpen has been pulling a Denethor — brilliant record, self-destructing when it matters most."'
+      : facKey==='sopranos'
+      ? '"The bullpen has been pulling a Christopher Moltisanti — all the talent, zero composure when it counts."'
+      : facKey==='rhoslc'
+      ? '"The bullpen is giving full Lisa Barlow group-chat energy — absolute chaos when the receipts come out."'
+      : '"The bullpen has been going full Emperor Palpatine — everything under control right up until it isn\'t."';
     const prompt = `Team: ${t.name} (known in lore as "${t.house}")
 Rival: ${t.rival}
 Record: ${c.wins}W-${c.losses}L | ${c.leading?"Leading division":(c.gb||"?"+" GB")} | Streak: ${c.streak}
@@ -756,15 +765,15 @@ ${c.lastDetail}
 ${c.batS}
 ${c.pitS}
 
-You are generating content for Sports Lore — a site that translates baseball into Star Wars and LOTR for people who don't watch sports.
+You are generating content for Sports Lore — a site that translates baseball into ${universeLabel} for people who don't watch sports. You are in ${universeLabel.toUpperCase()} MODE ONLY. Every reference must come exclusively from ${universeLabel}. Do not use references from any other franchise.
 
 Write three things:
 
 TALKING_POINT:
 Write TWO versions separated by |||
 
-Version 1 (LORE): One sentence using a LOTR or Star Wars reference as the actual explanation. Only include a player name or stat if it was provided in the real data above — do not invent statistics.
-Example: "The bullpen has been pulling a Denethor — brilliant record, self-destructing when it matters most."
+Version 1 (LORE): One sentence using a ${universeLabel} reference as the actual explanation. Only include a player name or stat if it was provided in the real data above — do not invent statistics.
+Example: ${universeExample}
 
 Version 2 (SPORTS TALK): The SAME information in plain baseball language someone could actually say at work and sound like a fan. Use real baseball terms (ERA, bullpen, batting average, rotation, walk-off, etc). No nerd references — just confident sports talk.
 Example: "The bullpen has been the biggest problem — they keep blowing leads in the late innings when it matters most."
@@ -772,19 +781,19 @@ Example: "The bullpen has been the biggest problem — they keep blowing leads i
 Format exactly: LORE SENTENCE ||| SPORTS SENTENCE
 
 ARC:
-3 sentences. Use ONLY the real stats and player data provided above — do not invent stats or player names. If stats are unavailable say so honestly. Translate what you actually know into the nerd reference. End on the next challenge.
+3 sentences. Use ONLY the real stats and player data provided above — do not invent stats or player names. If stats are unavailable say so honestly. Translate what you actually know into a ${universeLabel} reference. End on the next challenge.
 
 EPISODES:
 ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} is today. ONLY generate EP lines for these exact games, copying opponent names, scores and dates exactly as shown:
 ${realGames}
 If realGames says No completed games, output NOTHING for this section.
-CRITICAL: If the user picked Star Wars mode, every title must use ONLY Star Wars references. If LOTR mode, every title must use ONLY LOTR references. Do NOT mix them.
-EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropriate reference 4-6 words`;
+CRITICAL: You are in ${universeLabel.toUpperCase()} mode. Every episode title must use ONLY ${universeLabel} references. Do NOT use references from any other franchise.
+EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-only reference 4-6 words`;
 
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys + `\n\nCRITICAL: You are in ${(fac||faction||'sw')==='lotr'?'LORD OF THE RINGS':(fac||faction||'sw')==='sopranos'?'SOPRANOS':(fac||faction||'sw')==='rhoslc'?'RHOSLC':'STAR WARS'} mode ONLY. Every single reference must be from ${(fac||faction||'sw')==='lotr'?'Lord of the Rings':(fac||faction||'sw')==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':(fac||faction||'sw')==='rhoslc'?'RHOSLC exclusively — Lisa Barlow, Park City, VIDA Tequila, the group chat, the receipts. No Star Wars. No LOTR. No Sopranos.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[facKey].sys + `\n\nCRITICAL: You are in ${facKey==='lotr'?'LORD OF THE RINGS':facKey==='sopranos'?'SOPRANOS':facKey==='rhoslc'?'RHOSLC':'STAR WARS'} mode ONLY. Every single reference must be from ${facKey==='lotr'?'Lord of the Rings':facKey==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':facKey==='rhoslc'?'RHOSLC exclusively — Lisa Barlow, Park City, VIDA Tequila, the group chat, the receipts. No Star Wars. No LOTR. No Sopranos.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
       });
       const data = await res.json();
       const text = data.content?.[0]?.text ?? "";
