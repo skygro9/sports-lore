@@ -698,7 +698,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys + `\n\nCRITICAL: You are in ${(fac||faction||'sw')==='lotr'?'LORD OF THE RINGS':'STAR WARS'} mode ONLY. Every single reference must be from ${(fac||faction||'sw')==='lotr'?'Lord of the Rings':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys + `\n\nCRITICAL: You are in ${(fac||faction||'sw')==='lotr'?'LORD OF THE RINGS':(fac||faction||'sw')==='sopranos'?'SOPRANOS':'STAR WARS'} mode ONLY. Every single reference must be from ${(fac||faction||'sw')==='lotr'?'Lord of the Rings':(fac||faction||'sw')==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
       });
       const data = await res.json();
       const text = data.content?.[0]?.text ?? "";
@@ -1335,7 +1335,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700,paddingTop:2}}>#{ep.num}</div>
                     <div>
                       <span className={ep.win?"tag-w":"tag-l"} style={{display:"inline-block",marginBottom:5}}>{ep.win?"WIN":"LOSS"}</span>
-                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{faction==="lotr"?"⚔ ":"⚡ "}{ep.title}</div>
+                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{faction==="lotr"?"⚔ ":faction==="sopranos"?"💰 ":"⚡ "}{ep.title}</div>
                       <div className="sg" style={{fontSize:11,color:"#777",fontWeight:500}}>vs. {ep.opp} · {ep.date}</div>
                     </div>
                     <div className="arch" style={{fontSize:"clamp(15px,3vw,22px)",letterSpacing:-0.5,textAlign:"right",color:ep.win?"#111":"#bbb",paddingTop:2}}>{ep.score}</div>
