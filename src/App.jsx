@@ -920,7 +920,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               onMouseOut={e=>{e.currentTarget.style.background="#0d1a0d";e.currentTarget.style.borderColor="#C9A84C";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>💍</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#D4AF37",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#C0C0C0",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
               <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(212,175,55,.65)",fontStyle:"italic",marginBottom:16}}>
                 Your team's season, retold as a tale from Middle-earth. A fellowship forged in spring training, shadows rising by midseason, and a return of the king closing it out in the ninth.
               </p>
