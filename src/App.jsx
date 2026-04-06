@@ -915,9 +915,9 @@ End every response with one line starting with ⚔️ they can say at work verba
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:900}}>
             {/* LOTR */}
             <button onClick={()=>{setFaction("lotr");setPhase("landing");}}
-              style={{background:"#1a1200",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
-              onMouseOver={e=>{e.currentTarget.style.background="#2a1e00";e.currentTarget.style.borderColor="#E8C76A";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#1a1200";e.currentTarget.style.borderColor="#C9A84C";}}>
+              style={{background:"#0d1a0d",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#162616";e.currentTarget.style.borderColor="#E8C76A";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#0d1a0d";e.currentTarget.style.borderColor="#C9A84C";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>💍</div>
               <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#C9A84C",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
