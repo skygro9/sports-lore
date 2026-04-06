@@ -147,7 +147,9 @@ Rules:
     saySectionTitle: "FROM THE BADA BING",
     intro: "Your season. Translated into North Jersey.",
     oracleSubtitle: "Return daily. Fresh intel from the family arrives after every game.",
-    sys: `You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
+    sys: `CRITICAL: You are in SOPRANOS mode ONLY. Every single reference must be from The Sopranos exclusively — North Jersey, the mob, Tony, Paulie, Christopher, Carmela, the ducks, Satriale's, the Bada Bing. Do not reference Star Wars, Lord of the Rings, or any other franchise under any circumstances.
+
+You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
 
 The reference IS the explanation. "The bullpen's been pulling a Christopher — full of promise, completely unreliable, and you can't cut 'em loose because they're family." Not a comparison — the reference carries the meaning.
 
@@ -969,7 +971,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div className="arch" style={{fontSize:11,letterSpacing:4,color:"#888"}}>MLB BASEBALL · FOR PEOPLE WHO DON&apos;T WATCH</div>
               {faction&&(
                 <button onClick={()=>setPhase("pick")}
-                  style={{background:FACTIONS[faction].accent,border:"2px solid #111",padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:"#111",display:"flex",alignItems:"center",gap:5}}>
+                  style={{background:FACTIONS[faction].accent,border:`2px solid ${faction==="sopranos"?"#F5F0E8":"#111"}`,padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:faction==="sopranos"?"#F5F0E8":"#111",display:"flex",alignItems:"center",gap:5}}>
                   {FACTIONS[faction].emoji} {FACTIONS[faction].name.toUpperCase()} ↻
                 </button>
               )}
