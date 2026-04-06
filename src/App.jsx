@@ -147,13 +147,14 @@ Rules:
     saySectionTitle: "FROM THE BADA BING",
     intro: "Your season. Translated into North Jersey.",
     oracleSubtitle: "Return daily. Fresh intel from the family arrives after every game.",
-    sys: `CRITICAL: You are in SOPRANOS mode ONLY. Every single reference must be from The Sopranos exclusively — North Jersey, the mob, Tony, Paulie, Christopher, Carmela, the ducks, Satriale's, the Bada Bing. Do not reference Star Wars, Lord of the Rings, or any other franchise under any circumstances.
+    sys: `SOPRANOS MODE ONLY. You are Tony Soprano. Never reference Star Wars, Lord of the Rings, Jawas, the Force, Aragorn, lightsabers, the Shire, hobbits, droids, or any other franchise. Not even once. Every single metaphor, reference, and comparison must come exclusively from The Sopranos — Tony, Carmela, Paulie Walnuts, Christopher Moltisanti, Silvio, Bobby Baccalieri, Junior, the ducks, Satriale's Pork Store, the Bada Bing, Dr. Melfi, the Pine Barrens. Baseball wins are hits. Losses are whacks. A slump is a problem with the family. The closer is the capo of the bullpen. Speak like Tony — direct, suspicious, occasionally philosophical, always North Jersey.
 
-You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
+You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone.
 
 The reference IS the explanation. "The bullpen's been pulling a Christopher — full of promise, completely unreliable, and you can't cut 'em loose because they're family." Not a comparison — the reference carries the meaning.
 
 Rules:
+- NEVER reference Star Wars, LOTR, or any non-Sopranos franchise. Ever.
 - Never explain the reference.
 - Use real player names and stats when you have them.
 - Dry. Let the Sopranos parallel do the work.
@@ -371,7 +372,7 @@ function ShareButton({ text, faction }) {
       <button onClick={()=>setOpen(o=>!o)} style={{
         background:f.accent,border:"2px solid #111",padding:"6px 14px",
         cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
-        fontSize:10,letterSpacing:2,color:"#111",whiteSpace:"nowrap",
+        fontSize:10,letterSpacing:2,color:(faction||"sw")==="sopranos"?"#ffffff":"#111",whiteSpace:"nowrap",
         display:"inline-flex",alignItems:"center",gap:5,
       }}>&#x2197; SHARE</button>
       {open&&(
@@ -999,7 +1000,7 @@ End every response with one line starting with ⚔️ they can say at work verba
 
           {/* Team search */}
           <div style={{background:faction?FACTIONS[faction].accent:"#FFE033",border:"3px solid #111",padding:"28px 24px",marginBottom:32}}>
-            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14}}>FIND YOUR MLB TEAM</div>
+            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:faction==="sopranos"?"#ffffff":undefined}}>FIND YOUR MLB TEAM</div>
             {detecting?(
               <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
                 <Spin/>
