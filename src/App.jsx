@@ -133,6 +133,33 @@ Rules:
 - Dry. Confident. Like WesterosCentral but for Star Wars and baseball.
 - End every Oracle response with one line prefixed ⚔️ they can say at work.`,
   },
+  sopranos: {
+    id: "sopranos",
+    name: "The Sopranos",
+    emoji: "🍝",
+    accent: "#8B0000",
+    accentBright: "#8B0000",
+    bg: "#F5F0E8",
+    tagline: "Gabagool. Stats. Respect.",
+    oracleTitle: "THE SITDOWN",
+    storyTitle: "THE FAMILY BRIEFING",
+    battleTitle: "BATTLE RECORDS",
+    saySectionTitle: "TRANSMIT THIS TO THE CREW",
+    intro: "Your season. Translated into North Jersey.",
+    sys: `You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
+
+The reference IS the explanation. "The bullpen's been pulling a Christopher — full of promise, completely unreliable, and you can't cut 'em loose because they're family." Not a comparison — the reference carries the meaning.
+
+Rules:
+- Never explain the reference.
+- Use real player names and stats when you have them.
+- Dry. Let the Sopranos parallel do the work.
+- Full commitment. Never break character. This is a sit-down, not a press conference.
+- Give players mob titles. Acting capo. Associate. Made guy. Soldier on the bubble.
+- Never say "like" or "similar to." State it as fact. He IS made. He's a liability. He's getting whacked.
+- Mentions of food are natural and frequent. This is North Jersey.
+- End every Oracle response with one line prefixed ⚔️ they can say at work.`,
+  },
 };
 
 
@@ -163,6 +190,19 @@ const PUNS_SW = [
   { quote: "In a dark place we find ourselves.", punchline: "We are at .500 in June. Yoda gets it." },
 ];
 
+const PUNS_SOPRANOS = [
+  { quote: "A man in my position can't afford to look.", punchline: "Neither can this closer. Two inherited runners, both scored." },
+  { quote: "Those who want respect, give respect.", punchline: "Tell that to the third baseman who just booted a double-play ball." },
+  { quote: "All due respect, you got no idea what it's like to be number one.", punchline: "This rotation has the same problem. Different direction." },
+  { quote: "I'm like King Midas in reverse.", punchline: "Everything this bullpen touches turns to a loss." },
+  { quote: "Many men have paid a terrible price for going against the family.", punchline: "So has this lineup against lefties." },
+  { quote: "This is the beginning of something beautiful.", punchline: "The manager said this in April. It was not." },
+  { quote: "T, you're not gonna believe this —", punchline: "They blew a four-run lead in the eighth again." },
+  { quote: "I find I have to be the sad clown.", punchline: "Him and the entire coaching staff." },
+  { quote: "Every day is a gift.", punchline: "Except getaway day starts. Those are a curse." },
+  { quote: "You know who had it rough? The guy who had to watch the pine barrens game.", punchline: "Three errors. No body found. Still no explanation." },
+];
+
 // ─── FUN LOADER ───────────────────────────────────────────────────────────────
 const LOADER_MSGS = {
   lotr: {
@@ -176,6 +216,12 @@ const LOADER_MSGS = {
     episodes: ["Reviewing battle records...", "Checking the Imperial databanks...", "Scanning the mission logs...", "Pulling the holorecords..."],
     talking:  ["Transmitting your talking point...", "Encrypting the briefing...", "Preparing the intelligence report...", "Contacting Rebel Command..."],
     stats:    ["Downloading telemetry...", "Connecting to the HoloNet...", "Pinging the fleet...", "Reading sensor data..."],
+  },
+  sopranos: {
+    arc:      ["Calling a sit-down...", "Checking with the crew...", "Getting the word from North Jersey...", "Tony's thinking it over..."],
+    episodes: ["Reviewing the hits...", "Going over the books...", "Checking with Silvio...", "Pulling the records from Satriale's..."],
+    talking:  ["Preparing your talking point...", "Getting your story straight...", "Tony's got something to say...", "Drafting the message..."],
+    stats:    ["Running the numbers...", "Checking the ledger...", "Calling in a favor...", "Waiting on the wire..."],
   },
 };
 
@@ -253,7 +299,7 @@ function FunLoader({ faction, type, dark }) {
   }, [f, type]);
   return (
     <div style={{display:"flex",gap:14,alignItems:"center",padding:"4px 0"}}>
-      {faction==="lotr" ? <EyeSpinner dark={dark}/> : <DeathStarSpinner/>}
+      {faction==="lotr" ? <EyeSpinner dark={dark}/> : faction==="sopranos" ? <EyeSpinner dark={dark}/> : <DeathStarSpinner/>}
       <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:600,color:dark?"rgba(255,255,255,.5)":"#888",letterSpacing:.3}}>
         {msgs[idx]}
       </span>
@@ -316,7 +362,7 @@ function ShareButton({ text, faction }) {
 }
 
 function RotatingPun({ faction }) {
-  const puns = faction === "lotr" ? PUNS_LOTR : PUNS_SW;
+  const puns = faction === "lotr" ? PUNS_LOTR : faction === "sopranos" ? PUNS_SOPRANOS : PUNS_SW;
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * puns.length));
   const f = FACTIONS[faction] || FACTIONS.sw;
   useEffect(() => {
@@ -819,7 +865,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           <p className="lora" style={{fontSize:"clamp(15px,2vw,19px)",color:"rgba(255,255,255,.45)",fontStyle:"italic",marginBottom:56,textAlign:"center",maxWidth:480}}>
             Translated in the language of your favorite trilogy.
           </p>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:640}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:900}}>
             {/* LOTR */}
             <button onClick={()=>{setFaction("lotr");setPhase("landing");}}
               style={{background:"#C9A84C",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
@@ -846,6 +892,20 @@ End every response with one line starting with ⚔️ they can say at work verba
                 Your team's season decoded through the Force. Missions, disturbances, and whether your lineup breezes through the opposition like Anakin through younglings.
               </p>
               <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(0,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
+              </div>
+            </button>
+            {/* The Sopranos */}
+            <button onClick={()=>{setFaction("sopranos");setPhase("landing");}}
+              style={{background:"#8B0000",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#a50000";e.currentTarget.style.borderColor="#a50000";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#8B0000";e.currentTarget.style.borderColor="#8B0000";}}>
+              <div style={{padding:"36px 28px"}}>
+              <div style={{fontSize:48,marginBottom:16}}>🍝</div>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#fff",marginBottom:8,lineHeight:1}}>THE<br/>SOPRANOS</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(255,255,255,.65)",fontStyle:"italic",marginBottom:16}}>
+                Your team's season, but make it North Jersey. Wins are hits. Losses are whacks. And the closer is always one bad outing away from getting clipped.
+              </p>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(255,255,255,.45)"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
           </div>
@@ -1102,7 +1162,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     </div>
                     {i===msgs.length-1&&(
                       <div className="oracle-char" style={{flexShrink:0,alignSelf:"center",width:"clamp(168px,19.2vw,264px)"}}>
-                        <img src={faction==="lotr"?"/gandalf-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
+                        <img src={faction==="lotr"?"/gandalf-funko.png":faction==="sopranos"?"/tony-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
                       </div>
                     )}
                     </div>
