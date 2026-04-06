@@ -164,6 +164,36 @@ Rules:
 - Mentions of food are natural and frequent. This is North Jersey.
 - End every Oracle response with one line prefixed 💰 they can say at work.`,
   },
+  rhoslc: {
+    id: "rhoslc",
+    name: "RHOSLC",
+    emoji: "❄️",
+    accent: "#A8C8DC",
+    accentBright: "#A8C8DC",
+    bg: "#F0F4F8",
+    tagline: "Darling. Stats. Iconic.",
+    oracleTitle: "THE CONFESSIONAL",
+    storyTitle: "THE GROUP CHAT",
+    battleTitle: "THE RECEIPTS",
+    saySectionTitle: "TRANSMIT THIS AT LUNCH",
+    intro: "Your season. Decoded by Lisa.",
+    oracleSubtitle: "Return daily. Fresh intel from Park City arrives after every game.",
+    sys: `RHOSLC MODE ONLY. You are Lisa Barlow from Real Housewives of Salt Lake City reporting on baseball like it is a lifestyle brand. Never reference Star Wars, Lord of the Rings, The Sopranos, or any other franchise.
+
+You speak in confessional talking-head style — composed, confident, slightly shady, always right. You use words like iconic, curated, luxurious, intentional, premium, chic, high-functioning, fully realized. A winning team is not just good, it is a luxury product. A losing team has bad energy and is not serious. Stats are receipts. A slow start is not panic, it is a minor inconvenience for serious teams. Stars are presence not pressure. Supporting cast is either showing up or not. A deep lineup is rich baseball. Serious teams do not panic in April. Be specific with player names and stats when you have them.
+
+When a team is winning say things like: this is what depth looks like, that is what rich baseball looks like, this roster is curated, they are high-functioning and a little intimidating which is my favorite type of team.
+When a team is losing say things like: this has bad energy, this is not serious baseball, I am not panicking but I am noting it.
+
+References when relevant: VIDA Tequila, Park City, first class, the group chat, the receipts, being a good friend who is always right, Meredith, Mary, the gas station incident.
+
+Rules:
+- RHOSLC MODE ONLY. Never reference Star Wars, LOTR, The Sopranos, or any other franchise.
+- Stats are receipts. Use them.
+- Composed, slightly shady, always right. Never flustered.
+- Full commitment. Never break character.
+- End every Oracle response with one line prefixed 🥂 they can say at work.`,
+  },
 };
 
 
@@ -207,6 +237,17 @@ const PUNS_SOPRANOS = [
   { quote: "You know who had it rough? The guy who had to watch the pine barrens game.", punchline: "Three errors. No body found. Still no explanation." },
 ];
 
+const PUNS_RHOSLC = [
+  { quote: "I am not a baseball fan, I am a baseball enthusiast.", punchline: "There is a difference and I will explain it to you." },
+  { quote: "That bullpen has bad energy.", punchline: "I am not saying it, I am just saying it." },
+  { quote: "A .200 batting average is not a personality.", punchline: "Get it together." },
+  { quote: "I did not fly first class to watch a ninth-inning collapse.", punchline: "Unacceptable." },
+  { quote: "The closer either shows up or gets talked about.", punchline: "Those are the only two options." },
+  { quote: "Rich baseball is a vibe and this team has it.", punchline: "I said what I said." },
+  { quote: "A winning streak is not luck, it is intention.", punchline: "Curated teams do not accidentally win." },
+  { quote: "I am obsessed with this lineup.", punchline: "Obsessed." },
+];
+
 // ─── FUN LOADER ───────────────────────────────────────────────────────────────
 const LOADER_MSGS = {
   lotr: {
@@ -226,6 +267,12 @@ const LOADER_MSGS = {
     episodes: ["Reviewing the hits...", "Going over the books...", "Checking with Silvio...", "Pulling the records from Satriale's..."],
     talking:  ["Preparing your talking point...", "Getting your story straight...", "Tony's got something to say...", "Drafting the message..."],
     stats:    ["Running the numbers...", "Checking the ledger...", "Calling in a favor...", "Waiting on the wire..."],
+  },
+  rhoslc: {
+    arc:      ["Checking the group chat...", "Lisa is forming an opinion...", "Consulting the receipts...", "Getting intel from Park City..."],
+    episodes: ["Reviewing the receipts...", "Checking who showed up...", "Pulling the group chat...", "Lisa is noting this..."],
+    talking:  ["Curating your talking point...", "Lisa is drafting something iconic...", "Preparing the briefing...", "Getting the receipts ready..."],
+    stats:    ["Running the receipts...", "Checking the ledger darling...", "Pulling the numbers...", "Lisa has the data..."],
   },
 };
 
@@ -322,6 +369,35 @@ function DuckSpinner() {
   );
 }
 
+function SnowflakeSpinner() {
+  return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:6,flexShrink:0}}>
+      <style>{`
+        @keyframes sfSpin1{0%{transform:rotate(0deg) translateY(0px)}50%{transform:rotate(180deg) translateY(-5px)}100%{transform:rotate(360deg) translateY(0px)}}
+        @keyframes sfSpin2{0%{transform:rotate(0deg) translateY(-3px)}50%{transform:rotate(-180deg) translateY(4px)}100%{transform:rotate(-360deg) translateY(-3px)}}
+        @keyframes sfSpin3{0%{transform:rotate(0deg) translateY(2px)}50%{transform:rotate(180deg) translateY(-4px)}100%{transform:rotate(360deg) translateY(2px)}}
+        @keyframes sfDotPulse{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+        .sf1{animation:sfSpin1 2s ease-in-out infinite}
+        .sf2{animation:sfSpin2 2s ease-in-out infinite;animation-delay:.22s}
+        .sf3{animation:sfSpin3 2s ease-in-out infinite;animation-delay:.44s}
+        .sfdot1{animation:sfDotPulse 1.4s ease-in-out infinite}
+        .sfdot2{animation:sfDotPulse 1.4s ease-in-out infinite;animation-delay:.2s}
+        .sfdot3{animation:sfDotPulse 1.4s ease-in-out infinite;animation-delay:.4s}
+      `}</style>
+      <div style={{display:"flex",alignItems:"flex-end",gap:4}}>
+        <span className="sf1" style={{fontSize:36,lineHeight:1,display:"inline-block"}}>❄️</span>
+        <span className="sf2" style={{fontSize:28,lineHeight:1,display:"inline-block"}}>❄️</span>
+        <span className="sf3" style={{fontSize:22,lineHeight:1,display:"inline-block"}}>❄️</span>
+      </div>
+      <div style={{display:"flex",gap:5,alignItems:"center"}}>
+        <span className="sfdot1" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
+        <span className="sfdot2" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
+        <span className="sfdot3" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
+      </div>
+    </div>
+  );
+}
+
 function FunLoader({ faction, type, dark }) {
   const f = faction || "sw";
   const msgs = LOADER_MSGS[f]?.[type] || LOADER_MSGS.sw.arc;
@@ -335,6 +411,16 @@ function FunLoader({ faction, type, dark }) {
       <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:10,padding:"4px 0"}}>
         <DuckSpinner/>
         <span style={{fontFamily:"Georgia,serif",fontSize:13,fontStyle:"italic",color:"#8B0000",letterSpacing:.3}}>
+          {msgs[idx]}
+        </span>
+      </div>
+    );
+  }
+  if (faction === "rhoslc") {
+    return (
+      <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:10,padding:"4px 0"}}>
+        <SnowflakeSpinner/>
+        <span style={{fontFamily:"Georgia,serif",fontSize:13,fontStyle:"italic",color:"#A8C8DC",letterSpacing:.3}}>
           {msgs[idx]}
         </span>
       </div>
@@ -372,7 +458,7 @@ function ShareButton({ text, faction }) {
       <button onClick={()=>setOpen(o=>!o)} style={{
         background:f.accent,border:"2px solid #111",padding:"6px 14px",
         cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
-        fontSize:10,letterSpacing:2,color:(faction||"sw")==="sopranos"?"#ffffff":"#111",whiteSpace:"nowrap",
+        fontSize:10,letterSpacing:2,color:((faction||"sw")==="sopranos"||(faction||"sw")==="rhoslc")?"#ffffff":"#111",whiteSpace:"nowrap",
         display:"inline-flex",alignItems:"center",gap:5,
       }}>&#x2197; SHARE</button>
       {open&&(
@@ -405,7 +491,7 @@ function ShareButton({ text, faction }) {
 }
 
 function RotatingPun({ faction }) {
-  const puns = faction === "lotr" ? PUNS_LOTR : faction === "sopranos" ? PUNS_SOPRANOS : PUNS_SW;
+  const puns = faction === "lotr" ? PUNS_LOTR : faction === "sopranos" ? PUNS_SOPRANOS : faction === "rhoslc" ? PUNS_RHOSLC : PUNS_SW;
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * puns.length));
   const f = FACTIONS[faction] || FACTIONS.sw;
   useEffect(() => {
@@ -698,7 +784,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using faction-appropria
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys + `\n\nCRITICAL: You are in ${(fac||faction||'sw')==='lotr'?'LORD OF THE RINGS':(fac||faction||'sw')==='sopranos'?'SOPRANOS':'STAR WARS'} mode ONLY. Every single reference must be from ${(fac||faction||'sw')==='lotr'?'Lord of the Rings':(fac||faction||'sw')==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:FACTIONS[fac||faction||'sw'].sys + `\n\nCRITICAL: You are in ${(fac||faction||'sw')==='lotr'?'LORD OF THE RINGS':(fac||faction||'sw')==='sopranos'?'SOPRANOS':(fac||faction||'sw')==='rhoslc'?'RHOSLC':'STAR WARS'} mode ONLY. Every single reference must be from ${(fac||faction||'sw')==='lotr'?'Lord of the Rings':(fac||faction||'sw')==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':(fac||faction||'sw')==='rhoslc'?'RHOSLC exclusively — Lisa Barlow, Park City, VIDA Tequila, the group chat, the receipts. No Star Wars. No LOTR. No Sopranos.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
       });
       const data = await res.json();
       const text = data.content?.[0]?.text ?? "";
@@ -829,6 +915,10 @@ End every response with one line starting with ⚔️ they can say at work verba
     <div style={{padding:"16px clamp(20px,5vw,48px)"}}>
       <div style={{height:2,background:"linear-gradient(90deg, transparent, #8B0000, transparent)"}}/>
     </div>
+  ) : faction==="rhoslc" ? (
+    <div style={{padding:"16px clamp(20px,5vw,48px)"}}>
+      <div style={{height:2,background:"linear-gradient(90deg, transparent, #A8C8DC, transparent)"}}/>
+    </div>
   ) : (
     <div style={{display:"flex",alignItems:"center",gap:0,padding:"16px clamp(20px,5vw,48px)"}}>
       <div style={{width:20,height:7,background:"#666",borderRadius:2,flexShrink:0}}/>
@@ -912,7 +1002,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           <p className="lora" style={{fontSize:"clamp(15px,2vw,19px)",color:"rgba(255,255,255,.45)",fontStyle:"italic",marginBottom:56,textAlign:"center",maxWidth:480}}>
             Translated through the worlds you quote too much.
           </p>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:900}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:4,width:"100%",maxWidth:1200}}>
             {/* LOTR */}
             <button onClick={()=>{setFaction("lotr");setPhase("landing");}}
               style={{background:"#0d1a0d",border:"3px solid #C0C0C0",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
@@ -955,6 +1045,20 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#8B0000"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
+            {/* RHOSLC */}
+            <button onClick={()=>{setFaction("rhoslc");setPhase("landing");}}
+              style={{background:"#0D2B4A",border:"2px solid #A8C8DC",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#102f52";e.currentTarget.style.borderColor="#c8e4f4";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#0D2B4A";e.currentTarget.style.borderColor="#A8C8DC";}}>
+              <div style={{padding:"36px 28px"}}>
+              <div style={{fontSize:48,marginBottom:16}}>❄️</div>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#E8F0F5",marginBottom:8,lineHeight:1}}>REAL<br/>HOUSEWIVES</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"#B8D4E8",fontStyle:"italic",marginBottom:16}}>
+                Your team's season, but make it a lifestyle brand. Wins are iconic. Losses have bad energy. And the rotation is either chic or being talked about behind its back.
+              </p>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#A8C8DC"}}>SELECT THIS UNIVERSE →</div>
+              </div>
+            </button>
           </div>
           <p className="sg" style={{fontSize:11,color:"rgba(255,255,255,.2)",marginTop:32,letterSpacing:1,fontWeight:600}}>
             YOU CAN SWITCH ANYTIME FROM THE MENU
@@ -972,7 +1076,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div className="arch" style={{fontSize:11,letterSpacing:4,color:"#888"}}>MLB BASEBALL · FOR PEOPLE WHO DON&apos;T WATCH</div>
               {faction&&(
                 <button onClick={()=>setPhase("pick")}
-                  style={{background:FACTIONS[faction].accent,border:`2px solid ${faction==="sopranos"?"#F5F0E8":"#111"}`,padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:faction==="sopranos"?"#F5F0E8":"#111",display:"flex",alignItems:"center",gap:5}}>
+                  style={{background:faction==="rhoslc"?"#0D2B4A":FACTIONS[faction].accent,border:`2px solid ${faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#A8C8DC":"#111"}`,padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#A8C8DC":"#111",display:"flex",alignItems:"center",gap:5}}>
                   {FACTIONS[faction].emoji} {FACTIONS[faction].name.toUpperCase()} ↻
                 </button>
               )}
@@ -986,7 +1090,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           {/* Value prop — 2 cards + full-width pun quote */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:3,marginBottom:3}}>
             {[
-              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
+              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":faction==="rhoslc"?"❄️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":faction==="rhoslc"?"Your team's season, but make it a lifestyle brand. Wins, losses, drama — all of it through the lens of the Family.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
               {icon:"💬",title:"ONE TALKING POINT",body:"Walk away with exactly one thing to say at work tomorrow. Real stat. Real reference. Sounds like you watched."},
             ].map(c=>(
               <div key={c.title} style={{background:"#fff",border:"3px solid #111",padding:"24px 22px"}}>
@@ -1000,7 +1104,7 @@ End every response with one line starting with ⚔️ they can say at work verba
 
           {/* Team search */}
           <div style={{background:faction?FACTIONS[faction].accent:"#FFE033",border:"3px solid #111",padding:"28px 24px",marginBottom:32}}>
-            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:faction==="sopranos"?"#ffffff":undefined}}>FIND YOUR MLB TEAM</div>
+            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:(faction==="sopranos"||faction==="rhoslc")?"#ffffff":undefined}}>FIND YOUR MLB TEAM</div>
             {detecting?(
               <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
                 <Spin/>
@@ -1158,8 +1262,8 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":"#0077cc",fontWeight:600}}>
-              {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":faction==="sopranos"?"Return daily. Fresh intel from the family arrives after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
+            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc",fontWeight:600}}>
+              {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":faction==="sopranos"?"Return daily. Fresh intel from the family arrives after every game.":faction==="rhoslc"?"Return daily. Fresh intel from Park City arrives after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
             {faction==="lotr" ? (
               <div className="oracle-sub" style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
@@ -1176,6 +1280,10 @@ End every response with one line starting with ⚔️ they can say at work verba
             ) : faction==="sopranos" ? (
               <div className="oracle-sub" style={{position:"relative",background:"#1a0a00",border:"2px solid #8B0000",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
                 <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#f5e6c8",fontWeight:600,letterSpacing:.3}}>🍝 Return daily. Fresh intel from the family arrives after every game.</p>
+              </div>
+            ) : faction==="rhoslc" ? (
+              <div className="oracle-sub" style={{position:"relative",background:"#0D2B4A",border:"2px solid #A8C8DC",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
+                <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#E8F0F5",fontWeight:600,letterSpacing:.3}}>🥂 Return daily. Fresh intel from Park City arrives after every game.</p>
               </div>
             ) : (
               <div className="oracle-sub" style={{position:"relative",background:"#001830",border:"1px solid #0066aa",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
@@ -1198,20 +1306,20 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div style={{position:"relative",flex:1}}>
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
-                        background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":"#001220",
-                        border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":"2px solid #0077cc",
+                        background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#0D2B4A":"#001220",
+                        border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":faction==="rhoslc"?"2px solid #A8C8DC":"2px solid #0077cc",
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
                       }}>
-                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":"#001220"}/></svg>
+                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":faction==="rhoslc"?"#E8F0F5":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
+                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#0D2B4A":"#001220"}/></svg>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
                     {i===msgs.length-1&&(
                       <div className="oracle-char" style={{flexShrink:0,alignSelf:"center",width:"clamp(168px,19.2vw,264px)"}}>
-                        <img src={faction==="lotr"?"/gandalf-funko.png":faction==="sopranos"?"/tony-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
+                        <img src={faction==="lotr"?"/gandalf-funko.png":faction==="sopranos"?"/tony-funko.png":faction==="rhoslc"?"/lisa-funko.png":"/vader-funko.png"} alt="" style={{width:"100%",height:"auto",display:"block"}}/>
                       </div>
                     )}
                     </div>
@@ -1284,7 +1392,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <>
                 {/* Lore translation — big and dramatic */}
                 <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#FFE033"}}>
-                  {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":faction==="sopranos"?"🍝 IN NORTH JERSEY":"🚀 IN A GALAXY FAR AWAY"}
+                  {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":faction==="sopranos"?"🍝 IN NORTH JERSEY":faction==="rhoslc"?"❄️ IN PARK CITY":"🚀 IN A GALAXY FAR AWAY"}
                 </div>
                 <blockquote className="lora" style={{fontSize:"clamp(20px,3vw,34px)",lineHeight:1.3,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`5px solid ${f.accent}`,paddingLeft:24,marginBottom:32}}>
                   &ldquo;{typeof talkingPoint==="object"?talkingPoint.lore:talkingPoint}&rdquo;
@@ -1335,7 +1443,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div className="sg" style={{fontSize:11,color:"#888",fontWeight:700,paddingTop:2}}>#{ep.num}</div>
                     <div>
                       <span className={ep.win?"tag-w":"tag-l"} style={{display:"inline-block",marginBottom:5}}>{ep.win?"WIN":"LOSS"}</span>
-                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{faction==="lotr"?"⚔ ":faction==="sopranos"?"💰 ":"⚡ "}{ep.title}</div>
+                      <div className="lora" style={{fontSize:"clamp(14px,2.2vw,18px)",fontWeight:600,lineHeight:1.3,marginBottom:3}}>{faction==="lotr"?"⚔ ":faction==="sopranos"?"💰 ":faction==="rhoslc"?"🥂 ":"⚡ "}{ep.title}</div>
                       <div className="sg" style={{fontSize:11,color:"#777",fontWeight:500}}>vs. {ep.opp} · {ep.date}</div>
                     </div>
                     <div className="arch" style={{fontSize:"clamp(15px,3vw,22px)",letterSpacing:-0.5,textAlign:"right",color:ep.win?"#111":"#bbb",paddingTop:2}}>{ep.score}</div>
