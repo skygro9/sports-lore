@@ -144,7 +144,7 @@ Rules:
     oracleTitle: "THE SITDOWN",
     storyTitle: "THE FAMILY BRIEFING",
     battleTitle: "BATTLE RECORDS",
-    saySectionTitle: "TRANSMIT THIS TO THE CREW",
+    saySectionTitle: "FROM THE BADA BING",
     intro: "Your season. Translated into North Jersey.",
     oracleSubtitle: "Return daily. Fresh intel from the family arrives after every game.",
     sys: `You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
@@ -159,7 +159,7 @@ Rules:
 - Give players mob titles. Acting capo. Associate. Made guy. Soldier on the bubble.
 - Never say "like" or "similar to." State it as fact. He IS made. He's a liability. He's getting whacked.
 - Mentions of food are natural and frequent. This is North Jersey.
-- End every Oracle response with one line prefixed ⚔️ they can say at work.`,
+- End every Oracle response with one line prefixed 💰 they can say at work.`,
   },
 };
 
@@ -907,49 +907,49 @@ End every response with one line starting with ⚔️ they can say at work verba
             BASEBALL<br/>FOR NERDS.
           </h1>
           <p className="lora" style={{fontSize:"clamp(15px,2vw,19px)",color:"rgba(255,255,255,.45)",fontStyle:"italic",marginBottom:56,textAlign:"center",maxWidth:480}}>
-            Translated in the language of your favorite trilogy.
+            Translated through the worlds you quote too much.
           </p>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:4,width:"100%",maxWidth:900}}>
             {/* LOTR */}
             <button onClick={()=>{setFaction("lotr");setPhase("landing");}}
-              style={{background:"#C9A84C",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
-              onMouseOver={e=>{e.currentTarget.style.background="#E8C76A";e.currentTarget.style.borderColor="#E8C76A";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#C9A84C";e.currentTarget.style.borderColor="#C9A84C";}}>
+              style={{background:"#1a1200",border:"3px solid #C9A84C",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#2a1e00";e.currentTarget.style.borderColor="#E8C76A";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#1a1200";e.currentTarget.style.borderColor="#C9A84C";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>💍</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
-              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#C9A84C",marginBottom:8,lineHeight:1}}>LORD OF<br/>THE RINGS</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(201,168,76,.6)",fontStyle:"italic",marginBottom:16}}>
                 Your team's season, retold as a tale from Middle-earth. A fellowship forged in spring training, shadows rising by midseason, and a return of the king closing it out in the ninth.
               </p>
-              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(0,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(201,168,76,.45)"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
             {/* Star Wars */}
             <button onClick={()=>{setFaction("sw");setPhase("landing");}}
-              style={{background:"#FFE033",border:"3px solid #FFE033",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
-              onMouseOver={e=>{e.currentTarget.style.background="#FFF176";e.currentTarget.style.borderColor="#FFF176";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#FFE033";e.currentTarget.style.borderColor="#FFE033";}}>
+              style={{background:"#0a0a0a",border:"3px solid #FFE033",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#1a1a00";e.currentTarget.style.borderColor="#FFF176";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#0a0a0a";e.currentTarget.style.borderColor="#FFE033";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>🚀</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#111",marginBottom:8,lineHeight:1}}>STAR<br/>WARS</div>
-              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(0,0,0,.6)",fontStyle:"italic",marginBottom:16}}>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#FFE033",marginBottom:8,lineHeight:1}}>STAR<br/>WARS</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(255,224,51,.6)",fontStyle:"italic",marginBottom:16}}>
                 Your team's season decoded through the Force. Missions, disturbances, and whether your lineup breezes through the opposition like Anakin through younglings.
               </p>
-              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(0,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(255,224,51,.45)"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
             {/* The Sopranos */}
             <button onClick={()=>{setFaction("sopranos");setPhase("landing");}}
-              style={{background:"#8B0000",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
-              onMouseOver={e=>{e.currentTarget.style.background="#a50000";e.currentTarget.style.borderColor="#a50000";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#8B0000";e.currentTarget.style.borderColor="#8B0000";}}>
+              style={{background:"#0d0000",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#1a0000";e.currentTarget.style.borderColor="#a50000";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#0d0000";e.currentTarget.style.borderColor="#8B0000";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>🍝</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#fff",marginBottom:8,lineHeight:1}}>THE<br/>SOPRANOS</div>
-              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(255,255,255,.65)",fontStyle:"italic",marginBottom:16}}>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#8B0000",marginBottom:8,lineHeight:1}}>THE<br/>SOPRANOS</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(139,0,0,.65)",fontStyle:"italic",marginBottom:16}}>
                 Your team's season, but make it North Jersey. Wins are hits. Losses are whacks. And the closer is always one bad outing away from getting clipped.
               </p>
-              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(255,255,255,.45)"}}>SELECT THIS UNIVERSE →</div>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"rgba(139,0,0,.5)"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
           </div>
@@ -993,8 +993,6 @@ End every response with one line starting with ⚔️ they can say at work verba
               </div>
             ))}
           </div>
-          {/* Full-width rotating pun quote — faction aware */}
-          <RotatingPun faction={faction||"sw"}/>
           <div style={{marginBottom:48}}/>
 
           {/* Team search */}
@@ -1283,7 +1281,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <>
                 {/* Lore translation — big and dramatic */}
                 <div style={{marginBottom:10,fontSize:10,fontFamily:"'Archivo Black',sans-serif",letterSpacing:3,color:"#FFE033"}}>
-                  {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":"🚀 IN A GALAXY FAR AWAY"}
+                  {faction==="lotr"?"⚔️ IN MIDDLE-EARTH":faction==="sopranos"?"🍝 IN NORTH JERSEY":"🚀 IN A GALAXY FAR AWAY"}
                 </div>
                 <blockquote className="lora" style={{fontSize:"clamp(20px,3vw,34px)",lineHeight:1.3,fontStyle:"italic",fontWeight:600,color:f.accent,borderLeft:`5px solid ${f.accent}`,paddingLeft:24,marginBottom:32}}>
                   &ldquo;{typeof talkingPoint==="object"?talkingPoint.lore:talkingPoint}&rdquo;
