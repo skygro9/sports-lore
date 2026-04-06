@@ -168,8 +168,8 @@ Rules:
     id: "rhoslc",
     name: "RHOSLC",
     emoji: "❄️",
-    accent: "#A8C8DC",
-    accentBright: "#A8C8DC",
+    accent: "#7B5EA7",
+    accentBright: "#7B5EA7",
     bg: "#F0F4F8",
     tagline: "Darling. Stats. Iconic.",
     oracleTitle: "THE CONFESSIONAL",
@@ -390,9 +390,9 @@ function SnowflakeSpinner() {
         <span className="sf3" style={{fontSize:22,lineHeight:1,display:"inline-block"}}>❄️</span>
       </div>
       <div style={{display:"flex",gap:5,alignItems:"center"}}>
-        <span className="sfdot1" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
-        <span className="sfdot2" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
-        <span className="sfdot3" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
+        <span className="sfdot1" style={{width:6,height:6,borderRadius:"50%",background:"#7B5EA7",display:"inline-block"}}/>
+        <span className="sfdot2" style={{width:6,height:6,borderRadius:"50%",background:"#7B5EA7",display:"inline-block"}}/>
+        <span className="sfdot3" style={{width:6,height:6,borderRadius:"50%",background:"#7B5EA7",display:"inline-block"}}/>
       </div>
     </div>
   );
@@ -458,7 +458,7 @@ function ShareButton({ text, faction }) {
       <button onClick={()=>setOpen(o=>!o)} style={{
         background:f.accent,border:"2px solid #111",padding:"6px 14px",
         cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
-        fontSize:10,letterSpacing:2,color:(faction||"sw")==="sopranos"?"#ffffff":(faction||"sw")==="rhoslc"?"#1a1a2e":"#111",whiteSpace:"nowrap",
+        fontSize:10,letterSpacing:2,color:(faction||"sw")==="sopranos"?"#ffffff":"#111",whiteSpace:"nowrap",
         display:"inline-flex",alignItems:"center",gap:5,
       }}>&#x2197; SHARE</button>
       {open&&(
@@ -917,7 +917,7 @@ End every response with one line starting with ⚔️ they can say at work verba
     </div>
   ) : faction==="rhoslc" ? (
     <div style={{padding:"16px clamp(20px,5vw,48px)"}}>
-      <div style={{height:2,background:"linear-gradient(90deg, transparent, #A8C8DC, transparent)"}}/>
+      <div style={{height:2,background:"linear-gradient(90deg, transparent, #7B5EA7, transparent)"}}/>
     </div>
   ) : (
     <div style={{display:"flex",alignItems:"center",gap:0,padding:"16px clamp(20px,5vw,48px)"}}>
@@ -1047,16 +1047,16 @@ End every response with one line starting with ⚔️ they can say at work verba
             </button>
             {/* RHOSLC */}
             <button onClick={()=>{setFaction("rhoslc");setPhase("landing");}}
-              style={{background:"#0D2B4A",border:"2px solid #A8C8DC",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
-              onMouseOver={e=>{e.currentTarget.style.background="#102f52";e.currentTarget.style.borderColor="#c8e4f4";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#0D2B4A";e.currentTarget.style.borderColor="#A8C8DC";}}>
+              style={{background:"#1a0f2e",border:"2px solid #7B5EA7",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              onMouseOver={e=>{e.currentTarget.style.background="#251444";e.currentTarget.style.borderColor="#9b7ec8";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#1a0f2e";e.currentTarget.style.borderColor="#7B5EA7";}}>
               <div style={{padding:"36px 28px"}}>
               <div style={{fontSize:48,marginBottom:16}}>❄️</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#E8F0F5",marginBottom:8,lineHeight:1}}>REAL<br/>HOUSEWIVES</div>
-              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"#B8D4E8",fontStyle:"italic",marginBottom:16}}>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#E8E0F4",marginBottom:8,lineHeight:1}}>REAL<br/>HOUSEWIVES</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"rgba(232,224,244,.65)",fontStyle:"italic",marginBottom:16}}>
                 Your team's season, but make it a lifestyle brand. Wins are iconic. Losses have bad energy. And the rotation is either chic or being talked about behind its back.
               </p>
-              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#A8C8DC"}}>SELECT THIS UNIVERSE →</div>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#7B5EA7"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
           </div>
@@ -1076,7 +1076,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <div className="arch" style={{fontSize:11,letterSpacing:4,color:"#888"}}>MLB BASEBALL · FOR PEOPLE WHO DON&apos;T WATCH</div>
               {faction&&(
                 <button onClick={()=>setPhase("pick")}
-                  style={{background:faction==="rhoslc"?"#0D2B4A":FACTIONS[faction].accent,border:`2px solid ${faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#A8C8DC":"#111"}`,padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#A8C8DC":"#111",display:"flex",alignItems:"center",gap:5}}>
+                  style={{background:faction==="rhoslc"?"#1a0f2e":FACTIONS[faction].accent,border:`2px solid ${faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#7B5EA7":"#111"}`,padding:"3px 10px",cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",fontSize:10,letterSpacing:2,color:faction==="sopranos"?"#F5F0E8":faction==="rhoslc"?"#E8E0F4":"#111",display:"flex",alignItems:"center",gap:5}}>
                   {FACTIONS[faction].emoji} {FACTIONS[faction].name.toUpperCase()} ↻
                 </button>
               )}
@@ -1090,7 +1090,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           {/* Value prop — 2 cards + full-width pun quote */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:3,marginBottom:3}}>
             {[
-              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":faction==="rhoslc"?"❄️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":faction==="rhoslc"?"Your team's season, but make it a Bravo production. Wins are iconic moments. Losses are betrayals. And the rotation is either thriving or getting a confessional about them.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
+              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":faction==="rhoslc"?"❄️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":faction==="rhoslc"?"Your team's season, but make it a Bravo production. Wins are iconic. Losses are betrayals. And the rotation is either thriving or getting a confessional made about them.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
               {icon:"💬",title:"ONE TALKING POINT",body:"Walk away with exactly one thing to say at work tomorrow. Real stat. Real reference. Sounds like you watched."},
             ].map(c=>(
               <div key={c.title} style={{background:"#fff",border:"3px solid #111",padding:"24px 22px"}}>
@@ -1104,7 +1104,7 @@ End every response with one line starting with ⚔️ they can say at work verba
 
           {/* Team search */}
           <div style={{background:faction?FACTIONS[faction].accent:"#FFE033",border:"3px solid #111",padding:"28px 24px",marginBottom:32}}>
-            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:(faction==="sopranos"||faction==="rhoslc")?"#ffffff":undefined}}>FIND YOUR MLB TEAM</div>
+            <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:faction==="sopranos"?"#ffffff":faction==="rhoslc"?"#111111":undefined}}>FIND YOUR MLB TEAM</div>
             {detecting?(
               <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
                 <Spin/>
@@ -1282,7 +1282,7 @@ End every response with one line starting with ⚔️ they can say at work verba
                 <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#f5e6c8",fontWeight:600,letterSpacing:.3}}>🍝 Return daily. Fresh intel from the family arrives after every game.</p>
               </div>
             ) : faction==="rhoslc" ? (
-              <div className="oracle-sub" style={{position:"relative",background:"#0D2B4A",border:"2px solid #A8C8DC",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
+              <div className="oracle-sub" style={{position:"relative",background:"#1a0f2e",border:"2px solid #7B5EA7",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
                 <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#E8F0F5",fontWeight:600,letterSpacing:.3}}>🥂 Return daily. Fresh intel from Park City arrives after every game.</p>
               </div>
             ) : (
@@ -1307,13 +1307,13 @@ End every response with one line starting with ⚔️ they can say at work verba
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
                         background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#F0F4F8":"#001220",
-                        border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":faction==="rhoslc"?"2px solid #A8C8DC":"2px solid #0077cc",
+                        border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":faction==="rhoslc"?"2px solid #7B5EA7":"2px solid #0077cc",
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
                       }}>
                         <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":faction==="rhoslc"?"#0D2B4A":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#F0F4F8":"#001220"}/></svg>
+                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#7B5EA7":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#F0F4F8":"#001220"}/></svg>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
