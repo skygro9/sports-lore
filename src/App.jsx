@@ -175,7 +175,7 @@ Rules:
     oracleTitle: "THE CONFESSIONAL",
     storyTitle: "THE GROUP CHAT",
     battleTitle: "THE RECEIPTS",
-    saySectionTitle: "SHARE THIS AT THE DINNER PARTY",
+    saySectionTitle: "SEND THIS IN THE GROUP CHAT",
     intro: "Your season. Decoded by Lisa.",
     oracleSubtitle: "Return daily. Fresh intel from Park City arrives after every game.",
     sys: `RHOSLC MODE ONLY. You are Lisa Barlow from Real Housewives of Salt Lake City reporting on baseball like it is a lifestyle brand. Never reference Star Wars, Lord of the Rings, The Sopranos, or any other franchise.
@@ -390,9 +390,9 @@ function SnowflakeSpinner() {
         <span className="sf3" style={{fontSize:22,lineHeight:1,display:"inline-block"}}>❄️</span>
       </div>
       <div style={{display:"flex",gap:5,alignItems:"center"}}>
-        <span className="sfdot1" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
-        <span className="sfdot2" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
-        <span className="sfdot3" style={{width:6,height:6,borderRadius:"50%",background:"#A8C8DC",display:"inline-block"}}/>
+        <span className="sfdot1" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
+        <span className="sfdot2" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
+        <span className="sfdot3" style={{width:6,height:6,borderRadius:"50%",background:"#1a1a2e",display:"inline-block"}}/>
       </div>
     </div>
   );
@@ -420,7 +420,7 @@ function FunLoader({ faction, type, dark }) {
     return (
       <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:10,padding:"4px 0"}}>
         <SnowflakeSpinner/>
-        <span style={{fontFamily:"Georgia,serif",fontSize:13,fontStyle:"italic",color:"#A8C8DC",letterSpacing:.3}}>
+        <span style={{fontFamily:"Georgia,serif",fontSize:13,fontStyle:"italic",color:"#1a1a2e",letterSpacing:.3}}>
           {msgs[idx]}
         </span>
       </div>
@@ -458,7 +458,7 @@ function ShareButton({ text, faction }) {
       <button onClick={()=>setOpen(o=>!o)} style={{
         background:f.accent,border:"2px solid #111",padding:"6px 14px",
         cursor:"pointer",fontFamily:"'Archivo Black',sans-serif",
-        fontSize:10,letterSpacing:2,color:((faction||"sw")==="sopranos"||(faction||"sw")==="rhoslc")?"#ffffff":"#111",whiteSpace:"nowrap",
+        fontSize:10,letterSpacing:2,color:(faction||"sw")==="sopranos"?"#ffffff":(faction||"sw")==="rhoslc"?"#1a1a2e":"#111",whiteSpace:"nowrap",
         display:"inline-flex",alignItems:"center",gap:5,
       }}>&#x2197; SHARE</button>
       {open&&(
@@ -1090,7 +1090,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           {/* Value prop — 2 cards + full-width pun quote */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:3,marginBottom:3}}>
             {[
-              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":faction==="rhoslc"?"❄️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":faction==="rhoslc"?"Your team's season, but make it a lifestyle brand. Wins, losses, drama — all of it through the lens of the Family.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
+              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":faction==="rhoslc"?"❄️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":faction==="rhoslc"?"Your team's season, but make it a Bravo production. Wins are iconic moments. Losses are betrayals. And the rotation is either thriving or getting a confessional about them.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
               {icon:"💬",title:"ONE TALKING POINT",body:"Walk away with exactly one thing to say at work tomorrow. Real stat. Real reference. Sounds like you watched."},
             ].map(c=>(
               <div key={c.title} style={{background:"#fff",border:"3px solid #111",padding:"24px 22px"}}>
@@ -1262,7 +1262,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#0D2B4A":"#0077cc",fontWeight:600}}>
+            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#1a1a2e":"#0077cc",fontWeight:600}}>
               {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":faction==="sopranos"?"Return daily. Fresh intel from the family arrives after every game.":faction==="rhoslc"?"Return daily. Fresh intel from Park City arrives after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
             {faction==="lotr" ? (
