@@ -219,7 +219,7 @@ const LOADER_MSGS = {
     stats:    ["Downloading telemetry...", "Connecting to the HoloNet...", "Pinging the fleet...", "Reading sensor data..."],
   },
   sopranos: {
-    arc:      ["Calling a sit-down...", "Checking with the crew...", "Getting the word from North Jersey...", "Tony's thinking it over..."],
+    arc:      ["Checking with the crew...", "Tony is thinking...", "Consulting the family...", "Getting the word from Jersey..."],
     episodes: ["Reviewing the hits...", "Going over the books...", "Checking with Silvio...", "Pulling the records from Satriale's..."],
     talking:  ["Preparing your talking point...", "Getting your story straight...", "Tony's got something to say...", "Drafting the message..."],
     stats:    ["Running the numbers...", "Checking the ledger...", "Calling in a favor...", "Waiting on the wire..."],
@@ -290,6 +290,35 @@ function DeathStarSpinner() {
   );
 }
 
+function DuckSpinner() {
+  return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:6,flexShrink:0}}>
+      <style>{`
+        @keyframes duckBob1{0%,100%{transform:translateY(0px) rotate(-8deg)}50%{transform:translateY(-6px) rotate(8deg)}}
+        @keyframes duckBob2{0%,100%{transform:translateY(-3px) rotate(6deg)}50%{transform:translateY(4px) rotate(-6deg)}}
+        @keyframes duckBob3{0%,100%{transform:translateY(2px) rotate(-5deg)}50%{transform:translateY(-5px) rotate(5deg)}}
+        @keyframes duckDotPulse{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+        .dd1{animation:duckBob1 1.4s ease-in-out infinite}
+        .dd2{animation:duckBob2 1.4s ease-in-out infinite;animation-delay:.18s}
+        .dd3{animation:duckBob3 1.4s ease-in-out infinite;animation-delay:.36s}
+        .ddot1{animation:duckDotPulse 1.4s ease-in-out infinite}
+        .ddot2{animation:duckDotPulse 1.4s ease-in-out infinite;animation-delay:.2s}
+        .ddot3{animation:duckDotPulse 1.4s ease-in-out infinite;animation-delay:.4s}
+      `}</style>
+      <div style={{display:"flex",alignItems:"flex-end",gap:4}}>
+        <span className="dd1" style={{fontSize:36,lineHeight:1,display:"inline-block"}}>🦆</span>
+        <span className="dd2" style={{fontSize:28,lineHeight:1,display:"inline-block"}}>🦆</span>
+        <span className="dd3" style={{fontSize:22,lineHeight:1,display:"inline-block"}}>🦆</span>
+      </div>
+      <div style={{display:"flex",gap:5,alignItems:"center"}}>
+        <span className="ddot1" style={{width:6,height:6,borderRadius:"50%",background:"#8B0000",display:"inline-block"}}/>
+        <span className="ddot2" style={{width:6,height:6,borderRadius:"50%",background:"#8B0000",display:"inline-block"}}/>
+        <span className="ddot3" style={{width:6,height:6,borderRadius:"50%",background:"#8B0000",display:"inline-block"}}/>
+      </div>
+    </div>
+  );
+}
+
 function FunLoader({ faction, type, dark }) {
   const f = faction || "sw";
   const msgs = LOADER_MSGS[f]?.[type] || LOADER_MSGS.sw.arc;
@@ -298,9 +327,19 @@ function FunLoader({ faction, type, dark }) {
     const i = setInterval(() => setIdx(n => (n + 1) % msgs.length), 2200);
     return () => clearInterval(i);
   }, [f, type]);
+  if (faction === "sopranos") {
+    return (
+      <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:10,padding:"4px 0"}}>
+        <DuckSpinner/>
+        <span style={{fontFamily:"Georgia,serif",fontSize:13,fontStyle:"italic",color:"#8B0000",letterSpacing:.3}}>
+          {msgs[idx]}
+        </span>
+      </div>
+    );
+  }
   return (
     <div style={{display:"flex",gap:14,alignItems:"center",padding:"4px 0"}}>
-      {faction==="lotr" ? <EyeSpinner dark={dark}/> : faction==="sopranos" ? <EyeSpinner dark={dark}/> : <DeathStarSpinner/>}
+      {faction==="lotr" ? <EyeSpinner dark={dark}/> : <DeathStarSpinner/>}
       <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:600,color:dark?"rgba(255,255,255,.5)":"#888",letterSpacing:.3}}>
         {msgs[idx]}
       </span>
