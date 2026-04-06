@@ -1019,10 +1019,10 @@ End every response with one line starting with ⚔️ they can say at work verba
               {MLB_TEAMS.sort((a,b)=>a.abbr.localeCompare(b.abbr)).map(t=>(
                 <button key={t.id} onClick={()=>selectTeam(t)}
                   style={{background:"#fff",border:"3px solid #111",cursor:"pointer",padding:"12px 8px",textAlign:"left",transition:"background .1s",minHeight:54}}
-                  onMouseOver={e=>e.currentTarget.style.background=faction?FACTIONS[faction].accent:"#FFE033"}
-                  onMouseOut={e=>e.currentTarget.style.background="#fff"}>
-                  <div className="arch" style={{fontSize:14,color:"#111"}}>{t.abbr}</div>
-                  <div className="sg" style={{fontSize:9,color:"#666",marginTop:2,fontWeight:500}}>{t.city}</div>
+                  onMouseOver={e=>{e.currentTarget.style.background=faction?FACTIONS[faction].accent:"#FFE033";if(faction==="sopranos"){e.currentTarget.querySelector(".abbr-text").style.color="#fff";e.currentTarget.querySelector(".city-text").style.color="rgba(255,255,255,.7)";}}}
+                  onMouseOut={e=>{e.currentTarget.style.background="#fff";if(faction==="sopranos"){e.currentTarget.querySelector(".abbr-text").style.color="#111";e.currentTarget.querySelector(".city-text").style.color="#666";}}}>
+                  <div className="arch abbr-text" style={{fontSize:14,color:"#111"}}>{t.abbr}</div>
+                  <div className="sg city-text" style={{fontSize:9,color:"#666",marginTop:2,fontWeight:500}}>{t.city}</div>
                 </button>
               ))}
             </div>
