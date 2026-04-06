@@ -146,6 +146,7 @@ Rules:
     battleTitle: "BATTLE RECORDS",
     saySectionTitle: "TRANSMIT THIS TO THE CREW",
     intro: "Your season. Translated into North Jersey.",
+    oracleSubtitle: "Return daily. Fresh intel from the family arrives after every game.",
     sys: `You are Tony Soprano. Suspicious of everything. Disappointed, but not surprised. Occasionally impressed — though you'd never say so directly. You run a crew. You've seen what happens when guys don't perform. Report the season the way you'd explain it to Bobby Baccalieri in the back of Satriale's. Begin with a verdict. Short sentences. No hedging. Don't use words like analyst, expert, or projection — you got guys for that, and they're gone. Everything gets explained through The Sopranos — the Bada Bing, Paulie Walnuts and his mother, Christopher and his screenwriting, Carmela's disapproval, the ducks, the Pine Barrens, Tony B., Uncle Junior, Dr. Melfi, the whole North Jersey operation.
 
 The reference IS the explanation. "The bullpen's been pulling a Christopher — full of promise, completely unreliable, and you can't cut 'em loose because they're family." Not a comparison — the reference carries the meaning.
@@ -782,6 +783,10 @@ End every response with one line starting with ⚔️ they can say at work verba
       </svg>
       <div style={{flex:1,height:1,background:"#C9A84C",opacity:.5}}/>
     </div>
+  ) : faction==="sopranos" ? (
+    <div style={{padding:"16px clamp(20px,5vw,48px)"}}>
+      <div style={{height:2,background:"linear-gradient(90deg, transparent, #8B0000, transparent)"}}/>
+    </div>
   ) : (
     <div style={{display:"flex",alignItems:"center",gap:0,padding:"16px clamp(20px,5vw,48px)"}}>
       <div style={{width:20,height:7,background:"#666",borderRadius:2,flexShrink:0}}/>
@@ -939,7 +944,7 @@ End every response with one line starting with ⚔️ they can say at work verba
           {/* Value prop — 2 cards + full-width pun quote */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:3,marginBottom:3}}>
             {[
-              {icon:faction==="lotr"?"⚔️":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
+              {icon:faction==="lotr"?"⚔️":faction==="sopranos"?"🍝":"🚀",title:"NERD TRANSLATION",body:faction==="lotr"?"Your team's season decoded entirely through Lord of the Rings. Wins, losses, drama — all of it translated into Middle-earth.":faction==="sopranos"?"Your team's season, but make it North Jersey. Wins, losses, drama — all of it through the lens of the Family.":"Your team's season decoded entirely through Star Wars. Wins, losses, drama — all of it translated to a galaxy far, far away."},
               {icon:"💬",title:"ONE TALKING POINT",body:"Walk away with exactly one thing to say at work tomorrow. Real stat. Real reference. Sounds like you watched."},
             ].map(c=>(
               <div key={c.title} style={{background:"#fff",border:"3px solid #111",padding:"24px 22px"}}>
@@ -1113,8 +1118,8 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":"#0077cc",fontWeight:600}}>
-              {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
+            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":"#0077cc",fontWeight:600}}>
+              {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":faction==="sopranos"?"Return daily. Fresh intel from the family arrives after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
             {faction==="lotr" ? (
               <div className="oracle-sub" style={{position:"relative",background:"#f5edd6",border:"2px solid #8B6914",padding:"14px 32px",marginBottom:20,maxWidth:600}}>
@@ -1127,6 +1132,10 @@ End every response with one line starting with ⚔️ they can say at work verba
                   </svg>
                   <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#3d2b00",fontWeight:600}}>Return daily — ravens bring fresh dispatches after every game.</p>
                 </div>
+              </div>
+            ) : faction==="sopranos" ? (
+              <div className="oracle-sub" style={{position:"relative",background:"#1a0a00",border:"2px solid #8B0000",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
+                <p className="lora" style={{margin:0,fontSize:15,fontStyle:"italic",color:"#f5e6c8",fontWeight:600,letterSpacing:.3}}>🍝 Return daily. Fresh intel from the family arrives after every game.</p>
               </div>
             ) : (
               <div className="oracle-sub" style={{position:"relative",background:"#001830",border:"1px solid #0066aa",padding:"14px 24px",marginBottom:20,maxWidth:600,overflow:"hidden"}}>
@@ -1149,14 +1158,14 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div style={{position:"relative",flex:1}}>
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
-                        background:faction==="lotr"?"#f0e6c8":"#001220",
-                        border:faction==="lotr"?"2px solid #8B6914":"2px solid #0077cc",
+                        background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":"#001220",
+                        border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":"2px solid #0077cc",
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
                       }}>
-                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":"#001220"}/></svg>
+                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
+                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":"#001220"}/></svg>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
