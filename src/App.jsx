@@ -175,7 +175,7 @@ Rules:
     oracleTitle: "THE CONFESSIONAL",
     storyTitle: "THE GROUP CHAT",
     battleTitle: "THE RECEIPTS",
-    saySectionTitle: "TRANSMIT THIS AT LUNCH",
+    saySectionTitle: "SHARE THIS AT THE DINNER PARTY",
     intro: "Your season. Decoded by Lisa.",
     oracleSubtitle: "Return daily. Fresh intel from Park City arrives after every game.",
     sys: `RHOSLC MODE ONLY. You are Lisa Barlow from Real Housewives of Salt Lake City reporting on baseball like it is a lifestyle brand. Never reference Star Wars, Lord of the Rings, The Sopranos, or any other franchise.
@@ -1262,7 +1262,7 @@ End every response with one line starting with ⚔️ they can say at work verba
               <h2 className="arch" style={{fontSize:"clamp(24px,5vw,44px)",letterSpacing:-1,lineHeight:1,marginBottom:4}}>THE ORACLE</h2>
               <span style={{fontSize:20}}>🔮</span>
             </div>
-            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc",fontWeight:600}}>
+            <p className="oracle-desktop-sub lora" style={{margin:"0 0 16px 0",fontSize:14,fontStyle:"italic",color:faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#0D2B4A":"#0077cc",fontWeight:600}}>
               {faction==="lotr"?"Return daily — ravens bring fresh dispatches after every game.":faction==="sopranos"?"Return daily. Fresh intel from the family arrives after every game.":faction==="rhoslc"?"Return daily. Fresh intel from Park City arrives after every game.":"Return daily. Fresh transmissions across the galaxy arrive after every game."}
             </p>
             {faction==="lotr" ? (
@@ -1306,14 +1306,14 @@ End every response with one line starting with ⚔️ they can say at work verba
                     <div style={{position:"relative",flex:1}}>
                       {/* Speech bubble with right-pointing tail toward character */}
                       <div style={{
-                        background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#0D2B4A":"#001220",
+                        background:faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#F0F4F8":"#001220",
                         border:faction==="lotr"?"2px solid #8B6914":faction==="sopranos"?"2px solid #8B0000":faction==="rhoslc"?"2px solid #A8C8DC":"2px solid #0077cc",
                         borderRadius:faction==="lotr"?"4px":"2px",
                         padding:"16px 20px",
                         position:"relative",
                       }}>
-                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":faction==="rhoslc"?"#E8F0F5":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
-                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#0D2B4A":"#001220"}/></svg>
+                        <p className="lora" style={{margin:0,fontSize:16,lineHeight:1.75,whiteSpace:"pre-wrap",color:faction==="lotr"?"#3d2400":faction==="sopranos"?"#f5e6c8":faction==="rhoslc"?"#0D2B4A":"#66ccff",fontStyle:"italic"}}>{m.content}</p>
+                        <svg className="bubble-tail-svg" viewBox="0 0 16 20" width="16" height="20" style={{position:"absolute",right:-16,top:"50%",transform:"translateY(-50%)"}}><polygon points="0,0 0,20 16,10" fill={faction==="lotr"?"#8B6914":faction==="sopranos"?"#8B0000":faction==="rhoslc"?"#A8C8DC":"#0077cc"}/><polygon points="2,3 2,17 13,10" fill={faction==="lotr"?"#f0e6c8":faction==="sopranos"?"#1a0a00":faction==="rhoslc"?"#F0F4F8":"#001220"}/></svg>
                       </div>
                       <ShareButton text={m.content} faction={faction}/>
                     </div>
