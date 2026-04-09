@@ -606,8 +606,7 @@ export default function SportsLore(){
 
   // Re-fire oracle intro when faction changes (without re-fetching MLB data)
   useEffect(()=>{
-    if(team && faction && richData){
-      const c = buildCtx(team, standings, richData);
+    if(team && faction && richData && standings && richData.recent?.length > 0){
       setMsgs([]);
       fireOracleIntro(team, standings, sched.last, richData, faction);
     }
@@ -702,20 +701,20 @@ export default function SportsLore(){
       setRichData(rd);
       richRef.current=rd;
 
+      console.log('[Oracle] richData.recent?.length:', rd.recent?.length, '| gameStories?.length:', rd.gameStories?.length, '| standings:', st?.wins, st?.losses);
+
       await Promise.all([
         generateContent(t, st, nextG, lastG, recent, rd, faction),
-        fireOracleIntro(t, st, nextG, lastG, rd, faction),
+        ...(rd.recent?.length > 0 && st ? [fireOracleIntro(t, st, nextG, lastG, rd, faction)] : []),
       ]);
 
     }catch(e){
       console.error("loadTeam error:",e);
-      const rd={gameStories:[], teamBatting:null, teamPitching:null};
+      const rd={gameStories:[], teamBatting:null, teamPitching:null, recent:[]};
       setRichData(rd);
       richRef.current=rd;
-      await Promise.all([
-        generateContent(t, null, null, null, [], rd, faction),
-        fireOracleIntro(t, null, null, rd, faction),
-      ]);
+      await generateContent(t, null, null, null, [], rd, faction);
+      // Do not fire oracle intro on error — no usable data
     }
     setLoading(false);
   }
