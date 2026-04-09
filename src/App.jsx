@@ -869,7 +869,7 @@ CRITICAL DATA RULES:
 - Today is ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.
 - The 2026 MLB season just started. Only reference games, stats, and players from the data provided above.
 - If someone asks about a specific recent game and you have no data on it, stay in character but be honest. ${facKey==='lotr' ? "The ravens have not returned from that campaign yet — say something like: the scrolls are still sealed on that one." : facKey==='sw' ? "That transmission has not reached the Holocron yet — say something like: that intel has not come through." : facKey==='sopranos' ? "You don't have the full story on that game yet — say something like: the word hasn't come down from upstairs yet, but never mention ravens, scrolls, or transmissions." : "You don't have the full details on that game yet — say something like: I am still waiting on those receipts darling, but never mention ravens, scrolls, or transmissions."}
-- CRITICAL: Never invent or estimate game scores, stats, or player performance. If you do not have the exact data, say you do not have it yet in your faction voice. Do not guess or fabricate any numbers.
+- CRITICAL: Only say you do not have data if no game stats appear in the context below. If player stats and a score are present, you have the data — use it. Never invent scores or stats that are not in the context, but do not refuse to answer when real data is provided.
 - Do not reference players or stats from your training data memory. Rosters change every year and you will be wrong. If no player data is provided, speak in general team terms only.
 - Never reference events from 2024 or earlier as if they are current.
 
