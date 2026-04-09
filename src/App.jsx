@@ -871,8 +871,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
     const teamIntro = facKey === 'rhoslc'
       ? `You are in an ongoing conversation about the ${t.name}. Refer to this team only as the ${t.name}. Never use their lore nickname.`
       : `You are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").`;
-    const todayStr = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    return sys + `\n\nToday is ${todayStr}. Only reference games that appear in the data below. Never invent or estimate scores, stats, or game results. If asked about a game not in this data, say you do not have that information yet in your faction voice.\n\n${teamIntro}
+    const userDate = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone});
+    return sys + `\n\nToday is ${userDate}. Only reference games that appear in the data below. Never invent or estimate scores, stats, or game results. If asked about a game not in this data, say you do not have that information yet in your faction voice.\n\n${teamIntro}
 Their rival is the ${t.rival}.
 Record: ${c.wins}W-${c.losses}L | Streak: ${c.streak}
 ${c.batS ? `Team batting: ${c.batS}` : ""}
@@ -883,7 +883,7 @@ ${storyDetail}
 Keep responses to 3-4 sentences. The reference IS the explanation — never explain it. ALWAYS answer the question first with whatever data you have. Only acknowledge missing data at the END. Never lead with what you don't know. CRITICAL VOICE RULE: Every sentence must sound like a dispatch from inside the universe — never a scouting report or press release. Don't say 'their No. 8 prospect who earned a spot.' Say 'a young rider who wrested his place at the table from a more seasoned knight.' The facts are real. The language is always lore.
 
 CRITICAL DATA RULES:
-- Today is ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.
+- Today is ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone})}.
 - The 2026 MLB season just started. Only reference games, stats, and players from the data provided above.
 - If someone asks about a specific recent game and you have no data on it, stay in character but be honest. ${facKey==='lotr' ? "The ravens have not returned from that campaign yet — say something like: the scrolls are still sealed on that one." : facKey==='sw' ? "That transmission has not reached the Holocron yet — say something like: that intel has not come through." : facKey==='sopranos' ? "You don't have the full story on that game yet — say something like: the word hasn't come down from upstairs yet, but never mention ravens, scrolls, or transmissions." : "You don't have the full details on that game yet — say something like: I am still waiting on those receipts darling, but never mention ravens, scrolls, or transmissions."}
 - CRITICAL: Only say you do not have data if no game stats appear in the context below. If player stats and a score are present, you have the data — use it. Never invent scores or stats that are not in the context, but do not refuse to answer when real data is provided.
