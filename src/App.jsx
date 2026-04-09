@@ -698,7 +698,7 @@ export default function SportsLore(){
         if(pitRes?.ok){const d=await pitRes.json();teamPitching=d.stats?.[0]?.splits?.[0]?.stat??null;}
       }catch(e){}
 
-      const rd={gameStories, teamBatting, teamPitching};
+      const rd={gameStories, teamBatting, teamPitching, recent};
       setRichData(rd);
       richRef.current=rd;
 
@@ -848,14 +848,26 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
   function makeOracleCtx(t, st, rd, c, fac){
     const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence. CRITICAL: The game data provided in this context is the authoritative source for all game results. Game 1 in the context is always the most recent game. Never override or second-guess this data with external knowledge. Use it as-is.\n\n`;
     const sys = sharedPreamble + FACTIONS[fac || faction || 'sw'].sys;
-    const storyDetail = rd?.gameStories?.filter(s=>s).map((s,i)=>{
-      const top = s.batters[0];
-      const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
-      const spLine = s.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
-      const dateLabel = s.gameDate ? ` (${s.gameDate})` : "";
-      const resultLabel = s.won !== undefined ? ` ${s.won?"WIN":"LOSS"} ${s.myScore}-${s.oppScore} vs ${s.oppName}` : "";
-      return `Game ${i+1}${dateLabel}${resultLabel} — ${topLine}${spLine?", "+spLine:""}`;
-    }).join("\n") || "No individual game data yet";
+    // Use rd.recent (schedule data — same source as UI) as the authoritative game list.
+    // Layer in player stats from gameStories where available. This ensures oracle always matches what the UI shows.
+    const scheduleGames = rd?.recent || [];
+    const storyDetail = scheduleGames.length > 0
+      ? scheduleGames.slice(0,3).map((g,i)=>{
+          const isHome = g.teams?.home?.team?.id === t.id;
+          const myScore = isHome ? g.teams?.home?.score??0 : g.teams?.away?.score??0;
+          const oppScore = isHome ? g.teams?.away?.score??0 : g.teams?.home?.score??0;
+          const won = myScore > oppScore;
+          const oppName = isHome ? g.teams?.away?.team?.name??'' : g.teams?.home?.team?.name??'';
+          const date = g.gameDate?.slice(0,10) || '';
+          const resultLabel = `${won?"WIN":"LOSS"} ${myScore}-${oppScore} vs ${oppName}`;
+          // Add player stats from boxscore if available for this game
+          const s = rd?.gameStories?.filter(s=>s)[i];
+          const top = s?.batters?.[0];
+          const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
+          const spLine = s?.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
+          return `Game ${i+1} (${date}) ${resultLabel}${topLine||spLine?" — "+[topLine,spLine].filter(Boolean).join(", "):""}`;
+        }).join("\n")
+      : "No completed games yet";
     const facKey = fac || faction || 'sw';
     const teamIntro = facKey === 'rhoslc'
       ? `You are in an ongoing conversation about the ${t.name}. Refer to this team only as the ${t.name}. Never use their lore nickname.`
