@@ -848,7 +848,11 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
       const spLine = s.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
       return `Game ${i+1} — ${topLine}${spLine?", "+spLine:""}`;
     }).join("\n") || "No individual game data yet";
-    return sys + `\n\nYou are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").
+    const facKey = fac || faction || 'sw';
+    const teamIntro = facKey === 'rhoslc'
+      ? `You are in an ongoing conversation about the ${t.name}. Refer to this team only as the ${t.name}. Never use their lore nickname.`
+      : `You are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").`;
+    return sys + `\n\n${teamIntro}
 Their rival is the ${t.rival}.
 Record: ${c.wins}W-${c.losses}L | Streak: ${c.streak}
 ${c.batS ? `Team batting: ${c.batS}` : ""}
