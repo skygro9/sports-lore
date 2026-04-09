@@ -71,7 +71,9 @@ function extractStory(box,teamId){
   const pitchers=Object.values(my.players||{}).filter(p=>p.stats?.pitching?.inningsPitched)
     .map(p=>({name:p.person?.fullName??"",ip:p.stats.pitching.inningsPitched??"0",er:p.stats.pitching.earnedRuns??0,k:p.stats.pitching.strikeOuts??0,sv:p.stats.pitching.saves??0}))
     .sort((a,b)=>parseFloat(b.ip)-parseFloat(a.ip));
-  return{batters,starter:pitchers[0]??null,closer:pitchers.find(p=>p.sv>0)??null,oppName:opp?.team?.name??""};
+  const myErrors=my.teamStats?.fielding?.errors??box.teams[isHome?'home':'away']?.errors??null;
+  const oppErrors=opp?.teamStats?.fielding?.errors??box.teams[isHome?'away':'home']?.errors??null;
+  return{batters,starter:pitchers[0]??null,closer:pitchers.find(p=>p.sv>0)??null,oppName:opp?.team?.name??"",myErrors,oppErrors};
 }
 
 // ─── FACTION CONFIG ──────────────────────────────────────────────────────────
@@ -845,7 +847,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
   }
 
   function makeOracleCtx(t, st, rd, c, fac){
-    const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence. CRITICAL: The game data provided in this context is the authoritative source for all game results. Game 1 in the context is always the most recent game. Never override or second-guess this data with external knowledge. Use it as-is.\n\n`;
+    const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence. CRITICAL: The game data provided in this context is the authoritative source for all game results. Game 1 in the context is always the most recent game. Never override or second-guess this data with external knowledge. Use it as-is. When summarizing a loss, always look for the decisive play — errors, blown saves, walk-off hits against. Do not just report batting lines. If an error or defensive mistake is in the context data, lead with it as the reason for the loss. The most interesting play is usually why they lost, not who went 2-for-3.\n\n`;
     const sys = sharedPreamble + FACTIONS[fac || faction || 'sw'].sys;
     // Use rd.recent (schedule data — same source as UI) as the authoritative game list.
     // Layer in player stats from gameStories where available. This ensures oracle always matches what the UI shows.
@@ -864,7 +866,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
           const top = s?.batters?.[0];
           const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
           const spLine = s?.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
-          return `Game ${i+1} (${date}) ${resultLabel}${topLine||spLine?" — "+[topLine,spLine].filter(Boolean).join(", "):""}`;
+          const errLine = (s?.myErrors!=null||s?.oppErrors!=null) ? `Errors: us ${s.myErrors??0} them ${s.oppErrors??0}` : "";
+          return `Game ${i+1} (${date}) ${resultLabel}${[topLine,spLine,errLine].filter(Boolean).length?" — "+[topLine,spLine,errLine].filter(Boolean).join(", "):""}`;
         }).join("\n")
       : "No completed games yet";
     const facKey = fac || faction || 'sw';
