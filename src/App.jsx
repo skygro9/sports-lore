@@ -730,7 +730,9 @@ export default function SportsLore(){
           const batLine = s.batters.map(b=>`${b.name} ${b.h}-for-${b.ab}${b.hr>0?" "+b.hr+"HR":""}${b.rbi>0?" "+b.rbi+"RBI":""}`).join(", ");
           const pitLine = s.starter ? `SP ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
           const svLine = s.closer?.sv>0 ? `SV ${s.closer.name}` : "";
-          return `Game ${i+1}: ${batLine}${pitLine?"; "+pitLine:""}${svLine?"; "+svLine:""}`;
+          const dateStr = s.gameDate ? ` (${s.gameDate})` : "";
+          const resultStr = s.won !== undefined ? ` ${s.won?"WIN":"LOSS"} ${s.myScore}-${s.oppScore} vs ${s.oppName}` : "";
+          return `Game ${i+1}${dateStr}${resultStr}: ${batLine}${pitLine?"; "+pitLine:""}${svLine?"; "+svLine:""}`;
         }).join(" | ")
       : "";
     const batS = rd?.teamBatting ? `AVG:${rd.teamBatting.avg} OBP:${rd.teamBatting.obp} HR:${rd.teamBatting.homeRuns} Runs:${rd.teamBatting.runs}` : "";
@@ -841,7 +843,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
   }
 
   function makeOracleCtx(t, st, rd, c, fac){
-    const sys = FACTIONS[fac || faction || 'sw'].sys;
+    const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence.\n\n`;
+    const sys = sharedPreamble + FACTIONS[fac || faction || 'sw'].sys;
     const storyDetail = rd?.gameStories?.filter(s=>s).map((s,i)=>{
       const top = s.batters[0];
       const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
