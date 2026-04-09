@@ -663,8 +663,10 @@ export default function SportsLore(){
       setSched({next:nextG, last:lastG, recent});
       if(nextG) setCd(getCD(nextG.gameDate));
 
+      // Explicit descending sort before slice — most recent game must be index 0 for oracle and UI
+      const recentForBoxscores = [...finished].sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate)||(b.gamePk-a.gamePk)).slice(0,3);
       const [boxScores,[batRes,pitRes]] = await Promise.all([
-        Promise.all(finished.slice(0,3).map(g=>
+        Promise.all(recentForBoxscores.map(g=>
           g.gamePk
             ? fetch("/api/mlb?path=" + enc("/api/v1/game/" + g.gamePk + "/boxscore")).then(r=>r.ok?r.json():null).catch(()=>null)
             : Promise.resolve(null)
@@ -675,14 +677,14 @@ export default function SportsLore(){
         ]),
       ]);
 
-      // SHARED SOURCE: gameStories[0] = most recent game — oracle and UI both derive from finished[] in this order
+      // SHARED SOURCE: gameStories[0] = most recent game — oracle and UI both derive from recentForBoxscores[] in descending date order
       const gameStories=boxScores.map((box,i)=>{
         const s=extractStory(box,t.id);
-        if(s&&finished[i]){
-          s.gameDate=finished[i].gameDate.slice(0,10);
-          const isHome=finished[i].teams?.home?.team?.id===t.id;
-          s.myScore=isHome?finished[i].teams?.home?.score??0:finished[i].teams?.away?.score??0;
-          s.oppScore=isHome?finished[i].teams?.away?.score??0:finished[i].teams?.home?.score??0;
+        if(s&&recentForBoxscores[i]){
+          s.gameDate=recentForBoxscores[i].gameDate.slice(0,10);
+          const isHome=recentForBoxscores[i].teams?.home?.team?.id===t.id;
+          s.myScore=isHome?recentForBoxscores[i].teams?.home?.score??0:recentForBoxscores[i].teams?.away?.score??0;
+          s.oppScore=isHome?recentForBoxscores[i].teams?.away?.score??0:recentForBoxscores[i].teams?.home?.score??0;
           s.won=s.myScore>s.oppScore;
         }
         return s;
