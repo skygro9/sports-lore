@@ -1045,16 +1045,16 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
             </button>
             {/* The Sopranos */}
             <button onClick={()=>{setFaction("sopranos");setPhase("landing");}}
-              style={{background:"#F5F0E8",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:280}}
-              onMouseOver={e=>{e.currentTarget.style.background="#ede8df";e.currentTarget.style.borderColor="#a50000";}}
-              onMouseOut={e=>{e.currentTarget.style.background="#F5F0E8";e.currentTarget.style.borderColor="#8B0000";}}>
+              style={{background:"#1a0a00",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:280}}
+              onMouseOver={e=>{e.currentTarget.style.background="#2a1200";e.currentTarget.style.borderColor="#a50000";}}
+              onMouseOut={e=>{e.currentTarget.style.background="#1a0a00";e.currentTarget.style.borderColor="#8B0000";}}>
               <div style={{padding:"28px 24px"}}>
               <div style={{fontSize:48,marginBottom:16}}>🍝</div>
-              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#8B0000",marginBottom:8,lineHeight:1}}>THE<br/>SOPRANOS</div>
-              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"#3d1a00",fontStyle:"italic",marginBottom:16}}>
+              <div className="arch" style={{fontSize:"clamp(22px,4vw,36px)",letterSpacing:-1,color:"#cc3300",marginBottom:8,lineHeight:1}}>THE<br/>SOPRANOS</div>
+              <p className="lora" style={{fontSize:15,lineHeight:1.65,color:"#e8d5c0",fontStyle:"italic",marginBottom:16}}>
                 Your team's season, but make it North Jersey. Wins are hits. Losses are whacks. And the closer is always one bad outing away from getting clipped.
               </p>
-              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#8B0000"}}>SELECT THIS UNIVERSE →</div>
+              <div className="arch" style={{fontSize:11,letterSpacing:3,color:"#cc3300"}}>SELECT THIS UNIVERSE →</div>
               </div>
             </button>
             {/* RHOSLC */}
