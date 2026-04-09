@@ -705,7 +705,7 @@ export default function SportsLore(){
 
       await Promise.all([
         generateContent(t, st, nextG, lastG, recent, rd, faction),
-        fireOracleIntro(t, st, nextG, lastG, rd, faction),
+        fireOracleIntro(t, st, lastG, rd, faction),
       ]);
 
     }catch(e){
