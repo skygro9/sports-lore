@@ -870,7 +870,11 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
     const facKey = fac || faction || 'sw';
     const teamIntro = facKey === 'rhoslc'
       ? `You are in an ongoing conversation about the ${t.name}. Refer to this team only as the ${t.name}. Never use their lore nickname.`
-      : `You are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").`;
+      : `You are in an ongoing conversation about the ${t.name} (known in lore as "${
+          facKey === 'lotr'
+            ? t.house.replace(/Empire/g,'Kingdom').replace(/Imperial/g,'Ancient').replace(/Fleet/g,'Fellowship')
+            : t.house
+        }").`;
     const userDate = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone});
     return sys + `\n\nToday is ${userDate}. Only reference games that appear in the data below. Never invent or estimate scores, stats, or game results. If asked about a game not in this data, say you do not have that information yet in your faction voice.\n\n${teamIntro}
 Their rival is the ${t.rival}.
