@@ -653,7 +653,7 @@ export default function SportsLore(){
       const games=schData.dates?.flatMap(d=>d.games||[])||[];
       // Only count games that are actually Final — not just past scheduled dates
       const todayEnd=new Date();todayEnd.setDate(todayEnd.getDate()+1);todayEnd.setHours(6,0,0,0);
-      const finished=games.filter(g=>g.status?.abstractGameState==="Final"&&new Date(g.gameDate)<=todayEnd).sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
+      const finished=games.filter(g=>(g.status?.abstractGameState==="Final"||g.status?.detailedState==="Game Over"||g.status?.detailedState==="Completed Early")&&new Date(g.gameDate)<=todayEnd).sort((a,b)=>new Date(b.gameDate)-new Date(a.gameDate));
       const live=games.filter(g=>g.status?.abstractGameState==="Live");
       const upcoming=games.filter(g=>g.status?.abstractGameState==="Preview"||g.status?.detailedState==="Scheduled").sort((a,b)=>new Date(a.gameDate)-new Date(b.gameDate));
       const nextG=upcoming[0]??null;
@@ -678,14 +678,17 @@ export default function SportsLore(){
       ]);
 
       // SHARED SOURCE: gameStories[0] = most recent game — oracle and UI both derive from recentForBoxscores[] in descending date order
+      // If boxscore is null (not yet ready), fall back to schedule data so today's game is never dropped
       const gameStories=boxScores.map((box,i)=>{
-        const s=extractStory(box,t.id);
-        if(s&&recentForBoxscores[i]){
-          s.gameDate=recentForBoxscores[i].gameDate.slice(0,10);
-          const isHome=recentForBoxscores[i].teams?.home?.team?.id===t.id;
-          s.myScore=isHome?recentForBoxscores[i].teams?.home?.score??0:recentForBoxscores[i].teams?.away?.score??0;
-          s.oppScore=isHome?recentForBoxscores[i].teams?.away?.score??0:recentForBoxscores[i].teams?.home?.score??0;
+        const g=recentForBoxscores[i];
+        const s=extractStory(box,t.id) || (g ? {batters:[],starter:null,closer:null,oppName:""} : null);
+        if(s&&g){
+          s.gameDate=g.gameDate.slice(0,10);
+          const isHome=g.teams?.home?.team?.id===t.id;
+          s.myScore=isHome?g.teams?.home?.score??0:g.teams?.away?.score??0;
+          s.oppScore=isHome?g.teams?.away?.score??0:g.teams?.home?.score??0;
           s.won=s.myScore>s.oppScore;
+          s.oppName=s.oppName||(isHome?g.teams?.away?.team?.name:g.teams?.home?.team?.name)||"";
         }
         return s;
       });
