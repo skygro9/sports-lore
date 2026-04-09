@@ -54,7 +54,7 @@ const MLB_TEAMS = [
   { id:158, name:"Milwaukee Brewers",     city:"Milwaukee",     abbr:"MIL", color:"#FFC52F", lat:43.0389, lng:-87.9065,  rival:"Chicago Cubs",          house:"The Brewers of the Great Lake" },
 ];
 
-function haversine(la1,ln1,la2,ln2){const R=3959,dL=((la2-la1)*Math.PI)/180,dN=((ln2-ln1)*Math.PI)/180,a=Math.sin(dL/2)**2+Math.cos((la1*Math.PI)/180)*Math.cos((la2*Math.PI)/180)*Math.sin(dN/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+
 function getCD(ds){if(!ds)return null;const diff=new Date(ds)-new Date();if(diff<0)return null;return{days:Math.floor(diff/86400000),hours:Math.floor((diff%86400000)/3600000),mins:Math.floor((diff%3600000)/60000)};}
 function fmtDate(ds,opts){return ds?new Date(ds).toLocaleDateString("en-US",opts):"";}
 function getOpp(game,teamName){if(!game?.teams)return"Unknown";return game.teams.away?.team?.name===teamName?game.teams.home?.team?.name??'?':game.teams.away?.team?.name??'?';}
@@ -560,7 +560,7 @@ export default function SportsLore(){
   const [search,setSearch]     = useState("");
   const [searchRes,setRes]     = useState([]);
   const [showSearch,setShowSearch] = useState(false);
-  const [detecting,setDetecting]   = useState(false);
+
 
   // Data
   const [standings,setStandings]   = useState(null);
@@ -601,18 +601,6 @@ export default function SportsLore(){
     else setRes([]);
   },[search]);
 
-  useEffect(()=>{
-    setDetecting(true);
-    if(!navigator.geolocation){setDetecting(false);return;}
-    navigator.geolocation.getCurrentPosition(
-      ({coords:{latitude:la,longitude:ln}})=>{
-        let c=MLB_TEAMS[0],m=Infinity;
-        MLB_TEAMS.forEach(t=>{const d=haversine(la,ln,t.lat,t.lng);if(d<m){m=d;c=t;}});
-        setDetecting(false);selectTeam(c);
-      },
-      ()=>setDetecting(false),{timeout:7000}
-    );
-  },[]);
 
   useEffect(()=>{if(team)loadTeam(team);},[team?.id]);
 
@@ -1117,15 +1105,8 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
           {/* Team search */}
           <div style={{background:faction?FACTIONS[faction].accent:"#FFE033",border:"3px solid #111",padding:"28px 24px",marginBottom:32}}>
             <div className="arch" style={{fontSize:13,letterSpacing:3,marginBottom:14,color:faction==="sopranos"?"#ffffff":faction==="rhoslc"?"#111111":undefined}}>FIND YOUR MLB TEAM</div>
-            {detecting?(
-              <div className="oracle-msg-row" style={{display:"flex",gap:12,alignItems:"center"}}>
-                <Spin/>
-                <span className="sg" style={{fontSize:14,fontWeight:600,color:"#555"}}>Detecting your city...</span>
-              </div>
-            ):(
-              <TeamSearch value={search} onChange={setSearch} results={searchRes} onSelect={selectTeam}
+            <TeamSearch value={search} onChange={setSearch} results={searchRes} onSelect={selectTeam}
                 placeholder="Type your city or team — e.g. Chicago, Dodgers..."/>
-            )}
           </div>
 
           {/* All teams grid */}
