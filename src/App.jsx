@@ -822,7 +822,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
   async function fireOracleIntro(t, st, lastG, rd, fac){
     const c = buildCtx(t, st, rd);
     const ctx = makeOracleCtx(t, st, rd, c, fac);
-    const q = "What happened in the last few battles?";
+    const q = "Start with the most recent game result — what happened in game 1 of the context, the exact date, score, and key performers. Then give a brief 2-3 sentence season overview. Always lead with the most recent game.";
     setMsgs([{role:"user", content:q}]);
     setOLoading(true);
     try{
