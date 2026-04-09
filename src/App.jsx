@@ -675,7 +675,18 @@ export default function SportsLore(){
         ]),
       ]);
 
-      const gameStories=boxScores.map((box,i)=>{const s=extractStory(box,t.id);if(s&&finished[i]?.gameDate)s.gameDate=finished[i].gameDate.slice(0,10);return s;});
+      // SHARED SOURCE: gameStories[0] = most recent game — oracle and UI both derive from finished[] in this order
+      const gameStories=boxScores.map((box,i)=>{
+        const s=extractStory(box,t.id);
+        if(s&&finished[i]){
+          s.gameDate=finished[i].gameDate.slice(0,10);
+          const isHome=finished[i].teams?.home?.team?.id===t.id;
+          s.myScore=isHome?finished[i].teams?.home?.score??0:finished[i].teams?.away?.score??0;
+          s.oppScore=isHome?finished[i].teams?.away?.score??0:finished[i].teams?.home?.score??0;
+          s.won=s.myScore>s.oppScore;
+        }
+        return s;
+      });
       let teamBatting=null, teamPitching=null;
       try{
         if(batRes?.ok){const d=await batRes.json();teamBatting=d.stats?.[0]?.splits?.[0]?.stat??null;}
@@ -834,7 +845,8 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
       const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
       const spLine = s.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
       const dateLabel = s.gameDate ? ` (${s.gameDate})` : "";
-      return `Game ${i+1}${dateLabel} — ${topLine}${spLine?", "+spLine:""}`;
+      const resultLabel = s.won !== undefined ? ` ${s.won?"WIN":"LOSS"} ${s.myScore}-${s.oppScore} vs ${s.oppName}` : "";
+      return `Game ${i+1}${dateLabel}${resultLabel} — ${topLine}${spLine?", "+spLine:""}`;
     }).join("\n") || "No individual game data yet";
     const facKey = fac || faction || 'sw';
     const teamIntro = facKey === 'rhoslc'
