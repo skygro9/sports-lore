@@ -802,10 +802,13 @@ If realGames says No completed games, output NOTHING for this section.
 CRITICAL: You are in ${universeLabel.toUpperCase()} mode. Every episode title must use ONLY ${universeLabel} references. Do NOT use references from any other franchise.
 EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-only reference 4-6 words`;
 
+    const recentGameLine = rd?.gameStories?.[0] ? 'MOST RECENT GAME: ' + (rd.gameStories[0].date||'') + ' ' + (rd.gameStories[0].outcome||'') + ' ' + (rd.gameStories[0].score||'') + ' vs ' + (rd.gameStories[0].opp||'') + '. Key batter: ' + (rd.gameStories[0].batters?.[0]?.summary||'') + '. Errors: us ' + (rd.gameStories[0].myErrors||0) + ' them ' + (rd.gameStories[0].oppErrors||0) : 'No completed game data available.';
+    const promptWithGame = prompt + '\n\n' + recentGameLine;
+
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:(facKey==='lotr'?FACTIONS.lotr.sys:facKey==='sopranos'?FACTIONS.sopranos.sys:facKey==='rhoslc'?FACTIONS.rhoslc.sys:FACTIONS.sw.sys) + `\n\nCRITICAL: You are in ${facKey==='lotr'?'LORD OF THE RINGS':facKey==='sopranos'?'SOPRANOS':facKey==='rhoslc'?'RHOSLC':'STAR WARS'} mode ONLY. Every single reference must be from ${facKey==='lotr'?'Lord of the Rings':facKey==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':facKey==='rhoslc'?'RHOSLC exclusively — Lisa Barlow, Park City, VIDA Tequila, the group chat, the receipts. No Star Wars. No LOTR. No Sopranos.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:prompt}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:(facKey==='lotr'?FACTIONS.lotr.sys:facKey==='sopranos'?FACTIONS.sopranos.sys:facKey==='rhoslc'?FACTIONS.rhoslc.sys:FACTIONS.sw.sys) + `\n\nCRITICAL: You are in ${facKey==='lotr'?'LORD OF THE RINGS':facKey==='sopranos'?'SOPRANOS':facKey==='rhoslc'?'RHOSLC':'STAR WARS'} mode ONLY. Every single reference must be from ${facKey==='lotr'?'Lord of the Rings':facKey==='sopranos'?'The Sopranos exclusively — Tony, Paulie, Christopher, Carmela, the Bada Bing, Satriale\'s, the ducks, North Jersey. No Star Wars. No LOTR.':facKey==='rhoslc'?'RHOSLC exclusively — Lisa Barlow, Park City, VIDA Tequila, the group chat, the receipts. No Star Wars. No LOTR. No Sopranos.':'Star Wars'} exclusively. Do not mix franchises.`,messages:[{role:"user",content:promptWithGame}]})
       });
       const data = await res.json();
       const text = data.content?.[0]?.text ?? "";
