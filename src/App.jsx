@@ -675,7 +675,7 @@ export default function SportsLore(){
         ]),
       ]);
 
-      const gameStories=boxScores.map(box=>extractStory(box,t.id));
+      const gameStories=boxScores.map((box,i)=>{const s=extractStory(box,t.id);if(s&&finished[i]?.gameDate)s.gameDate=finished[i].gameDate.slice(0,10);return s;});
       let teamBatting=null, teamPitching=null;
       try{
         if(batRes?.ok){const d=await batRes.json();teamBatting=d.stats?.[0]?.splits?.[0]?.stat??null;}
@@ -833,13 +833,15 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
       const top = s.batters[0];
       const topLine = top ? `${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
       const spLine = s.starter ? `SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K` : "";
-      return `Game ${i+1} — ${topLine}${spLine?", "+spLine:""}`;
+      const dateLabel = s.gameDate ? ` (${s.gameDate})` : "";
+      return `Game ${i+1}${dateLabel} — ${topLine}${spLine?", "+spLine:""}`;
     }).join("\n") || "No individual game data yet";
     const facKey = fac || faction || 'sw';
     const teamIntro = facKey === 'rhoslc'
       ? `You are in an ongoing conversation about the ${t.name}. Refer to this team only as the ${t.name}. Never use their lore nickname.`
       : `You are in an ongoing conversation about the ${t.name} (known in lore as "${t.house}").`;
-    return sys + `\n\n${teamIntro}
+    const todayStr = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    return sys + `\n\nToday is ${todayStr}. Only reference games that appear in the data below. Never invent or estimate scores, stats, or game results. If asked about a game not in this data, say you do not have that information yet in your faction voice.\n\n${teamIntro}
 Their rival is the ${t.rival}.
 Record: ${c.wins}W-${c.losses}L | Streak: ${c.streak}
 ${c.batS ? `Team batting: ${c.batS}` : ""}

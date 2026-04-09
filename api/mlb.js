@@ -26,9 +26,9 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Cache for 5 minutes — standings/schedule don't change that fast
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate");
-    return res.status(200).json(data);
+    // Cache for 1 minute
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
+    return res.status(200).json({...data, dataAsOf: new Date().toISOString()});
   } catch (error) {
     return res.status(500).json({ error: "Failed to reach MLB API" });
   }
