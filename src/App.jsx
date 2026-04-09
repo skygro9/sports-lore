@@ -606,7 +606,7 @@ export default function SportsLore(){
 
   // Re-fire oracle intro when faction changes (without re-fetching MLB data)
   useEffect(()=>{
-    if(team && faction && richData && standings && richData.recent?.length > 0){
+    if(team && faction && richData){
       setMsgs([]);
       fireOracleIntro(team, standings, sched.last, richData, faction);
     }
@@ -705,7 +705,7 @@ export default function SportsLore(){
 
       await Promise.all([
         generateContent(t, st, nextG, lastG, recent, rd, faction),
-        ...(rd.recent?.length > 0 && st ? [fireOracleIntro(t, st, nextG, lastG, rd, faction)] : []),
+        fireOracleIntro(t, st, nextG, lastG, rd, faction),
       ]);
 
     }catch(e){
