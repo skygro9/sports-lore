@@ -1017,7 +1017,7 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:4,width:"100%",maxWidth:1200}}>
             {/* LOTR */}
             <button onClick={()=>{setFaction("lotr");setPhase("landing");}}
-              style={{background:"#0d1a0d",border:"3px solid #C0C0C0",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              style={{background:"#0d1a0d",border:"3px solid #C0C0C0",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:340}}
               onMouseOver={e=>{e.currentTarget.style.background="#162616";e.currentTarget.style.borderColor="#e0e0e0";}}
               onMouseOut={e=>{e.currentTarget.style.background="#0d1a0d";e.currentTarget.style.borderColor="#C0C0C0";}}>
               <div style={{padding:"36px 28px"}}>
@@ -1031,7 +1031,7 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
             </button>
             {/* Star Wars */}
             <button onClick={()=>{setFaction("sw");setPhase("landing");}}
-              style={{background:"#0a0a0a",border:"3px solid #FFE033",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              style={{background:"#0a0a0a",border:"3px solid #FFE033",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:340}}
               onMouseOver={e=>{e.currentTarget.style.background="#1a1a00";e.currentTarget.style.borderColor="#FFF176";}}
               onMouseOut={e=>{e.currentTarget.style.background="#0a0a0a";e.currentTarget.style.borderColor="#FFE033";}}>
               <div style={{padding:"36px 28px"}}>
@@ -1045,7 +1045,7 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
             </button>
             {/* The Sopranos */}
             <button onClick={()=>{setFaction("sopranos");setPhase("landing");}}
-              style={{background:"#F5F0E8",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              style={{background:"#F5F0E8",border:"3px solid #8B0000",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:340}}
               onMouseOver={e=>{e.currentTarget.style.background="#ede8df";e.currentTarget.style.borderColor="#a50000";}}
               onMouseOut={e=>{e.currentTarget.style.background="#F5F0E8";e.currentTarget.style.borderColor="#8B0000";}}>
               <div style={{padding:"36px 28px"}}>
@@ -1059,7 +1059,7 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
             </button>
             {/* RHOSLC */}
             <button onClick={()=>{setFaction("rhoslc");setPhase("landing");}}
-              style={{background:"#1a0f2e",border:"2px solid #7B5EA7",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden"}}
+              style={{background:"#1a0f2e",border:"2px solid #7B5EA7",cursor:"pointer",padding:0,textAlign:"left",transition:"all .15s",overflow:"hidden",minHeight:340}}
               onMouseOver={e=>{e.currentTarget.style.background="#251444";e.currentTarget.style.borderColor="#9b7ec8";}}
               onMouseOut={e=>{e.currentTarget.style.background="#1a0f2e";e.currentTarget.style.borderColor="#7B5EA7";}}>
               <div style={{padding:"36px 28px"}}>
