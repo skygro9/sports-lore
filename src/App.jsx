@@ -703,7 +703,7 @@ export default function SportsLore(){
       setRichData(rd);
       richRef.current=rd;
 
-      console.log('[Oracle] richData.recent?.length:', rd.recent?.length, '| gameStories?.length:', rd.gameStories?.length, '| standings:', st?.wins, st?.losses);
+      console.log('generateContent rd.gameStories:', rd?.gameStories?.length, 'fireOracleIntro rd.gameStories:', rd?.gameStories?.length);
 
       await Promise.all([
         generateContent(t, st, nextG, lastG, recent, rd, faction),
