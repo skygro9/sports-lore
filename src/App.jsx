@@ -1404,6 +1404,7 @@ End every response with one line starting with ${facKey==='sopranos'?'💰':facK
                 placeholder={`Ask anything about the ${team.name}...`}
                 value={oInput} onChange={e=>setOInput(e.target.value)}
                 onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendOracle();}}}
+                onFocus={e=>setTimeout(()=>e.target.scrollIntoView({behavior:'smooth',block:'center'}),300)}
               />
               <button className="o-btn" onClick={sendOracle} disabled={oLoading||!oInput.trim()}>ASK</button>
             </div>
