@@ -753,7 +753,13 @@ export default function SportsLore(){
       const ms=isHome?g.teams?.home?.score:g.teams?.away?.score;
       const os=isHome?g.teams?.away?.score:g.teams?.home?.score;
       const won=(ms??0)>(os??0);
-      return (won?"W":"L")+" "+(ms??0)+"-"+(os??0)+" vs "+(opp??"?")+" on "+g.gameDate?.slice(0,10);
+      const s=rd?.gameStories?.filter(s=>s)[i];
+      const top=s?.batters?.[0];
+      const topLine=top?`${top.name}: ${top.h}-for-${top.ab}${top.hr>0?" "+top.hr+"HR":""}${top.rbi>0?" "+top.rbi+"RBI":""}` : "";
+      const spLine=s?.starter?`SP: ${s.starter.name} ${s.starter.ip}IP ${s.starter.er}ER ${s.starter.k}K`:"";
+      const errLine=(s?.myErrors!=null||s?.oppErrors!=null)?`Errors: us ${s.myErrors??0} them ${s.oppErrors??0}`:"";
+      const detail=[topLine,spLine,errLine].filter(Boolean).join(", ");
+      return `Game ${i+1} (${g.gameDate?.slice(0,10)}) ${won?"WIN":"LOSS"} ${ms??0}-${os??0} vs ${opp??"?"}${detail?" — "+detail:""}`;
     }).join("\n") : "No completed games";
     const facKey = fac || faction || 'sw';
     const universeLabel = facKey==='lotr'?'Lord of the Rings':facKey==='sopranos'?'The Sopranos':facKey==='rhoslc'?'RHOSLC (Real Housewives of Salt Lake City)':'Star Wars';
