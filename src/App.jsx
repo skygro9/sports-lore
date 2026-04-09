@@ -833,7 +833,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
     try{
       const res = await fetch("/api/claude",{
         method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:ctx,tools:[{type:"web_search_20250305",name:"web_search"}],messages:[{role:"user",content:q}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:ctx,messages:[{role:"user",content:q}]})
       });
       const data = await res.json();
       const allText2 = data.content?.filter(b=>b.type==="text").map(b=>b.text||"").join(" ").replace(/ +/g," ").trim();
@@ -846,7 +846,7 @@ EP|W or L|score like 4-2|opponent|date like Mar 24|Title using ${universeLabel}-
   }
 
   function makeOracleCtx(t, st, rd, c, fac){
-    const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence.\n\n`;
+    const sharedPreamble = `CRITICAL: Never narrate your thinking process. Never say things like Let me check, Let me get, Perfect, Now I have the data, or any meta-commentary about gathering information. Start your response directly with the content. Speak as the character, not as an AI assistant. Never repeat the date more than once. If you mention a date, move on. Do not call out the date in every sentence. CRITICAL: The game data provided in this context is the authoritative source for all game results. Game 1 in the context is always the most recent game. Never override or second-guess this data with external knowledge. Use it as-is.\n\n`;
     const sys = sharedPreamble + FACTIONS[fac || faction || 'sw'].sys;
     const storyDetail = rd?.gameStories?.filter(s=>s).map((s,i)=>{
       const top = s.batters[0];
