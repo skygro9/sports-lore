@@ -14,3 +14,4 @@
     }
   }
 }
+fix: remove conflicting /api rewrite, lower claude maxDuration
